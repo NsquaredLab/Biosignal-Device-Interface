@@ -8,6 +8,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
+pyside6 = "^6.7.0"
+numpy = "^1.26.4"
+psutil = "^5.9.8"
+mindrove = "^0.0.10"
 
 
 [build-system]
