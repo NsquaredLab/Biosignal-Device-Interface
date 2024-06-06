@@ -103,7 +103,7 @@ _For more examples, please refer to the [Documentation](https://github.com/githu
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the CC BY-SA 4.0 License. See `LICENSE.txt` for more information.
 
 
 
