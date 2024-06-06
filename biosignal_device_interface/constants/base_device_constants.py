@@ -17,7 +17,7 @@ class DeviceType(Enum):
     OTB_SYNCSTATION = auto()
     OTB_MUOVI = auto()
     OTB_MUOVI_PLUS = auto()
-    INTAN_RHD_CONTROLLER = auto()
+    INTAN_RHD_RECORDING_CONTROLLER = auto()
     MINDROVE_BRACELET = auto()
     DEFAULT = auto()
 
@@ -48,7 +48,7 @@ DEVICE_NAME_DICT: dict[DeviceType | OTBDeviceType, str] = {
     OTBDeviceType.MUOVI: "Muovi",
     DeviceType.OTB_MUOVI_PLUS: "Muovi Plus",
     OTBDeviceType.MUOVI_PLUS: "Muovi Plus",
-    DeviceType.INTAN_RHD_CONTROLLER: "Intan RHD Controller",
+    DeviceType.INTAN_RHD_RECORDING_CONTROLLER: "Intan RHD Controller",
     DeviceType.MINDROVE_BRACELET: "MindRove Bracelet",
     DeviceType.DEFAULT: "Default Device",
 }

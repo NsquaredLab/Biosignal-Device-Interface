@@ -36,7 +36,7 @@ class BaseDeviceWidget(QWidget):
         self.device: BaseDevice = BaseDevice()
         self.device_params: Dict[str, Union[str, int, float]] = {}
         self._initialize_device_params()
-        self.device.data_arrived.connect(self.data_arrived.emit)
+        self.device.data_available.connect(self.data_arrived.emit)
 
     @abstractmethod
     def _toggle_connection(self) -> None:

@@ -3,10 +3,10 @@
 
 # OTB Devices
 from biosignal_device_interface.devices.quattrocento import (
-    Quattrocento,
-    QuattrocentoLight,
+    OTBQuattrocento,
+    OTBQuattrocentoLight,
 )
-from biosignal_device_interface.devices.muovi import Muovi
+from biosignal_device_interface.devices.muovi import OTB_Muovi
 
 # Intan Devices
 from biosignal_device_interface.devices.mindrove import MindRoveBracelet

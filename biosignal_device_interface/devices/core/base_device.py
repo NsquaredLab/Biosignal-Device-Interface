@@ -36,7 +36,7 @@ class BaseDevice(QObject):
     connect_toggled: Signal = Signal(bool)
     configure_toggled: Signal = Signal(bool)
     stream_toggled: Signal = Signal(bool)
-    data_arrived: Signal = Signal(np.ndarray)
+    data_available: Signal = Signal(np.ndarray)
 
     def __init__(self, parent: Union[QMainWindow, QWidget] = None, **kwargs) -> None:
         super().__init__(parent)
@@ -59,32 +59,18 @@ class BaseDevice(QObject):
         # Connection Parameters
         self._interface: QTcpSocket | QUdpSocket | QSerialPort | None = None
         self._connection_settings: Tuple[str, int] | None = None
-        self._buffer_size: int = None
-        self._received_bytes: QByteArray = QByteArray()
+        self._buffer_size: int | None = None
+        self._received_bytes: QByteArray | None = None
 
         self._connection_timeout_timer: QTimer = QTimer()
         self._connection_timeout_timer.setSingleShot(True)
-        self._connection_timeout_timer.timeout.connect(self._connection_timeout)
+        self._connection_timeout_timer.timeout.connect(self._disconnect_from_device)
         self._connection_timeout_timer.setInterval(1000)
 
         # Device Status
         self.is_configured: bool = False
         self.is_connected: bool = False
         self.is_streaming: bool = False
-
-    @abstractmethod
-    def _reset_device_parameters(self) -> Dict[str, Union[Enum, Dict[str, Enum]]]:
-        """
-        Resets the device parameters to Default values.
-
-        Returns:
-            Dict[str, Union[Enum, Dict[str, Enum]]]:
-                Default values of the device attributes.
-
-                The first one are the attributes (configuration mode) name,
-                and the second its respective value.
-        """
-        ...
 
     @abstractmethod
     def _connect_to_device(self) -> None:
@@ -107,13 +93,6 @@ class BaseDevice(QObject):
         ...
 
     @abstractmethod
-    def _connection_timeout(self) -> None:
-        """
-        Function that is called when the connection timeout is reached.
-        """
-        ...
-
-    @abstractmethod
     def _disconnect_from_device(self) -> None:
         """
         Closes the connection to the device.
@@ -122,13 +101,15 @@ class BaseDevice(QObject):
         Device state is_connected is set to False.
         Signal connected_signal emits False.
         """
-        ...
+        self.is_connected = False
+        self.connect_toggled.emit(False)
 
     @abstractmethod
     def configure_device(self, params: Dict[str, Union[Enum, Dict[str, Enum]]]) -> None:
         """
         Sends a configuration byte sequence based on selected params to the device.
-        An overview of possible configurations can be seen in enums/{device}.
+        An overview of possible configurations can be seen in
+        biosignal_device_interface/constants/{device}.py.
 
         E.g., enums/sessantaquattro.py
 
@@ -142,7 +123,7 @@ class BaseDevice(QObject):
                 and the second its respective value. Orient yourself on the
                 enums of the device to choose the correct configuration settings.
         """
-        ...
+        self._update_configuration_parameters(params)
 
     @abstractmethod
     def _update_configuration_parameters(
@@ -160,7 +141,13 @@ class BaseDevice(QObject):
                 and the second its respective value. Orient yourself on the
                 enums of the device to choose the correct configuration settings.
         """
-        ...
+        for key, value in params.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+            else:
+                print(
+                    f"Attribute '{key}' not found in the class of {self.name.name}",
+                )
 
     @abstractmethod
     def get_configuration(self) -> None:
@@ -170,13 +157,16 @@ class BaseDevice(QObject):
         ...
 
     @abstractmethod
-    def _stop_streaming(self) -> None:
+    def _reset_device_parameters(self) -> Dict[str, Union[Enum, Dict[str, Enum]]]:
         """
-        Sends the command to stop the streaing to the device
+        Resets the device parameters to Default values.
 
-        if successful:
-            Device state is_streaming is set to False.
-            Signal streaming_signal emits False.
+        Returns:
+            Dict[str, Union[Enum, Dict[str, Enum]]]:
+                Default values of the device attributes.
+
+                The first one are the attributes (configuration mode) name,
+                and the second its respective value.
         """
         ...
 
@@ -189,7 +179,20 @@ class BaseDevice(QObject):
             Device state is_streaming is set to True.
             Signal streaming_signal emits True.
         """
-        ...
+        self.is_streaming = True
+        self.stream_toggled.emit(True)
+
+    @abstractmethod
+    def _stop_streaming(self) -> None:
+        """
+        Sends the command to stop the streaing to the device
+
+        if successful:
+            Device state is_streaming is set to False.
+            Signal streaming_signal emits False.
+        """
+        self.is_streaming = False
+        self.stream_toggled.emit(False)
 
     @abstractmethod
     def clear_socket(self) -> None:
@@ -259,7 +262,7 @@ class BaseDevice(QObject):
                 )
             return data[self._biosignal_channel_indices]
 
-    def extract_aux_data(
+    def extract_auxiliary_data(
         self, data: np.ndarray, milli_volts: bool = True
     ) -> np.ndarray:
         """
@@ -326,6 +329,8 @@ class BaseDevice(QObject):
             self.clear_socket()
         else:
             self._start_streaming()
+
+        self.clear_socket()
 
     def reset_configuration(self) -> Dict[str, Union[Enum, dict[str, Enum]]]:
         """

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from PySide6.QtWidgets import QMainWindow, QWidget
 
 
-class Muovi(BaseDevice):
+class OTB_Muovi(BaseDevice):
     """
     Muovi device class derived from BaseDevice class.
 
