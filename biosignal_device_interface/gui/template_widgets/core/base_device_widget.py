@@ -23,6 +23,8 @@ if TYPE_CHECKING:
 class BaseDeviceWidget(QWidget):
     # Signals
     data_arrived: Signal = Signal(np.ndarray)
+    biosignal_data_arrived: Signal = Signal(np.ndarray)
+    auxiliary_data_arrived: Signal = Signal(np.ndarray)
     connect_toggled: Signal = Signal(bool)
     configure_toggled: Signal = Signal(bool)
     stream_toggled: Signal = Signal(bool)
@@ -36,78 +38,43 @@ class BaseDeviceWidget(QWidget):
         self.device: BaseDevice = BaseDevice()
         self.device_params: Dict[str, Union[str, int, float]] = {}
         self._initialize_device_params()
+
         self.device.data_available.connect(self.data_arrived.emit)
+        self.device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
+        self.device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
 
     @abstractmethod
     def _toggle_connection(self) -> None:
         """ """
-        ...
+        pass
 
     @abstractmethod
     def _connection_toggled(self, is_connected: bool) -> None:
         """ """
         self.connect_toggled.emit(is_connected)
-        ...
+        pass
 
     @abstractmethod
     def _toggle_configuration(self) -> None:
         """ """
-        ...
+        pass
 
     @abstractmethod
     def _configuration_toggled(self, is_configured: bool) -> None:
         """ """
         self.configure_toggled.emit(is_configured)
-        ...
+        pass
 
     @abstractmethod
     def _toggle_stream(self) -> None:
         """ """
-        ...
+        pass
 
     @abstractmethod
     def _stream_toggled(self, is_streaming: bool) -> None:
         """ """
         self.stream_toggled.emit(is_streaming)
-        ...
-
-    def extract_biosignal_data(
-        self, data: np.ndarray, milli_volts: bool = False
-    ) -> np.ndarray:
-        """
-        Extract a defined AUX channel from the transmitted data.
-
-        Args:
-            data (np.ndarray):
-                Raw data that got transmitted.
-            milli_volts (bool, optional):
-                If True, the biosignal data is converted to milli volts.
-                Defaults to False.
-
-        Returns:
-            np.ndarray:
-                Extracted biosignal channel data.
-        """
-        return self.device.extract_biosignal_data(data, milli_volts)
-
-    def extract_auxiliary_data(
-        self, data: np.ndarray, milli_volts: bool = True
-    ) -> np.ndarray:
-        """
-        Extract auxiliary channels from the transmitted data.
-
-        Args:
-            data (np.ndarray):
-                Raw data that got transmitted.
-            milli_volts (bool, optional):
-                If True, the auxiliary data is converted to milli volts.
-                Defaults to True.
-
-        Returns:
-            np.ndarray:
-                Extracted auxiliary channel data.
-        """
-        return self.device.extract_auxiliary_data(data, milli_volts)
+        pass
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """
@@ -122,4 +89,4 @@ class BaseDeviceWidget(QWidget):
 
     def _initialize_device_params(self) -> None:
         """ """
-        ...
+        pass

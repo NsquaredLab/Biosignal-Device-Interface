@@ -5,7 +5,7 @@ Contact: dome.braun@fau.de
 Last Update: 2024-06-05
 """
 
-from enum import Enum, auto
+from aenum import Enum, auto
 
 
 ############# ENUMS #############
@@ -30,6 +30,14 @@ class OTBDeviceType(Enum):
     SYNCSTATION = auto()
     MUOVI = auto()
     MUOVI_PLUS = auto()
+
+
+class DeviceChannelTypes(Enum):
+    _init_ = "value __doc__"
+
+    ALL = auto(), "All"
+    AUXILIARY = auto(), "Auxiliary"
+    BIOSIGNAL = auto(), "Biosignal"
 
 
 ############# CONSTANTS #############

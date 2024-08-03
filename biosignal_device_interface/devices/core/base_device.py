@@ -28,7 +28,7 @@ if TYPE_CHECKING:
     from PySide6.QtWidgets import QMainWindow, QWidget
     from PySide6.QtNetwork import QTcpSocket, QUdpSocket
     from PySide6.QtSerialPort import QSerialPort
-    from enum import Enum
+    from aenum import Enum
 
 
 class BaseDevice(QObject):
@@ -37,6 +37,8 @@ class BaseDevice(QObject):
     configure_toggled: Signal = Signal(bool)
     stream_toggled: Signal = Signal(bool)
     data_available: Signal = Signal(np.ndarray)
+    biosignal_data_available: Signal = Signal(np.ndarray)
+    auxiliary_data_available: Signal = Signal(np.ndarray)
 
     def __init__(self, parent: Union[QMainWindow, QWidget] = None, **kwargs) -> None:
         super().__init__(parent)
@@ -52,6 +54,7 @@ class BaseDevice(QObject):
         self._number_of_auxiliary_channels: int | None = None
         self._auxiliary_channel_indices: list[int] | None = None
         self._samples_per_frame: int | None = None
+        self._bytes_per_sample: int | None = None
 
         self._conversion_factor_biosignal: float = None  # Returns mV
         self._conversion_factor_auxiliary: float = None  # Returns mV
@@ -77,7 +80,7 @@ class BaseDevice(QObject):
         """
         Function to attempt a connection to the devices
         """
-        ...
+        pass
 
     @abstractmethod
     def _make_request(self) -> bool:
@@ -90,7 +93,7 @@ class BaseDevice(QObject):
             bool:
                 Returns True if request was successfully. False if not.
         """
-        ...
+        pass
 
     @abstractmethod
     def _disconnect_from_device(self) -> None:
@@ -126,51 +129,6 @@ class BaseDevice(QObject):
         self._update_configuration_parameters(params)
 
     @abstractmethod
-    def _update_configuration_parameters(
-        self, params: Dict[str, Union[Enum, Dict[str, Enum]]]
-    ) -> None:
-        """
-        Updates the device attributes with the new configuration parameters.
-
-        Args:
-            params (Dict[str, Union[Enum, Dict[str, Enum]]]):
-                Dictionary that holds the configuration settings
-                to which the device should be configured to.
-
-                The first one should be the attributes (configuration mode) name,
-                and the second its respective value. Orient yourself on the
-                enums of the device to choose the correct configuration settings.
-        """
-        for key, value in params.items():
-            if hasattr(self, key):
-                setattr(self, key, value)
-            else:
-                print(
-                    f"Attribute '{key}' not found in the class of {self.name.name}",
-                )
-
-    @abstractmethod
-    def get_configuration(self) -> None:
-        """
-        Sends the command to get the current configuration of the device.
-        """
-        ...
-
-    @abstractmethod
-    def _reset_device_parameters(self) -> Dict[str, Union[Enum, Dict[str, Enum]]]:
-        """
-        Resets the device parameters to Default values.
-
-        Returns:
-            Dict[str, Union[Enum, Dict[str, Enum]]]:
-                Default values of the device attributes.
-
-                The first one are the attributes (configuration mode) name,
-                and the second its respective value.
-        """
-        ...
-
-    @abstractmethod
     def _start_streaming(self) -> None:
         """
         Sends the command to start the streaming to the device.
@@ -197,7 +155,7 @@ class BaseDevice(QObject):
     @abstractmethod
     def clear_socket(self) -> None:
         """Reads all the bytes from the buffer."""
-        ...
+        pass
 
     @abstractmethod
     def _read_data(self) -> None:
@@ -206,7 +164,7 @@ class BaseDevice(QObject):
         After reading the bytes from the buffer, _process_data is called to
         decode and process the raw data.
         """
-        ...
+        pass
 
     @abstractmethod
     def _process_data(self, input: QByteArray) -> None:
@@ -233,10 +191,33 @@ class BaseDevice(QObject):
             input (QByteArray):
                 Bytearray of the transmitted raw data.
         """
-        ...
+        pass
 
-    def extract_biosignal_data(
-        self, data: np.ndarray, milli_volts: bool = False
+    def _update_configuration_parameters(
+        self, params: Dict[str, Union[Enum, Dict[str, Enum]]]
+    ) -> None:
+        """
+        Updates the device attributes with the new configuration parameters.
+
+        Args:
+            params (Dict[str, Union[Enum, Dict[str, Enum]]]):
+                Dictionary that holds the configuration settings
+                to which the device should be configured to.
+
+                The first one should be the attributes (configuration mode) name,
+                and the second its respective value. Orient yourself on the
+                enums of the device to choose the correct configuration settings.
+        """
+        for key, value in params.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+            else:
+                print(
+                    f"Attribute '{key}' not found in the class of {self._device_type.name}",
+                )
+
+    def _extract_biosignal_data(
+        self, data: np.ndarray, milli_volts: bool = True
     ) -> np.ndarray:
         """
         Extracts the biosignals from the transmitted data.
@@ -247,7 +228,7 @@ class BaseDevice(QObject):
 
             milli_volts (bool, optional):
                 If True, the biosignal data is converted to milli volts.
-                Defaults to False.
+                Defaults to True.
 
         Returns:
             np.ndarray:
@@ -262,7 +243,7 @@ class BaseDevice(QObject):
                 )
             return data[self._biosignal_channel_indices]
 
-    def extract_auxiliary_data(
+    def _extract_auxiliary_data(
         self, data: np.ndarray, milli_volts: bool = True
     ) -> np.ndarray:
         """
@@ -307,7 +288,7 @@ class BaseDevice(QObject):
             bool:
                 True if connection attempt was successfully. False if not.
         """
-        self.connection_settings = settings
+        self._connection_settings = settings
 
         if self.is_connected:
             if self.is_streaming:
@@ -331,24 +312,6 @@ class BaseDevice(QObject):
             self._start_streaming()
 
         self.clear_socket()
-
-    def reset_configuration(self) -> Dict[str, Union[Enum, dict[str, Enum]]]:
-        """
-        Resets the current configuration of the device.
-
-        Returns:
-            Dict[str, Union[Enum, dict[str, Enum]]]:
-                Dictionary that holds the configuration settings
-                to which the device should be configured to.
-
-                The first one should be the attributes (configuration mode) name,
-                and the second its respective value. Orient yourself on the
-                enums of the device to choose the correct configuration settings.
-        """
-        params = self._reset_device_parameters()
-        self.configure_device(params)
-
-        return params
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """

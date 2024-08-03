@@ -31,7 +31,7 @@ from biosignal_device_interface.constants.quattrocento_constants import (
 if TYPE_CHECKING:
     # Python Libraries
     from PySide6.QtWidgets import QMainWindow, QWidget
-    from enum import Enum
+    from aenum import Enum
 
 
 class OTBQuattrocentoLight(BaseDevice):
@@ -54,10 +54,11 @@ class OTBQuattrocentoLight(BaseDevice):
         self._device_type: DeviceType = DeviceType.OTB_QUATTROCENTO_LIGHT
 
         # Device Information
-        self._number_of_channels: int = 408  # Fix
-        self._number_of_auxiliary_channels: int = 16  # Fix
+        self._number_of_channels: int = 408  # Fix value
+        self._number_of_auxiliary_channels: int = 16  # Fix value
         self._conversion_factor_biosignal: float = 5 / (2**16) / 150 * 1000  # in mV
         self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in mV
+        self._bytes_per_sample: int = 2  # Fix value
 
         # Connection Parameters
         self._interface: QTcpSocket = QTcpSocket()
@@ -108,16 +109,12 @@ class OTBQuattrocentoLight(BaseDevice):
 
         self._samples_per_frame = self._sampling_frequency // self._streaming_frequency
 
-        self._buffer_size = 2 * self._number_of_channels * self._samples_per_frame
+        self._buffer_size = (
+            self._bytes_per_sample * self._number_of_channels * self._samples_per_frame
+        )
 
         self._is_configured = True
         self.configure_toggled.emit(True)
-
-    def get_configuration(self) -> None:
-        super().get_configuration()
-        raise NotImplementedError(
-            f"This method is not implemented for device {self._device_type}!"
-        )
 
     def _start_streaming(self) -> None:
         super()._start_streaming()
@@ -155,12 +152,12 @@ class OTBQuattrocentoLight(BaseDevice):
             if not packet:
                 continue
 
-            self.received_bytes.extend(packet)
+            self._received_bytes.extend(packet)
 
-            while len(self.received_bytes) >= self._buffer_size:
-                data_to_process = self.received_bytes[: self._buffer_size]
+            while len(self._received_bytes) >= self._buffer_size:
+                data_to_process = self._received_bytes[: self._buffer_size]
                 self._process_data(data_to_process)
-                self.received_bytes = self.received_bytes[self._buffer_size :]
+                self._received_bytes = self._received_bytes[self._buffer_size :]
 
     def _process_data(self, data: QByteArray) -> None:
         super()._process_data(data)
@@ -173,16 +170,8 @@ class OTBQuattrocentoLight(BaseDevice):
 
         # Emit the data
         self.data_available.emit(data)
-
-    def extract_biosignal_data(
-        self, data: np.ndarray, milli_volts: bool = False
-    ) -> np.ndarray:
-        return super().extract_biosignal_data(data, milli_volts)
-
-    def extract_auxiliary_data(
-        self, data: np.ndarray, milli_volts: bool = True
-    ) -> np.ndarray:
-        return super().extract_auxiliary_data(data, milli_volts)
+        self.biosignal_data_available.emit(self._extract_biosignal_data(data))
+        self.auxiliary_data_available.emit(self._extract_auxiliary_data(data))
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         return super().get_device_information()
