@@ -13,7 +13,7 @@ Last Update: 2023-06-05
 # Python Libraries
 from __future__ import annotations
 from enum import Enum
-from typing import TYPE_CHECKING, Union, Dict, Tuple
+from typing import TYPE_CHECKING, Union, Dict
 from PySide6.QtNetwork import QTcpSocket, QHostAddress
 from PySide6.QtCore import QIODevice, QByteArray
 import numpy as np
@@ -78,7 +78,7 @@ class OTBQuattrocentoLight(BaseDevice):
         super()._make_request()
         # Signal self.connect_toggled is emitted in _read_data
         self._interface.connectToHost(
-            self._connection_settings[0],
+            QHostAddress(self._connection_settings[0]),
             self._connection_settings[1],
             QIODevice.ReadWrite,
         )

@@ -52,7 +52,6 @@ class BaseDeviceWidget(QWidget):
     def _connection_toggled(self, is_connected: bool) -> None:
         """ """
         self.connect_toggled.emit(is_connected)
-        pass
 
     @abstractmethod
     def _toggle_configuration(self) -> None:
@@ -63,7 +62,6 @@ class BaseDeviceWidget(QWidget):
     def _configuration_toggled(self, is_configured: bool) -> None:
         """ """
         self.configure_toggled.emit(is_configured)
-        pass
 
     @abstractmethod
     def _toggle_stream(self) -> None:
@@ -74,7 +72,6 @@ class BaseDeviceWidget(QWidget):
     def _stream_toggled(self, is_streaming: bool) -> None:
         """ """
         self.stream_toggled.emit(is_streaming)
-        pass
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """
