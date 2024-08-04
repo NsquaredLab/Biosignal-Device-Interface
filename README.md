@@ -108,7 +108,7 @@ Distributed under the CC BY-SA 4.0 License. See `LICENSE.txt` for more informati
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-* Find available Python implementations of OT Bioelettronica's devices on their [website](https://otbioelettronica.it/en/download/). 
+* Find available Python and Matlab implementations of OT Bioelettronica's devices on their [website](https://otbioelettronica.it/en/download/). 
 <br>
 Note: The example scripts does not provide you with the same level of utility for GUI implementations.
 
