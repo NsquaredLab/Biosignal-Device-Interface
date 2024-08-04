@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, Union, Dict
+from typing import TYPE_CHECKING, Dict
 
 from biosignal_device_interface.gui.device_template_widgets.core.base_multiple_devices_widget import (
     BaseMultipleDevicesWidget,
@@ -14,9 +14,7 @@ from biosignal_device_interface.gui.device_template_widgets.otb_devices import (
 )
 
 if TYPE_CHECKING:
-    from PySide6.QtCore import Signal
     from PySide6.QtWidgets import QWidget, QMainWindow
-    import numpy as np
     from biosignal_device_interface.gui.device_template_widgets.core.base_device_widget import (
         BaseDeviceWidget,
     )
