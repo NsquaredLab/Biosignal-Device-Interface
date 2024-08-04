@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Union, Dict
 from abc import abstractmethod
 from PySide6.QtWidgets import QWidget, QMainWindow
+from PySide6.QtGui import QCloseEvent
 from PySide6.QtCore import Signal
 import numpy as np
 
@@ -36,7 +37,7 @@ class BaseDeviceWidget(QWidget):
 
         # Device Setup
         self.device: BaseDevice | None = None
-        self.device_params: Dict[str, Union[str, int, float]] = {}
+        self._device_params: Dict[str, Union[str, int, float]] = {}
 
         # GUI setup
         self.ui: object = None
@@ -111,7 +112,10 @@ class BaseDeviceWidget(QWidget):
         """
         return self.device.get_device_information()
 
-    def disconnect(self) -> None:
+    def disconnect_device(self) -> None:
         """ """
         if self.device._is_connected or self.device._is_streaming:
             self.device.toggle_connection()
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        self.disconnect_device()

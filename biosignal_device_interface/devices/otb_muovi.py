@@ -19,7 +19,7 @@ from biosignal_device_interface.constants.devices.base_device_constants import (
 )
 
 # Constants
-from biosignal_device_interface.constants.devices.muovi_constants import (
+from biosignal_device_interface.constants.devices.otb_muovi_constants import (
     MuoviWorkingMode,
     MuoviDetectionMode,
     MUOVI_WORKING_MODE_CHARACTERISTICS_DICT,
@@ -75,7 +75,7 @@ class OTBMuovi(BaseDevice):
         self._interface: QTcpServer = QTcpServer()
         self._client_socket: QTcpSocket | None = None
 
-        # Configuration
+        # Configuration Parameters
         self._working_mode: MuoviWorkingMode = MuoviWorkingMode.NONE
         self._detection_mode: MuoviDetectionMode = MuoviDetectionMode.NONE
         self._configuration_command: bytes = b""
@@ -210,6 +210,10 @@ class OTBMuovi(BaseDevice):
 
         self._configuration_command -= 1
         self._send_configuration_to_device()
+
+    def clear_socket(self) -> None:
+        if self._client_socket is not None:
+            self._client_socket.readAll()
 
     def _read_data(self) -> None:
         super()._read_data()

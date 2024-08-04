@@ -4,44 +4,40 @@ from typing import TYPE_CHECKING
 from biosignal_device_interface.gui.device_template_widgets.core.base_device_widget import (
     BaseDeviceWidget,
 )
-from biosignal_device_interface.gui.ui_compiled.muovi_template_widget import (
-    Ui_MuoviForm,
+from biosignal_device_interface.gui.ui_compiled.otb_quattrocento_light_template_widget import (
+    Ui_QuattrocentoLightForm,
 )
-from biosignal_device_interface.devices import OTBMuovi
+from biosignal_device_interface.devices import OTBQuattrocentoLight
 
 # Constants
-from biosignal_device_interface.constants.devices.muovi_constants import (
-    MuoviWorkingMode,
-    MuoviDetectionMode,
-    MUOVI_NETWORK_PORT,
+from biosignal_device_interface.constants.devices.otb_quattrocento_constants import (
+    QuattrocentoLightSamplingFrequency,
+    QuattrocentoLightStreamingFrequency,
 )
 
 if TYPE_CHECKING:
     from PySide6.QtWidgets import (
-        QWidget,
         QMainWindow,
+        QWidget,
         QGroupBox,
         QPushButton,
+        QCheckBox,
         QComboBox,
         QLabel,
     )
 
 
-class MuoviWidget(BaseDeviceWidget):
+class QuattrocentoLightWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
-
-        self._set_device(OTBMuovi(parent=self))
+        self._set_device(OTBQuattrocentoLight(self))
 
     def _toggle_connection(self) -> None:
         if not self.device._is_connected:
             self.connect_push_button.setEnabled(False)
 
         self.device.toggle_connection(
-            (
-                self.connection_ip_combo_box.currentText(),
-                int(self.connection_port_label.text()),
-            )
+            (self.connection_ip_label.text(), int(self.connection_port_label.text())),
         )
 
     def _connection_toggled(self, is_connected: bool) -> None:
@@ -61,14 +57,24 @@ class MuoviWidget(BaseDeviceWidget):
         self.connect_toggled.emit(is_connected)
 
     def _toggle_configuration(self) -> None:
-        self.device_params["working_mode"] = MuoviWorkingMode(
-            self.input_working_mode_combo_box.currentIndex() + 1
+        self._device_params["grids"] = [
+            i
+            for i, check_box in enumerate(self.grid_selection_check_box_list)
+            if check_box.isChecked()
+        ]
+
+        self._device_params["streaming_frequency_mode"] = (
+            QuattrocentoLightStreamingFrequency(
+                self.acquisition_streaming_frequency_combo_box.currentIndex() + 1
+            )
         )
-        self.device_params["detection_mode"] = MuoviDetectionMode(
-            self.input_detection_mode_combo_box.currentIndex() + 1
+        self._device_params["sampling_frequency_mode"] = (
+            QuattrocentoLightSamplingFrequency(
+                self.acquisition_sampling_frequency_combo_box.currentIndex() + 1
+            )
         )
 
-        self.device.configure_device(self.device_params)
+        self.device.configure_device(self._device_params)
 
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
@@ -100,13 +106,14 @@ class MuoviWidget(BaseDeviceWidget):
         self.stream_toggled.emit(is_streaming)
 
     def _initialize_device_params(self) -> None:
-        self.device_params = {
-            "working_mode": MuoviWorkingMode.EMG,
-            "detection_mode": MuoviDetectionMode.MONOPOLAR_GAIN_8,
+        self._device_params = {
+            "grids": [2, 3],
+            "streaming_frequency_mode": QuattrocentoLightStreamingFrequency.THIRTYTWO,
+            "sampling_frequency_mode": QuattrocentoLightSamplingFrequency.MEDIUM,
         }
 
     def _initialize_ui(self) -> None:
-        self.ui = Ui_MuoviForm()
+        self.ui = Ui_QuattrocentoLightForm()
         self.ui.setupUi(self)
 
         # Command Push Buttons
@@ -126,33 +133,38 @@ class MuoviWidget(BaseDeviceWidget):
 
         # Connection parameters
         self.connection_group_box: QGroupBox = self.ui.connectionGroupBox
-        self.connection_ip_combo_box: QComboBox = self.ui.connectionIPComboBox
+        self.connection_ip_label: QLabel = self.ui.connectionIPLabel
         self.connection_port_label: QLabel = self.ui.connectionPortLabel
-        self.connection_update_push_button: QPushButton = (
-            self.ui.connectionUpdatePushButton
+
+        # Acquisition parameters
+        self.acquisition_group_box: QGroupBox = self.ui.acquisitionGroupBox
+        self.acquisition_sampling_frequency_combo_box: QComboBox = (
+            self.ui.acquisitionSamplingFrequencyComboBox
         )
-        self.connection_update_push_button.clicked.connect(
-            lambda: (
-                self.connection_ip_combo_box.clear(),
-                self.connection_ip_combo_box.addItems(
-                    self.device.get_server_wifi_ip_address()
-                ),
-            )
+        self.acquisition_streaming_frequency_combo_box: QComboBox = (
+            self.ui.acquisitionStreamingFrequencyComboBox
         )
 
-        self.connection_ip_combo_box.clear()
-        self.connection_ip_combo_box.addItems(self.device.get_server_wifi_ip_address())
+        # Grid parameters
+        self.grid_selection_group_box: QGroupBox = self.ui.gridSelectionGroupBox
+        self.grid_selection_check_box_list: list[QCheckBox] = [
+            self.ui.gridOneCheckBox,
+            self.ui.gridTwoCheckBox,
+            self.ui.gridThreeCheckBox,
+            self.ui.gridFourCheckBox,
+            self.ui.gridFiveCheckBox,
+            self.ui.gridSixCheckBox,
+        ]
 
-        self.connection_port_label.setText(str(MUOVI_NETWORK_PORT))
-
-        # Input parameters
-        self.input_parameters_group_box: QGroupBox = self.ui.inputGroupBox
-        self.input_working_mode_combo_box: QComboBox = self.ui.inputWorkingModeComboBox
-        self.input_detection_mode_combo_box: QComboBox = (
-            self.ui.inputDetectionModeComboBox
-        )
+        [
+            check_box.setChecked(False)
+            for check_box in self.grid_selection_check_box_list
+        ]
+        self.grid_selection_check_box_list[2].setChecked(True)
+        self.grid_selection_check_box_list[3].setChecked(True)
 
         # Configuration parameters
         self.configuration_group_boxes: list[QGroupBox] = [
-            self.input_parameters_group_box,
+            self.acquisition_group_box,
+            self.grid_selection_group_box,
         ]

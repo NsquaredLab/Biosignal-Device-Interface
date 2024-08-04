@@ -22,7 +22,7 @@ from biosignal_device_interface.devices.core.base_device import BaseDevice
 from biosignal_device_interface.constants.devices.base_device_constants import (
     DeviceType,
 )
-from biosignal_device_interface.constants.devices.quattrocento_constants import (
+from biosignal_device_interface.constants.devices.otb_quattrocento_constants import (
     COMMAND_START_STREAMING,
     COMMAND_STOP_STREAMING,
     CONNECTION_RESPONSE,
@@ -195,15 +195,17 @@ class OTBQuattrocentoLight(BaseDevice):
         super()._process_data(data)
 
         # Decode the data
-        data: np.ndarray = np.frombuffer(data, dtype=np.uint16)
+        decoded_data = np.frombuffer(data, dtype=np.int16)
 
         # Reshape it to the correct format
-        data = data.reshape(self._number_of_channels, -1, order="F").astype(np.float32)
+        processed_data = decoded_data.reshape(
+            self._number_of_channels, -1, order="F"
+        ).astype(np.float32)
 
         # Emit the data
-        self.data_available.emit(data)
-        self.biosignal_data_available.emit(self._extract_biosignal_data(data))
-        self.auxiliary_data_available.emit(self._extract_auxiliary_data(data))
+        self.data_available.emit(processed_data)
+        self.biosignal_data_available.emit(self._extract_biosignal_data(processed_data))
+        self.auxiliary_data_available.emit(self._extract_auxiliary_data(processed_data))
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         return super().get_device_information()

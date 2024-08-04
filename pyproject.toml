@@ -15,9 +15,9 @@ mindrove = "^0.0.10"
 aenum = "^3.1.15"
 vispy = "^0.14.3"
 scipy = "^1.14.0"
+matplotlib = "^3.9.1"
 
 [tool.poetry.group.dev.dependencies]
-matplotlib = "^3.9.1"
 ipykernel = "^6.29.5"
 
 [tool.poetry.group.docs.dependencies]

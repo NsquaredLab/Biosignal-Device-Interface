@@ -10,26 +10,26 @@ from aenum import Enum, auto
 
 ############# ENUMS #############
 class DeviceType(Enum):
-    OTB_QUATTROCENTO = auto()
-    OTB_QUATTROCENTO_LIGHT = auto()
-    OTB_SESSANTAQUATTRO = auto()
-    OTB_SESSANTAQUATTRO_PLUS = auto()
-    OTB_SYNCSTATION = auto()
-    OTB_MUOVI = auto()
-    OTB_MUOVI_PLUS = auto()
-    INTAN_RHD_RECORDING_CONTROLLER = auto()
-    MINDROVE_BRACELET = auto()
-    DEFAULT = auto()
+    """
+    Enum class for the different available devices.
+    Add new devices here.
+    """
+
+    _init_ = "value __doc__"
+    OTB_QUATTROCENTO_LIGHT = auto(), "OT Bioelettronica Quattrocento Light"
+    OTB_MUOVI = auto(), "OT Bioelettronica Muovi"
+    OTB_MUOVI_PLUS = auto(), "OT Bioelettronica Muovi Plus"
 
 
 class OTBDeviceType(Enum):
-    QUATTROCENTO = auto()
-    QUATTROCENTO_LIGHT = auto()
-    SESSANTAQUATTRO = auto()
-    SESSANTAQUATTRO_PLUS = auto()
-    SYNCSTATION = auto()
-    MUOVI = auto()
-    MUOVI_PLUS = auto()
+    """
+    Enum class for the different available OT Bioelettronica devices.
+    Add new devices here.
+    """
+
+    QUATTROCENTO_LIGHT = auto(), "Quattrocento Light"
+    MUOVI = auto(), "Muovi"
+    MUOVI_PLUS = auto(), "Muovi Plus"
 
 
 class DeviceChannelTypes(Enum):
@@ -42,21 +42,10 @@ class DeviceChannelTypes(Enum):
 
 ############# CONSTANTS #############
 DEVICE_NAME_DICT: dict[DeviceType | OTBDeviceType, str] = {
-    DeviceType.OTB_QUATTROCENTO: "Quattrocento",
-    OTBDeviceType.QUATTROCENTO: "Quattrocento",
     DeviceType.OTB_QUATTROCENTO_LIGHT: "Quattrocento Light",
     OTBDeviceType.QUATTROCENTO_LIGHT: "Quattrocento Light",
-    DeviceType.OTB_SESSANTAQUATTRO: "Sessantaquattro",
-    OTBDeviceType.SESSANTAQUATTRO: "Sessantaquattro",
-    DeviceType.OTB_SESSANTAQUATTRO_PLUS: "Sessantaquattro Plus",
-    OTBDeviceType.SESSANTAQUATTRO_PLUS: "Sessantaquattro Plus",
-    DeviceType.OTB_SYNCSTATION: "SyncStation",
-    OTBDeviceType.SYNCSTATION: "SyncStation",
     DeviceType.OTB_MUOVI: "Muovi",
     OTBDeviceType.MUOVI: "Muovi",
     DeviceType.OTB_MUOVI_PLUS: "Muovi Plus",
     OTBDeviceType.MUOVI_PLUS: "Muovi Plus",
-    DeviceType.INTAN_RHD_RECORDING_CONTROLLER: "Intan RHD Controller",
-    DeviceType.MINDROVE_BRACELET: "MindRove Bracelet",
-    DeviceType.DEFAULT: "Default Device",
 }

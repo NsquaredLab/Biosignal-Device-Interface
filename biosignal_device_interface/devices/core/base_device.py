@@ -26,7 +26,7 @@ from biosignal_device_interface.constants.devices.base_device_constants import (
 if TYPE_CHECKING:
     # Python Libraries
     from PySide6.QtWidgets import QMainWindow, QWidget
-    from PySide6.QtNetwork import QTcpSocket, QUdpSocket
+    from PySide6.QtNetwork import QTcpSocket, QUdpSocket, QTcpServer
     from PySide6.QtSerialPort import QSerialPort
     from aenum import Enum
 
@@ -44,7 +44,7 @@ class BaseDevice(QObject):
         super().__init__(parent)
 
         # Device Parameters
-        self._device_type: DeviceType = DeviceType.DEFAULT
+        self._device_type: DeviceType = None
 
         # Device Information
         self._sampling_frequency: int | None = None
@@ -60,7 +60,9 @@ class BaseDevice(QObject):
         self._conversion_factor_auxiliary: float = None  # Returns mV
 
         # Connection Parameters
-        self._interface: QTcpSocket | QUdpSocket | QSerialPort | None = None
+        self._interface: QTcpServer | QTcpSocket | QUdpSocket | QSerialPort | None = (
+            None
+        )
         self._connection_settings: Tuple[str, int] | None = None
         self._buffer_size: int | None = None
         self._received_bytes: bytearray | None = None

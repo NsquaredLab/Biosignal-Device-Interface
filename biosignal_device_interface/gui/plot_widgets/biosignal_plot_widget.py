@@ -23,7 +23,7 @@ from biosignal_device_interface.constants.plots.color_palette import (
 )
 
 
-class VispyBiosignalPlot(QWidget):
+class BiosignalPlotWidget(QWidget):
     bad_channels_updated: Signal = Signal(np.ndarray)
 
     def __init__(self, parent=None):
@@ -46,6 +46,8 @@ class VispyBiosignalPlot(QWidget):
         self.color_dict = mcolors.CSS4_COLORS
 
         self._configure_widget()
+
+        self.is_configured: bool = False
 
     def _configure_widget(self):
         # Create scroll_area
@@ -169,6 +171,8 @@ class VispyBiosignalPlot(QWidget):
                 )  # Set the minimum height of each row to 100 pixels
             else:
                 self.container_widget_layout.setRowMinimumHeight(i, 0)
+
+        self.is_configured = True
 
     def update_plot(self, input_data: np.ndarray) -> None:
         # Downsample input_data with external sampling frequency to match internal sampling frequency

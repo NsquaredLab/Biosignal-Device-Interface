@@ -4,13 +4,13 @@ from typing import TYPE_CHECKING
 from biosignal_device_interface.gui.device_template_widgets.core.base_device_widget import (
     BaseDeviceWidget,
 )
-from biosignal_device_interface.gui.ui_compiled.muovi_template_widget import (
+from biosignal_device_interface.gui.ui_compiled.otb_muovi_template_widget import (
     Ui_MuoviForm,
 )
 from biosignal_device_interface.devices import OTBMuovi
 
 # Constants
-from biosignal_device_interface.constants.devices.muovi_constants import (
+from biosignal_device_interface.constants.devices.otb_muovi_constants import (
     MuoviWorkingMode,
     MuoviDetectionMode,
     MUOVI_NETWORK_PORT,
@@ -61,14 +61,14 @@ class OTBMuoviWidget(BaseDeviceWidget):
         self.connect_toggled.emit(is_connected)
 
     def _toggle_configuration(self) -> None:
-        self.device_params["working_mode"] = MuoviWorkingMode(
+        self._device_params["working_mode"] = MuoviWorkingMode(
             self.input_working_mode_combo_box.currentIndex() + 1
         )
-        self.device_params["detection_mode"] = MuoviDetectionMode(
+        self._device_params["detection_mode"] = MuoviDetectionMode(
             self.input_detection_mode_combo_box.currentIndex() + 1
         )
 
-        self.device.configure_device(self.device_params)
+        self.device.configure_device(self._device_params)
 
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
@@ -100,7 +100,7 @@ class OTBMuoviWidget(BaseDeviceWidget):
         self.stream_toggled.emit(is_streaming)
 
     def _initialize_device_params(self) -> None:
-        self.device_params = {
+        self._device_params = {
             "working_mode": MuoviWorkingMode.EMG,
             "detection_mode": MuoviDetectionMode.MONOPOLAR_GAIN_8,
         }
