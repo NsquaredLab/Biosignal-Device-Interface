@@ -14,7 +14,7 @@ Last Update: 2023-06-05
 from __future__ import annotations
 from typing import TYPE_CHECKING, Union, Dict
 from PySide6.QtNetwork import QTcpSocket, QHostAddress
-from PySide6.QtCore import QIODevice, QByteArray
+from PySide6.QtCore import QIODevice
 import numpy as np
 
 
@@ -60,6 +60,7 @@ class OTBQuattrocentoLight(BaseDevice):
 
         # Device Information
         self._number_of_channels: int = 408  # Fix value
+        self._auxiliary_channel_start_index: int = 384  # Fix value
         self._number_of_auxiliary_channels: int = 16  # Fix value
         self._conversion_factor_biosignal: float = 5 / (2**16) / 150 * 1000  # in mV
         self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in mV
@@ -78,13 +79,13 @@ class OTBQuattrocentoLight(BaseDevice):
         )
         self._sampling_frequency_mode: QuattrocentoLightSamplingFrequency | None = None
 
-    def _connect_to_device(self) -> None:
+    def _connect_to_device(self) -> bool:
         super()._connect_to_device()
 
-        self._received_bytes: QByteArray = QByteArray()
-        self._make_request()
+        self._received_bytes: bytearray = bytearray()
+        return self._make_request()
 
-    def _make_request(self) -> None:
+    def _make_request(self) -> bool:
         super()._make_request()
         # Signal self.connect_toggled is emitted in _read_data
         self._interface.connectToHost(
@@ -95,9 +96,11 @@ class OTBQuattrocentoLight(BaseDevice):
 
         if not self._interface.waitForConnected(1000):
             self._disconnect_from_device()
-            return
+            return False
 
         self._interface.readyRead.connect(self._read_data)
+
+        return True
 
     def _disconnect_from_device(self) -> None:
         super()._disconnect_from_device()
@@ -113,8 +116,19 @@ class OTBQuattrocentoLight(BaseDevice):
 
         # Configure the device
         self._number_of_biosignal_channels = len(self._grids) * self._grid_size
-        self._number_of_channels = (
-            self._number_of_biosignal_channels + self._number_of_auxiliary_channels
+        self._biosignal_channel_indices = np.array(
+            [
+                i * self._grid_size + j
+                for i in self._grids
+                for j in range(self._grid_size)
+            ]
+        )
+
+        self._auxiliary_channel_indices = np.array(
+            [
+                i + self._auxiliary_channel_start_index
+                for i in range(self._number_of_auxiliary_channels)
+            ]
         )
 
         self._streaming_frequency = QUATTROCENTO_LIGHT_STREAMING_FREQUENCY_DICT[
@@ -153,14 +167,15 @@ class OTBQuattrocentoLight(BaseDevice):
         super()._read_data()
 
         # Wait for connection response
-        if not self.is_connected:
-            if self._interface.bytesAvailable() == CONNECTION_RESPONSE.size():
+        if not self._is_connected:
+            if self._interface.bytesAvailable() == len(CONNECTION_RESPONSE):
                 if self._interface.readAll() == CONNECTION_RESPONSE:
+
                     self._is_connected = True
                     self.connect_toggled.emit(True)
                     return
 
-        if not self.is_streaming:
+        if not self._is_streaming:
             self.clear_socket()
             return
 
@@ -176,7 +191,7 @@ class OTBQuattrocentoLight(BaseDevice):
                 self._process_data(data_to_process)
                 self._received_bytes = self._received_bytes[self._buffer_size :]
 
-    def _process_data(self, data: QByteArray) -> None:
+    def _process_data(self, data: bytearray) -> None:
         super()._process_data(data)
 
         # Decode the data

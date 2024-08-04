@@ -3,8 +3,8 @@ from aenum import Enum, auto
 
 # Quattrocento Light constants
 ############# COMMANDS #############
-COMMAND_START_STREAMING = b"start"
-COMMAND_STOP_STREAMING = b"stop"
+COMMAND_START_STREAMING = b"startTX"
+COMMAND_STOP_STREAMING = b"stopTX"
 CONNECTION_RESPONSE = b"OTBioLab"
 
 
@@ -26,6 +26,8 @@ class QuattrocentoLightStreamingFrequency(Enum):
     """
     Enum class for the streaming frequencies of the Quattrocento Light device.
     """
+
+    _init_ = "value __doc__"
 
     ONE = auto(), "1 Hz"
     TWO = auto(), "2 Hz"

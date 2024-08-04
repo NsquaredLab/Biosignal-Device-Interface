@@ -10,13 +10,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Union, Dict
 from abc import abstractmethod
 from PySide6.QtWidgets import QWidget, QMainWindow
+from PySide6.QtCore import Signal
+import numpy as np
 
 # Import Devices
 from biosignal_device_interface.devices.core.base_device import BaseDevice
 
 if TYPE_CHECKING:
-    from PySide6.QtCore import Signal
-    import numpy as np
     from enum import Enum
 
 
@@ -34,13 +34,12 @@ class BaseDeviceWidget(QWidget):
 
         self.parent_widget: QWidget | QMainWindow | None = parent
 
-        # GUI setup
-        self.ui: object = None
-        self._initialize_ui()
-
         # Device Setup
         self.device: BaseDevice | None = None
         self.device_params: Dict[str, Union[str, int, float]] = {}
+
+        # GUI setup
+        self.ui: object = None
 
     @abstractmethod
     def _toggle_connection(self) -> None:
@@ -93,6 +92,7 @@ class BaseDeviceWidget(QWidget):
         self.device: BaseDevice = device
         self._initialize_device_params()
         self._set_signals()
+        self._initialize_ui()
 
     def _set_signals(self) -> None:
         """ """
@@ -113,5 +113,5 @@ class BaseDeviceWidget(QWidget):
 
     def disconnect(self) -> None:
         """ """
-        if self.device.is_connected or self.device.is_streaming:
+        if self.device._is_connected or self.device._is_streaming:
             self.device.toggle_connection()

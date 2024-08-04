@@ -33,7 +33,7 @@ class QuattrocentoLightWidget(BaseDeviceWidget):
         self._set_device(OTBQuattrocentoLight(self))
 
     def _toggle_connection(self) -> None:
-        if not self.device.is_connected:
+        if not self.device._is_connected:
             self.connect_push_button.setEnabled(False)
 
         self.device.toggle_connection(
@@ -62,14 +62,15 @@ class QuattrocentoLightWidget(BaseDeviceWidget):
             for i, check_box in enumerate(self.grid_selection_check_box_list)
             if check_box.isChecked()
         ]
+
         self.device_params["streaming_frequency_mode"] = (
             QuattrocentoLightStreamingFrequency(
-                self.acquisition_streaming_frequency_combo_box.currentIndex() + 1
+                self.acquisition_streaming_frequency_combo_box.currentIndex()
             )
         )
         self.device_params["sampling_frequency_mode"] = (
             QuattrocentoLightSamplingFrequency(
-                self.acquisition_sampling_frequency_combo_box.currentIndex() + 1
+                self.acquisition_sampling_frequency_combo_box.currentIndex()
             )
         )
 

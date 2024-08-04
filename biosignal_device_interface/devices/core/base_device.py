@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING, Union, Dict, Tuple
 from abc import abstractmethod
 import socket
 import psutil
-from PySide6.QtCore import QObject, QByteArray, Signal, QTimer
+from PySide6.QtCore import QObject, Signal, QTimer
 import numpy as np
 import re
 
@@ -63,7 +63,7 @@ class BaseDevice(QObject):
         self._interface: QTcpSocket | QUdpSocket | QSerialPort | None = None
         self._connection_settings: Tuple[str, int] | None = None
         self._buffer_size: int | None = None
-        self._received_bytes: QByteArray | None = None
+        self._received_bytes: bytearray | None = None
 
         self._connection_timeout_timer: QTimer = QTimer()
         self._connection_timeout_timer.setSingleShot(True)
@@ -71,14 +71,18 @@ class BaseDevice(QObject):
         self._connection_timeout_timer.setInterval(1000)
 
         # Device Status
-        self.is_configured: bool = False
-        self.is_connected: bool = False
-        self.is_streaming: bool = False
+        self._is_connected: bool = False
+        self._is_configured: bool = False
+        self._is_streaming: bool = False
 
     @abstractmethod
-    def _connect_to_device(self) -> None:
+    def _connect_to_device(self) -> bool:
         """
-        Function to attempt a connection to the devices
+        Function to attempt a connection to the devices.
+
+        Returns:
+            bool:
+                Success of the connection attempt.
         """
         pass
 
@@ -96,15 +100,19 @@ class BaseDevice(QObject):
         pass
 
     @abstractmethod
-    def _disconnect_from_device(self) -> None:
+    def _disconnect_from_device(self) -> bool:
         """
         Closes the connection to the device.
 
         self.interface closes and is set to None.
         Device state is_connected is set to False.
         Signal connected_signal emits False.
+
+        Returns:
+            bool:
+                Success of the disconnection attempt.
         """
-        self.is_connected = False
+        self._is_connected = False
         self.connect_toggled.emit(False)
 
     @abstractmethod
@@ -137,7 +145,7 @@ class BaseDevice(QObject):
             Device state is_streaming is set to True.
             Signal streaming_signal emits True.
         """
-        self.is_streaming = True
+        self._is_streaming = True
         self.stream_toggled.emit(True)
 
     @abstractmethod
@@ -149,7 +157,7 @@ class BaseDevice(QObject):
             Device state is_streaming is set to False.
             Signal streaming_signal emits False.
         """
-        self.is_streaming = False
+        self._is_streaming = False
         self.stream_toggled.emit(False)
 
     @abstractmethod
@@ -167,7 +175,7 @@ class BaseDevice(QObject):
         pass
 
     @abstractmethod
-    def _process_data(self, input: QByteArray) -> None:
+    def _process_data(self, input: bytearray) -> None:
         """
         Decodes the transmitted bytes and convert them to respective
         output format (e.g., mV).
@@ -188,7 +196,7 @@ class BaseDevice(QObject):
         in a dictionary.
 
         Args:
-            input (QByteArray):
+            input (bytearray):
                 Bytearray of the transmitted raw data.
         """
         pass
@@ -291,13 +299,13 @@ class BaseDevice(QObject):
         """
         self._connection_settings = settings
 
-        if self.is_connected:
-            if self.is_streaming:
+        if self._is_connected:
+            if self._is_streaming:
                 self.toggle_streaming()
 
             success: bool = self._disconnect_from_device()
         else:
-            success: bool = self._connect_to_device(settings)
+            success: bool = self._connect_to_device()
 
         return success
 
@@ -306,7 +314,7 @@ class BaseDevice(QObject):
         Toggles the current state of the streaming.
         If device is streaming, the streaming is stopped and vice versa.
         """
-        if self.is_streaming:
+        if self._is_streaming:
             self._stop_streaming()
             self.clear_socket()
         else:

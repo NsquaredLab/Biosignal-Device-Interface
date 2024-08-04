@@ -9,7 +9,6 @@ Last Update: 2024-06-05
 from __future__ import annotations
 from typing import TYPE_CHECKING, Union, Dict
 from PySide6.QtNetwork import QTcpSocket, QTcpServer, QHostAddress
-from PySide6.QtCore import QByteArray
 import numpy as np
 
 # Local Libraries
@@ -81,19 +80,21 @@ class OTBMuovi(BaseDevice):
         self._detection_mode: MuoviDetectionMode = MuoviDetectionMode.NONE
         self._configuration_command: bytes = b""
 
-    def _connect_to_device(self) -> None:
+    def _connect_to_device(self) -> bool:
         super()._connect_to_device()
 
-        self._received_bytes: QByteArray = QByteArray()
+        self._received_bytes: bytearray = bytearray()
 
         if not self._interface.listen(
             QHostAddress(self._connection_settings[0]), self._connection_settings[1]
         ):
-            return
+            return False
 
         self._interface.newConnection.connect(self._make_request)
 
         self._connection_timeout_timer.start()
+
+        return True
 
     def _make_request(self) -> bool:
         super()._make_request()
@@ -105,18 +106,18 @@ class OTBMuovi(BaseDevice):
 
         self._client_socket.readyRead.connect(self._read_data)
 
-        if not self.is_connected:
-            self.is_connected = True
-            self.connect_toggled.emit(self.is_connected)
+        if not self._is_connected:
+            self._is_connected = True
+            self.connect_toggled.emit(self._is_connected)
             self._connection_timeout_timer.stop()
             return True
 
-        if not self.is_configured:
-            self.is_configured = True
-            self.configure_toggled.emit(self.is_configured)
+        if not self._is_configured:
+            self._is_configured = True
+            self.configure_toggled.emit(self._is_configured)
             return True
 
-    def _disconnect_from_device(self) -> None:
+    def _disconnect_from_device(self) -> bool:
         super()._disconnect_from_device()
 
         if self._client_socket is not None:
@@ -126,6 +127,8 @@ class OTBMuovi(BaseDevice):
 
         if self._interface is not None:
             self._interface.close()
+
+        return True
 
     def configure_device(
         self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]
@@ -153,15 +156,21 @@ class OTBMuovi(BaseDevice):
         self._number_of_biosignal_channels = MUOVI_AVAILABLE_CHANNELS_DICT[
             self._device_type
         ][DeviceChannelTypes.BIOSIGNAL]
+        self._biosignal_channel_indices = np.arange(self._number_of_biosignal_channels)
+
         self._number_of_auxiliary_channels = MUOVI_AVAILABLE_CHANNELS_DICT[
             self._device_type
         ][DeviceChannelTypes.AUXILIARY]
+        self._auxiliary_channel_indices = np.arange(
+            self._number_of_biosignal_channels,
+            self._number_of_biosignal_channels + self._number_of_auxiliary_channels,
+        )
 
         self._buffer_size = (
             self._number_of_channels * self._samples_per_frame * self._bytes_per_sample
         )
 
-        self._received_bytes = QByteArray()
+        self._received_bytes = bytearray()
 
         self._configure_command()
         self._send_configuration_to_device()
@@ -205,7 +214,7 @@ class OTBMuovi(BaseDevice):
     def _read_data(self) -> None:
         super()._read_data()
 
-        if not self.is_streaming:
+        if not self._is_streaming:
             self.clear_socket()
             return
 
@@ -221,7 +230,7 @@ class OTBMuovi(BaseDevice):
                 self._process_data(data_to_process)
                 self._received_bytes = self._received_bytes[self._buffer_size :]
 
-    def _process_data(self, data: QByteArray) -> None:
+    def _process_data(self, data: bytearray) -> None:
         super()._process_data(data)
 
         decoded_data = self._bytes_to_integers(data)
@@ -238,7 +247,7 @@ class OTBMuovi(BaseDevice):
     # Convert channels from bytes to integers
     def _bytes_to_integers(
         self,
-        data: QByteArray,
+        data: bytearray,
     ) -> np.ndarray:
         channel_values = []
         # Separate channels from byte-string. One channel has
@@ -259,7 +268,7 @@ class OTBMuovi(BaseDevice):
 
         return np.array(channel_values)
 
-    def _decode_int16(self, bytes_value: QByteArray) -> int:
+    def _decode_int16(self, bytes_value: bytearray) -> int:
         value = None
         # Combine 2 bytes to a 16 bit integer value
         value = bytes_value[0] * 2**8 + bytes_value[1]
@@ -269,7 +278,7 @@ class OTBMuovi(BaseDevice):
         return value
 
     # Convert byte-array value to an integer value and apply two's complement
-    def _decode_int24(self, bytes_value: QByteArray) -> int:
+    def _decode_int24(self, bytes_value: bytearray) -> int:
         value = None
         # Combine 3 bytes to a 24 bit integer value
         value = bytes_value[0] * 2**16 + bytes_value[1] * 2**8 + bytes_value[2]
