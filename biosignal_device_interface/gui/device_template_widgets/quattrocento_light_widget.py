@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     )
 
 
-class OTBQuattrocentoLightWidget(BaseDeviceWidget):
+class QuattrocentoLightWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
         self._set_device(OTBQuattrocentoLight(self))

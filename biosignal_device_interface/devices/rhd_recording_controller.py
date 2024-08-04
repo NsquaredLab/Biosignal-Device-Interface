@@ -15,7 +15,9 @@ from enum import Enum
 
 # Local Libraries
 from biosignal_device_interface.devices.core.base_device import BaseDevice
-from biosignal_device_interface.constants.base_device_constants import DeviceType
+from biosignal_device_interface.constants.devices.base_device_constants import (
+    DeviceType,
+)
 
 if TYPE_CHECKING:
     from PySide6.QtWidgets import QMainWindow, QWidget

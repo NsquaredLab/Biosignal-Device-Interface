@@ -6,7 +6,7 @@ from biosignal_device_interface.devices.quattrocento import (
     OTBQuattrocento as Quattrocento,
     OTBQuattrocentoLight as QuattrocentoLight,
 )
-from biosignal_device_interface.devices.muovi import OTB_Muovi as Muovi
+from biosignal_device_interface.devices.muovi import OTBMuovi as Muovi
 from biosignal_device_interface.devices.syncstation import (
     OTBSyncStation as SyncStation,
 )

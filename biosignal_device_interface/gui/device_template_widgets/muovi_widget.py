@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     )
 
 
-class OTBMuoviWidget(BaseDeviceWidget):
+class MuoviWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
 

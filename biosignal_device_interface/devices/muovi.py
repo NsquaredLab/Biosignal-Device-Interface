@@ -38,12 +38,12 @@ class OTBMuovi(BaseDevice):
     Muovi device class derived from BaseDevice class.
 
     Args:
-        is_muovi_plus (bool):
-            True if the device is a Muovi Plus, False if not.
-
         parent (Union[QMainWindow, QWidget], optional):
             Parent widget to which the device is assigned to.
             Defaults to None.
+
+        is_muovi_plus (bool):
+            True if the device is a Muovi Plus, False if not.
 
     The Muovi class is using a TCP/IP protocol to communicate with the device.
     """
