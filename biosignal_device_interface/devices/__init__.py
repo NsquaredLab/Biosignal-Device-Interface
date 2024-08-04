@@ -7,6 +7,3 @@ from biosignal_device_interface.devices.quattrocento import (
     OTBQuattrocentoLight,
 )
 from biosignal_device_interface.devices.muovi import OTBMuovi
-
-# Intan Devices
-from biosignal_device_interface.devices.mindrove import MindRoveBracelet
