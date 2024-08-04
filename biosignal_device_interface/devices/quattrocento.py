@@ -12,7 +12,6 @@ Last Update: 2023-06-05
 
 # Python Libraries
 from __future__ import annotations
-from enum import Enum
 from typing import TYPE_CHECKING, Union, Dict
 from PySide6.QtNetwork import QTcpSocket, QHostAddress
 from PySide6.QtCore import QIODevice, QByteArray
@@ -20,11 +19,17 @@ import numpy as np
 
 
 from biosignal_device_interface.devices.core.base_device import BaseDevice
-from biosignal_device_interface.constants.base_device_constants import DeviceType
-from biosignal_device_interface.constants.quattrocento_constants import (
+from biosignal_device_interface.constants.devices.base_device_constants import (
+    DeviceType,
+)
+from biosignal_device_interface.constants.devices.quattrocento_constants import (
     COMMAND_START_STREAMING,
     COMMAND_STOP_STREAMING,
     CONNECTION_RESPONSE,
+    QUATTROCENTO_LIGHT_STREAMING_FREQUENCY_DICT,
+    QUATTROCENTO_SAMPLING_FREQUENCY_DICT,
+    QuattrocentoLightSamplingFrequency,
+    QuattrocentoLightStreamingFrequency,
 )
 
 
@@ -59,6 +64,8 @@ class OTBQuattrocentoLight(BaseDevice):
         self._conversion_factor_biosignal: float = 5 / (2**16) / 150 * 1000  # in mV
         self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in mV
         self._bytes_per_sample: int = 2  # Fix value
+        # Quattrocento unique parameters
+        self._streaming_frequency: int | None = None
 
         # Connection Parameters
         self._interface: QTcpSocket = QTcpSocket()
@@ -66,7 +73,10 @@ class OTBQuattrocentoLight(BaseDevice):
         # Configuration Parameters
         self._grids: list[int] | None = None
         self._grid_size: int = 64  # TODO: This is only valid for the big electrodes
-        self._streaming_frequency: int | None = None
+        self._streaming_frequency_mode: QuattrocentoLightStreamingFrequency | None = (
+            None
+        )
+        self._sampling_frequency_mode: QuattrocentoLightSamplingFrequency | None = None
 
     def _connect_to_device(self) -> None:
         super()._connect_to_device()
@@ -106,6 +116,13 @@ class OTBQuattrocentoLight(BaseDevice):
         self._number_of_channels = (
             self._number_of_biosignal_channels + self._number_of_auxiliary_channels
         )
+
+        self._streaming_frequency = QUATTROCENTO_LIGHT_STREAMING_FREQUENCY_DICT[
+            self._streaming_frequency_mode
+        ]
+        self._sampling_frequency = QUATTROCENTO_SAMPLING_FREQUENCY_DICT[
+            self._sampling_frequency_mode
+        ]
 
         self._samples_per_frame = self._sampling_frequency // self._streaming_frequency
 

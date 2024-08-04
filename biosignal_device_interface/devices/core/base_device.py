@@ -17,7 +17,7 @@ import numpy as np
 import re
 
 # Local Libraries
-from biosignal_device_interface.constants.base_device_constants import (
+from biosignal_device_interface.constants.devices.base_device_constants import (
     DeviceType,
     DEVICE_NAME_DICT,
 )
@@ -209,6 +209,7 @@ class BaseDevice(QObject):
                 enums of the device to choose the correct configuration settings.
         """
         for key, value in params.items():
+            key = "_" + key
             if hasattr(self, key):
                 setattr(self, key, value)
             else:

@@ -1,6 +1,6 @@
 from aenum import Enum, auto
 
-from biosignal_device_interface.constants.base_device_constants import (
+from biosignal_device_interface.constants.devices.base_device_constants import (
     DeviceType,
     DeviceChannelTypes,
 )
@@ -113,3 +113,5 @@ MUOVI_AVAILABLE_CHANNELS_DICT: dict[DeviceType, dict[DeviceChannelTypes, int]] =
 """
 
 """
+
+MUOVI_NETWORK_PORT: int = 54321

@@ -14,13 +14,13 @@ import numpy as np
 
 # Local Libraries
 from biosignal_device_interface.devices.core.base_device import BaseDevice
-from biosignal_device_interface.constants.base_device_constants import (
+from biosignal_device_interface.constants.devices.base_device_constants import (
     DeviceType,
     DeviceChannelTypes,
 )
 
 # Constants
-from biosignal_device_interface.constants.muovi_constants import (
+from biosignal_device_interface.constants.devices.muovi_constants import (
     MuoviWorkingMode,
     MuoviDetectionMode,
     MUOVI_WORKING_MODE_CHARACTERISTICS_DICT,

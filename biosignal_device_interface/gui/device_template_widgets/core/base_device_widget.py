@@ -34,14 +34,13 @@ class BaseDeviceWidget(QWidget):
 
         self.parent_widget: QWidget | QMainWindow | None = parent
 
-        # Device Setup
-        self.device: BaseDevice = BaseDevice()
-        self.device_params: Dict[str, Union[str, int, float]] = {}
-        self._initialize_device_params()
+        # GUI setup
+        self.ui: object = None
+        self._initialize_ui()
 
-        self.device.data_available.connect(self.data_arrived.emit)
-        self.device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
-        self.device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
+        # Device Setup
+        self.device: BaseDevice | None = None
+        self.device_params: Dict[str, Union[str, int, float]] = {}
 
     @abstractmethod
     def _toggle_connection(self) -> None:
@@ -51,7 +50,7 @@ class BaseDeviceWidget(QWidget):
     @abstractmethod
     def _connection_toggled(self, is_connected: bool) -> None:
         """ """
-        self.connect_toggled.emit(is_connected)
+        pass
 
     @abstractmethod
     def _toggle_configuration(self) -> None:
@@ -61,7 +60,12 @@ class BaseDeviceWidget(QWidget):
     @abstractmethod
     def _configuration_toggled(self, is_configured: bool) -> None:
         """ """
-        self.configure_toggled.emit(is_configured)
+        pass
+
+    @abstractmethod
+    def _toggle_configuration_group_boxes(self) -> None:
+        """ """
+        pass
 
     @abstractmethod
     def _toggle_stream(self) -> None:
@@ -72,6 +76,29 @@ class BaseDeviceWidget(QWidget):
     def _stream_toggled(self, is_streaming: bool) -> None:
         """ """
         self.stream_toggled.emit(is_streaming)
+
+    @abstractmethod
+    def _initialize_device_params(self) -> None:
+        """ """
+        pass
+
+    @abstractmethod
+    def _initialize_ui(self) -> None:
+        """ """
+        pass
+
+    def _set_device(self, device: BaseDevice) -> None:
+        """ """
+        # Device Setup
+        self.device: BaseDevice = device
+        self._initialize_device_params()
+        self._set_signals()
+
+    def _set_signals(self) -> None:
+        """ """
+        self.device.data_available.connect(self.data_arrived.emit)
+        self.device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
+        self.device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """
@@ -84,6 +111,7 @@ class BaseDeviceWidget(QWidget):
         """
         return self.device.get_device_information()
 
-    def _initialize_device_params(self) -> None:
+    def disconnect(self) -> None:
         """ """
-        pass
+        if self.device.is_connected or self.device.is_streaming:
+            self.device.toggle_connection()
