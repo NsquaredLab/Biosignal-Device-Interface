@@ -20,6 +20,7 @@ from biosignal_device_interface.constants.devices.base_device_constants import (
 
 # Constants
 from biosignal_device_interface.constants.devices.otb_muovi_constants import (
+    MUOVI_CONVERSION_FACTOR_DICT,
     MuoviWorkingMode,
     MuoviDetectionMode,
     MUOVI_WORKING_MODE_CHARACTERISTICS_DICT,
@@ -66,14 +67,8 @@ class OTBMuovi(BaseDevice):
             DeviceType.OTB_MUOVI_PLUS if is_muovi_plus else DeviceType.OTB_MUOVI
         )
 
-        # Device Information
-        self._conversion_factor_biosignal: float = (
-            0.000286  # TODO: Confirm with OT Bioelettronica (found in communication.py / matlab code) -> Should be flexible depending on the GAIN
-        )
-        self._conversion_factor_auxiliary: float = self._conversion_factor_biosignal
-
         # Connection Parameters
-        self._interface: QTcpServer = QTcpServer()
+        self._interface: QTcpServer = None
         self._client_socket: QTcpSocket | None = None
 
         # Configuration Parameters
@@ -84,6 +79,7 @@ class OTBMuovi(BaseDevice):
     def _connect_to_device(self) -> bool:
         super()._connect_to_device()
 
+        self._interface = QTcpServer(self)
         self._received_bytes: bytearray = bytearray()
 
         if not self._interface.listen(
@@ -130,7 +126,7 @@ class OTBMuovi(BaseDevice):
         return True
 
     def configure_device(
-        self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]
+        self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
     ) -> None:
         super().configure_device(settings)
 
@@ -141,6 +137,11 @@ class OTBMuovi(BaseDevice):
         if self._working_mode == MuoviWorkingMode.EEG:
             if self._detection_mode == MuoviDetectionMode.MONOPOLAR_GAIN_4:
                 self._detection_mode = MuoviDetectionMode.MONOPOLAR_GAIN_8
+
+        self._conversion_factor_biosignal = MUOVI_CONVERSION_FACTOR_DICT[
+            self._detection_mode
+        ]
+        self._conversion_factor_auxiliary = self._conversion_factor_biosignal
 
         # Set configuration parameters for data transfer
         working_mode_characteristics = MUOVI_WORKING_MODE_CHARACTERISTICS_DICT[
@@ -188,12 +189,8 @@ class OTBMuovi(BaseDevice):
             self._disconnect_from_device()
 
     def _configure_command(self) -> None:
-        self._configuration_command = (
-            self._working_mode.value << 2
-        )  # TODO: Check if correct (Enum starts with 1). If not -> << 3 and -1
-        self._configuration_command += (
-            self._detection_mode.value
-        )  # TODO: Check if correct (Enum starts with 1). If not -> << 1 and -1
+        self._configuration_command = self._working_mode.value << 2
+        self._configuration_command += self._detection_mode.value
 
     def _start_streaming(self) -> None:
         super()._start_streaming()
@@ -203,7 +200,6 @@ class OTBMuovi(BaseDevice):
 
         self._configuration_command += 1
         self._send_configuration_to_device()
-        print(self._configuration_command)
 
     def _stop_streaming(self) -> None:
         super()._stop_streaming()
@@ -213,7 +209,6 @@ class OTBMuovi(BaseDevice):
 
         self._configuration_command -= 1
         self._send_configuration_to_device()
-        print(self._configuration_command)
 
     def clear_socket(self) -> None:
         if self._client_socket is not None:

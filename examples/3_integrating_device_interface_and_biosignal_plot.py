@@ -44,7 +44,6 @@ class MainWindow(QMainWindow):
         self.all_devices_widget.configure_toggled.connect(
             self._device_configuration_state
         )
-        self.all_devices_widget.stream_toggled.connect(self._device_stream_state)
 
         # Instantiate Biosignal Plot
         self.biosignal_plot = BiosignalPlotWidget(self)
@@ -54,7 +53,7 @@ class MainWindow(QMainWindow):
 
     def _emg_update(self, data: np.ndarray):
         if self.biosignal_plot.is_configured:
-            self.biosignal_plot.update_plot(data * 5)
+            self.biosignal_plot.update_plot(data * 1000)
 
     def _device_configuration_state(self, is_configured: bool):
         if not is_configured:
@@ -70,9 +69,6 @@ class MainWindow(QMainWindow):
             sampling_freuqency=sampling_frequency,
             display_time=10,
         )
-
-    def _device_stream_state(self, is_streaming: bool):
-        print("Streaming state:", is_streaming)
 
 
 if __name__ == "__main__":

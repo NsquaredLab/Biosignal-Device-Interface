@@ -110,7 +110,7 @@ class OTBQuattrocentoLight(BaseDevice):
         self._interface.close()
 
     def configure_device(
-        self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]
+        self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
     ) -> None:
         super().configure_device(settings)
 

@@ -116,9 +116,11 @@ class BaseDevice(QObject):
         """
         self._is_connected = False
         self.connect_toggled.emit(False)
+        self._is_configured = False
+        self.configure_toggled.emit(False)
 
     @abstractmethod
-    def configure_device(self, params: Dict[str, Union[Enum, Dict[str, Enum]]]) -> None:
+    def configure_device(self, params: Dict[str, Union[Enum, Dict[str, Enum]]]) -> None:  # type: ignore
         """
         Sends a configuration byte sequence based on selected params to the device.
         An overview of possible configurations can be seen in
@@ -246,13 +248,12 @@ class BaseDevice(QObject):
                 Extracted biosignal channels.
         """
 
-        if len(self._biosignal_channel_indices) > 0:
-            if milli_volts:
-                return (
-                    data[self._biosignal_channel_indices]
-                    * self._conversion_factor_biosignal
-                )
-            return data[self._biosignal_channel_indices]
+        if milli_volts:
+            return (
+                data[self._biosignal_channel_indices]
+                * self._conversion_factor_biosignal
+            )
+        return data[self._biosignal_channel_indices]
 
     def _extract_auxiliary_data(
         self, data: np.ndarray, milli_volts: bool = True
@@ -271,13 +272,13 @@ class BaseDevice(QObject):
             np.ndarray:
                 Extracted auxiliary channel data.
         """
-        if len(self._auxiliary_channel_indices) > 0:
-            if milli_volts:
-                return (
-                    data[self._auxiliary_channel_indices]
-                    * self._conversion_factor_auxiliary
-                )
-            return data[self._auxiliary_channel_indices]
+
+        if milli_volts:
+            return (
+                data[self._auxiliary_channel_indices]
+                * self._conversion_factor_auxiliary
+            )
+        return data[self._auxiliary_channel_indices]
 
     def toggle_connection(self, settings: Tuple[str, int] = None) -> bool:
         """
