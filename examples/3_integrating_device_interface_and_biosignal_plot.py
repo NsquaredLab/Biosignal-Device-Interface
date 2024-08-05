@@ -3,6 +3,7 @@ Integrating all devices and a biosignal plot in your own software.
 ================================
 """
 
+# ..code-block:: Python
 from __future__ import annotations
 from typing import TYPE_CHECKING
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout

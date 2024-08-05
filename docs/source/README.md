@@ -1,4 +1,4 @@
-# Biosignal-Device-Interface# Device Interfaces
+# Biosignal-Device-Interface
 
 <!-- PROJECT LOGO -->
 <br />
@@ -28,18 +28,16 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#contact">Contact</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#development-installation">Development Installation</a></li>
+        <li><a href="#package-installation">Package Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -53,9 +51,9 @@ Give a brief introduction into the project.
 
 ### Built With
 
-* []
-* []
-* []
+* Python 3.10 / 3.11
+* PySide6 - Version ^6.7.0
+* Vispy - Version ^0.14.0
 
 <!-- CONTACT -->
 ### Contact
@@ -68,36 +66,39 @@ Project Link: [https://github.com/NsquaredLab/Biosignal-Device-Interface](https:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
+The local set up is made using [Poetry](https://python-poetry.org/). You can install Poetry using the following command.
+Note: It is recommeded to install it globally.
+```bash
+pip install poetry
+```
 
-### Prerequisites
+Then, you can install the dependencies in your work area using the following command:
+```bash
+poetry install
+```
 
+### Development installation
+If you want to contribute to the project, you can install the development dependencies using the following command:
+```bash
+poetry install --with dev,docs
+```
 
-### Installation
-
+### Package Installation
 Poetry
-'''sh
-Poetry: poetry add git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
-'''
+```Bash
+poetry add git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
+```
 
 PIP
-'''sh
-PIP: pip install git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
-'''
-
-<!-- USAGE EXAMPLES -->
-## Project Structure
-Give a brief overview of the project's structure by visualising the (sub-)folder structure and how files interact with each other. 
-
+```sh
+pip install git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
+```
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://github.com/github_username/repo_name/-/wikis/)_
-
+Examples of how you can use this package can be found in our [examples gallery](https://github.com/NsquaredLab/Biosignal-Device-Interface).
 
 
 <!-- LICENSE -->
@@ -105,15 +106,10 @@ _For more examples, please refer to the [Documentation](https://github.com/githu
 
 Distributed under the CC BY-SA 4.0 License. See `LICENSE.txt` for more information.
 
-
-
-
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-Use this space to list resources you find helpful and would like to give credit to.
-* []()
-* []()
-* []()
+* Find available Python and Matlab implementations of OT Bioelettronica's devices on their [website](https://otbioelettronica.it/en/download/). 
+<br>
+Note: The example scripts does not provide you with the same level of utility for GUI implementations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

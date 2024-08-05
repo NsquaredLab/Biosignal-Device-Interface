@@ -70,6 +70,7 @@ class OTBMuovi(BaseDevice):
         self._conversion_factor_biosignal: float = (
             0.000286  # TODO: Confirm with OT Bioelettronica (found in communication.py / matlab code) -> Should be flexible depending on the GAIN
         )
+        self._conversion_factor_auxiliary: float = self._conversion_factor_biosignal
 
         # Connection Parameters
         self._interface: QTcpServer = QTcpServer()
@@ -78,7 +79,7 @@ class OTBMuovi(BaseDevice):
         # Configuration Parameters
         self._working_mode: MuoviWorkingMode = MuoviWorkingMode.NONE
         self._detection_mode: MuoviDetectionMode = MuoviDetectionMode.NONE
-        self._configuration_command: bytes = b""
+        self._configuration_command: int | None = None
 
     def _connect_to_device(self) -> bool:
         super()._connect_to_device()
@@ -98,24 +99,22 @@ class OTBMuovi(BaseDevice):
 
     def _make_request(self) -> bool:
         super()._make_request()
-
         self._client_socket = self._interface.nextPendingConnection()
 
-        if self._client_socket is None:
-            return False
+        if self._client_socket:
 
-        self._client_socket.readyRead.connect(self._read_data)
+            self._client_socket.readyRead.connect(self._read_data)
 
-        if not self._is_connected:
-            self._is_connected = True
-            self.connect_toggled.emit(self._is_connected)
-            self._connection_timeout_timer.stop()
-            return True
+            if not self._is_connected:
+                self._is_connected = True
+                self.connect_toggled.emit(self._is_connected)
+                self._connection_timeout_timer.stop()
+                return True
 
-        if not self._is_configured:
-            self._is_configured = True
-            self.configure_toggled.emit(self._is_configured)
-            return True
+            elif not self._is_configured:
+                self._is_configured = True
+                self.configure_toggled.emit(self._is_configured)
+                return True
 
     def _disconnect_from_device(self) -> bool:
         super()._disconnect_from_device()
@@ -134,6 +133,9 @@ class OTBMuovi(BaseDevice):
         self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]
     ) -> None:
         super().configure_device(settings)
+
+        if not self._is_connected or self._client_socket is None:
+            return
 
         # Check if detection mode is valid for working mode (Case EEG -> MONOPOLAR_GAIN_4 => MONOPOLAR_GAIN_8)
         if self._working_mode == MuoviWorkingMode.EEG:
@@ -196,20 +198,22 @@ class OTBMuovi(BaseDevice):
     def _start_streaming(self) -> None:
         super()._start_streaming()
 
-        if len(self._configuration_command) == 0:
+        if self._configuration_command is None:
             return
 
         self._configuration_command += 1
         self._send_configuration_to_device()
+        print(self._configuration_command)
 
     def _stop_streaming(self) -> None:
         super()._stop_streaming()
 
-        if len(self._configuration_command) == 0:
+        if self._configuration_command is None:
             return
 
         self._configuration_command -= 1
         self._send_configuration_to_device()
+        print(self._configuration_command)
 
     def clear_socket(self) -> None:
         if self._client_socket is not None:

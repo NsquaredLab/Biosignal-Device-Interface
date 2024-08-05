@@ -1,4 +1,4 @@
-from biosignal_device_interface import otb_devices, devices, DeviceType
+from biosignal_device_interface import otb, devices, DeviceType
 
 # Test all devices
 
@@ -18,15 +18,15 @@ assert (
 ...
 
 # Test all otb devices
-muovi: otb_devices.Muovi = otb_devices.Muovi()
+muovi: otb.Muovi = otb.Muovi()
 assert muovi._device_type == DeviceType.OTB_MUOVI, "Muovi device type is incorrect."
 
-muovi_plus: otb_devices.Muovi = otb_devices.Muovi(is_muovi_plus=True)
+muovi_plus: otb.Muovi = otb.Muovi(is_muovi_plus=True)
 assert (
     muovi_plus._device_type == DeviceType.OTB_MUOVI_PLUS
 ), "Muovi Plus device type is incorrect."
 
-quattrocento_light: otb_devices.QuattrocentoLight = otb_devices.QuattrocentoLight()
+quattrocento_light: otb.QuattrocentoLight = otb.QuattrocentoLight()
 assert (
     quattrocento_light._device_type == DeviceType.OTB_QUATTROCENTO_LIGHT
 ), "Quattrocento Light device type is incorrect."

@@ -101,7 +101,7 @@ class MANUMyNameDevice(BaseDevice):
     def _read_data(self) -> None:
         pass
 
-    def _process_data(self, input: bytearray) -> None:
+    def _process_data(self, data: bytearray) -> None:
         pass
 
 

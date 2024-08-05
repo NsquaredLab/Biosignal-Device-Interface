@@ -7,7 +7,7 @@ from biosignal_device_interface.gui.device_template_widgets.core.base_multiple_d
 from biosignal_device_interface.constants.devices.base_device_constants import (
     DeviceType,
 )
-from biosignal_device_interface.gui.device_template_widgets.otb_devices import (
+from biosignal_device_interface.gui.device_template_widgets.otb import (
     MuoviPlusWidget,
     MuoviWidget,
     QuattrocentoLightWidget,
