@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "biosignal-device-interface"
-version = "0.1.12b"
+version = "0.1.1"
 description = "Python communication interface to many biosignal devices manufactured by several companies to easy integration in custom PySide6 applications."
 authors = ["Dominik I. Braun <dome.braun@fau.de>"]
 license = "CC BY-SA 4.0"
