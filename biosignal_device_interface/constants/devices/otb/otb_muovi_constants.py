@@ -1,6 +1,6 @@
 from aenum import Enum, auto
 
-from biosignal_device_interface.constants.devices.base_device_constants import (
+from biosignal_device_interface.constants.devices.core.base_device_constants import (
     DeviceType,
     DeviceChannelTypes,
 )

@@ -13,7 +13,7 @@ import numpy as np
 
 # Local Libraries
 from biosignal_device_interface.devices.core.base_device import BaseDevice
-from biosignal_device_interface.constants.devices.base_device_constants import (
+from biosignal_device_interface.constants.devices.core.base_device_constants import (
     DeviceType,
     DeviceChannelTypes,
 )

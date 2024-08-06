@@ -78,10 +78,6 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
     "matplotlib": ("https://matplotlib.org/stable/", None),
-    "pandas": ("https://pandas.pydata.org/docs/", None),
-    "sklearn": ("https://scikit-learn.org/stable/", None),
-    "torch": ("https://pytorch.org/docs/stable/", None),
-    "torchvision": ("https://pytorch.org/vision/stable/", None),
     "PySide6": (
         "https://doc.qt.io/qtforpython-6/",
         "https://doc.qt.io/qtforpython-6/objects.inv",
@@ -96,4 +92,5 @@ sphinx_gallery_conf = {
     "remove_config_comments": True,
     "show_memory": True,
     "within_subsection_order": FileNameSortKey,
+    "plot_gallery": False,
 }

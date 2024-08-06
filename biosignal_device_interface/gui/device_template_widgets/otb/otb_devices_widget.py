@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Dict
 from biosignal_device_interface.gui.device_template_widgets.core.base_multiple_devices_widget import (
     BaseMultipleDevicesWidget,
 )
-from biosignal_device_interface.constants.devices.base_device_constants import (
+from biosignal_device_interface.constants.devices.core.base_device_constants import (
     DeviceType,
 )
 from biosignal_device_interface.gui.device_template_widgets.otb import (
