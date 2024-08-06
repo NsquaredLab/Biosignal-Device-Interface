@@ -2,7 +2,8 @@ OT Bioelettronica
 ==================
 
 .. toctree::
-    :maxdepth: 21
+    :maxdepth: 2
 
-    modules/devices/otb/muovi.rst
-    modules/devices/otb/quattrocento.rst
+    otb_muovi.rst
+    otb_quattrocento_light.rst
+    code/constants/otb_constants.rst

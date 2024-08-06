@@ -1,8 +1,4 @@
-# Import OTB Devices to be used from biosignal_device_interface.devices
-# import Muovi, Quattrocento, QuattrocentoLight, ...
-
-# OTB Devices
-from biosignal_device_interface.devices.otb.otb_quattrocento import (
+from biosignal_device_interface.devices.otb.otb_quattrocento_light import (
     OTBQuattrocento as Quattrocento,
     OTBQuattrocentoLight as QuattrocentoLight,
 )

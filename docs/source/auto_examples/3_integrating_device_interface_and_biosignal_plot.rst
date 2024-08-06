@@ -77,7 +77,7 @@ This example...
 
         def _emg_update(self, data: np.ndarray):
             if self.biosignal_plot.is_configured:
-                self.biosignal_plot.update_plot(data * 1000)
+                self.biosignal_plot.update_plot(data)
 
         def _device_configuration_state(self, is_configured: bool):
             if not is_configured:

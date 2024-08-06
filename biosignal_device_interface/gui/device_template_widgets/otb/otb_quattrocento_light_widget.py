@@ -10,7 +10,7 @@ from biosignal_device_interface.gui.ui_compiled.otb_quattrocento_light_template_
 from biosignal_device_interface.devices import OTBQuattrocentoLight
 
 # Constants
-from biosignal_device_interface.constants.devices.otb.otb_quattrocento_constants import (
+from biosignal_device_interface.constants.devices.otb.otb_quattrocento_light_constants import (
     QuattrocentoLightSamplingFrequency,
     QuattrocentoLightStreamingFrequency,
 )

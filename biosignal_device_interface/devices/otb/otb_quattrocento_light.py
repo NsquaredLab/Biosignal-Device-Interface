@@ -22,7 +22,7 @@ from biosignal_device_interface.devices.core.base_device import BaseDevice
 from biosignal_device_interface.constants.devices.core.base_device_constants import (
     DeviceType,
 )
-from biosignal_device_interface.constants.devices.otb.otb_quattrocento_constants import (
+from biosignal_device_interface.constants.devices.otb.otb_quattrocento_light_constants import (
     COMMAND_START_STREAMING,
     COMMAND_STOP_STREAMING,
     CONNECTION_RESPONSE,
