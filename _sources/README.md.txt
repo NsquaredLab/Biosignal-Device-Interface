@@ -12,7 +12,7 @@
   <p align="center">
     Python communication interface to many biosignal devices manufactured by several companies to easy integration in custom PySide6 applications.
     <br />
-    <a href="https://github.com/NsquaredLab/Biosignal-Device-Interface/-/wikis/home"><strong>Explore the docs »</strong></a>
+    <a href="https://nsquaredlab.github.io/Biosignal-Device-Interface/"><strong>Explore the docs »</strong></a>
   </p>
 </div>
 
@@ -24,9 +24,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
     <li>
@@ -46,14 +43,6 @@
 ## About The Project
 
 Give a brief introduction into the project.
-
-
-
-### Built With
-
-* Python 3.10 / 3.11
-* PySide6 - Version ^6.7.0
-* Vispy - Version ^0.14.0
 
 <!-- CONTACT -->
 ### Contact
@@ -98,7 +87,7 @@ pip install git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Examples of how you can use this package can be found in our [examples gallery](https://github.com/NsquaredLab/Biosignal-Device-Interface).
+Examples of how you can use this package can be found in our [examples gallery](https://nsquaredlab.github.io/Biosignal-Device-Interface/auto_examples/index.html).
 
 
 <!-- LICENSE -->
