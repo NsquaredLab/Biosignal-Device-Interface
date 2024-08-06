@@ -99,7 +99,7 @@ The values are dictionaries with the following keys:
 
 MUOVI_AVAILABLE_CHANNELS_DICT: dict[DeviceType, dict[DeviceChannelTypes, int]] = {
     DeviceType.OTB_MUOVI: {
-        DeviceChannelTypes.ALL: 70,
+        DeviceChannelTypes.ALL: 38,
         DeviceChannelTypes.BIOSIGNAL: 32,
         DeviceChannelTypes.AUXILIARY: 6,
     },

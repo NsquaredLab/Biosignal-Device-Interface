@@ -1,5 +1,5 @@
 API - Biosignal Device Interface
-==============================================
+*********************************
 
 The device classes are responsible for interfacing to the device and reading the data, 
 while the device widget classes are responsible for displaying the data in a GUI.
