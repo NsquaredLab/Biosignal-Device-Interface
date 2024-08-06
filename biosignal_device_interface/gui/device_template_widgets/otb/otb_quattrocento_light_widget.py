@@ -7,7 +7,7 @@ from biosignal_device_interface.gui.device_template_widgets.core.base_device_wid
 from biosignal_device_interface.gui.ui_compiled.otb_quattrocento_light_template_widget import (
     Ui_QuattrocentoLightForm,
 )
-from biosignal_device_interface.devices import OTBQuattrocentoLight
+from biosignal_device_interface.devices.otb.otb_quattrocento_light import OTBQuattrocentoLight
 
 # Constants
 from biosignal_device_interface.constants.devices.otb.otb_quattrocento_light_constants import (
@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     )
 
 
-class QuattrocentoLightWidget(BaseDeviceWidget):
+class OTBQuattrocentoLightWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
         self._set_device(OTBQuattrocentoLight(self))

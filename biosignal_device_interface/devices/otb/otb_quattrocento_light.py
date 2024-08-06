@@ -110,9 +110,9 @@ class OTBQuattrocentoLight(BaseDevice):
         self._interface.close()
 
     def configure_device(
-        self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
+        self, params: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
     ) -> None:
-        super().configure_device(settings)
+        super().configure_device(params)
 
         # Configure the device
         self._number_of_biosignal_channels = len(self._grids) * self._grid_size
@@ -191,11 +191,11 @@ class OTBQuattrocentoLight(BaseDevice):
                 self._process_data(data_to_process)
                 self._received_bytes = self._received_bytes[self._buffer_size :]
 
-    def _process_data(self, data: bytearray) -> None:
-        super()._process_data(data)
+    def _process_data(self, input: bytearray) -> None:
+        super()._process_data(input)
 
         # Decode the data
-        decoded_data = np.frombuffer(data, dtype=np.int16)
+        decoded_data = np.frombuffer(input, dtype=np.int16)
 
         # Reshape it to the correct format
         processed_data = decoded_data.reshape(

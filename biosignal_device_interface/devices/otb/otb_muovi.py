@@ -126,9 +126,9 @@ class OTBMuovi(BaseDevice):
         return True
 
     def configure_device(
-        self, settings: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
+        self, params: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
     ) -> None:
-        super().configure_device(settings)
+        super().configure_device(params)
 
         if not self._is_connected or self._client_socket is None:
             return
@@ -233,10 +233,10 @@ class OTBMuovi(BaseDevice):
                 self._process_data(data_to_process)
                 self._received_bytes = self._received_bytes[self._buffer_size :]
 
-    def _process_data(self, data: bytearray) -> None:
-        super()._process_data(data)
+    def _process_data(self, input: bytearray) -> None:
+        super()._process_data(input)
 
-        decoded_data = self._bytes_to_integers(data)
+        decoded_data = self._bytes_to_integers(input)
 
         processed_data = decoded_data.reshape(
             self._number_of_channels, -1, order="F"

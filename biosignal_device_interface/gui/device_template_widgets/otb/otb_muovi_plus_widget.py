@@ -7,7 +7,7 @@ from biosignal_device_interface.gui.device_template_widgets.core.base_device_wid
 from biosignal_device_interface.gui.ui_compiled.otb_muovi_template_widget import (
     Ui_MuoviForm,
 )
-from biosignal_device_interface.devices import OTBMuovi
+from biosignal_device_interface.devices.otb.otb_muovi import OTBMuovi
 
 # Constants
 from biosignal_device_interface.constants.devices.otb.otb_muovi_constants import (
@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     )
 
 
-class OTBMuoviWidget(BaseDeviceWidget):
+class OTBMuoviPlusWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
 

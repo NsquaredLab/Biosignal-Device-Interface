@@ -1,9 +1,15 @@
 # Import Devices to be used from biosignal_device_interface.devices
 # import Muovi, MindRoveBracelet, Quattrocento, QuattrocentoLight, ...
 
-# OTB Devices
-from biosignal_device_interface.devices.otb.otb_quattrocento_light import (
-    OTBQuattrocento,
+from biosignal_device_interface.devices.otb import (
+    OTBMuoviWidget,
+    OTBMuoviPlusWidget,
+    OTBQuattrocentoLightWidget,
+    OTBMuovi,
     OTBQuattrocentoLight,
+    OTBDevicesWidget,
 )
-from biosignal_device_interface.devices.otb.otb_muovi import OTBMuovi
+
+from biosignal_device_interface.gui.device_template_widgets.all_devices_widget import (
+    AllDevicesWidget,
+)

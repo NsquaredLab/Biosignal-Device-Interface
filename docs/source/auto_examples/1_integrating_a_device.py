@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 import sys
 
 from biosignal_device_interface.gui.device_template_widgets import (
-    QuattrocentoLightWidget,
+    OTBQuattrocentoLightWidget,
 )
 
 if TYPE_CHECKING:
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Main Window with One Device")
 
         # Instantiate the QuattrocentoLightWidget
-        muovi_widget = QuattrocentoLightWidget(self)
+        muovi_widget = OTBQuattrocentoLightWidget(self)
 
         # Connect the signals of the widget to the main window
         muovi_widget.data_arrived.connect(self._update)
