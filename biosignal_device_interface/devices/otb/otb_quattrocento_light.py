@@ -207,29 +207,5 @@ class OTBQuattrocentoLight(BaseDevice):
         self.biosignal_data_available.emit(self._extract_biosignal_data(processed_data))
         self.auxiliary_data_available.emit(self._extract_auxiliary_data(processed_data))
 
-    def get_device_information(self) -> Dict[str, Enum | int | float | str]:
+    def get_device_information(self) -> Dict[str, Enum | int | float | str]:  # type: ignore
         return super().get_device_information()
-
-
-class OTBQuattrocento(BaseDevice):
-    """
-    Quattrocento device class derived from BaseDevice class.
-
-    The Quattrocento class is using a TCP/IP protocol to communicate with the device.
-    """
-
-    def __init__(
-        self,
-        parent: Union[QMainWindow, QWidget] = None,
-    ) -> None:
-        super().__init__(parent)
-
-        # Device Parameters
-        self._device_type: DeviceType = DeviceType.OTB_QUATTROCENTO
-
-        # Device Information
-        self._conversion_factor_biosignal: float = 5 / (2**16) / 150 * 1000
-        self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5
-
-        # Connection Parameters
-        self._interface: QTcpSocket = QTcpSocket()
