@@ -1,0 +1,612 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="API - Documentation" href="../api_documentation.html" /><link rel="prev" title="Integrating all devices and a biosignal plot in your own software." href="3_integrating_device_interface_and_biosignal_plot.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Integrating a device in your own software. - biosignal-device-interface 0.1.12b documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">biosignal-device-interface 0.1.12b documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">biosignal-device-interface 0.1.12b documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Getting Started</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="1_integrating_a_device.html">Integrating a device in your own software.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_integrating_multiple_devices.html">Integrating all available device in your own software.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_integrating_device_interface_and_biosignal_plot.html">Integrating all devices and a biosignal plot in your own software.</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Integrating a device in your own software.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_documentation.html">API - Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API - Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/devices/core/base_device.html">Base Device (Core)</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Base Device (Core)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/devices/core/code/device/code_base_device.html">BaseDevice(QObject)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/devices/core/code/constants/base_device_constants.html">BaseDevice Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/devices/otb/otb.html">OT Bioelettronica</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of OT Bioelettronica</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/devices/otb/otb_muovi.html">OT Bioelettronica - Muovi</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of OT Bioelettronica - Muovi</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/devices/otb/code/device/code_otb_muovi.html">OTBMuovi(BaseDevice)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/devices/otb/code/constants/otb_muovi_constants.html">OT Bioelettronica - Muovi Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/devices/otb/otb_quattrocento_light.html">OT Bioelettronica - Quattrocento Light</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of OT Bioelettronica - Quattrocento Light</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/devices/otb/code/device/code_otb_quattrocento_light.html">OTBQuattrocentoLight(BaseDevice)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/devices/otb/code/constants/otb_quattrocento_light_constants.html">OT Bioelettronica - Quattrocento Light Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/devices/otb/code/constants/otb_constants.html">OT Bioelettronica Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/device_widgets/device_widgets.html">Device Widgets</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Device Widgets</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/core/base_device_widget.html">BaseDeviceWidget(QWidget)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/core/base_multiple_device_widget.html">BaseMultipleDeviceWidget(QWidget)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/otb/device/otb_muovi_widget.html">MuoviWidget(BaseDeviceWidget)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/otb/device/otb_muovi_plus_widget.html">MuoviPlusWidget(BaseDeviceWidget)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/otb/device/otb_quattrocento_light_widget.html">QuattrocentoLightWidget(BaseDeviceWidget)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/all_devices_widget.html">AllDevicesWidget(BaseMultipleDeviceWidget)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/device_widgets/otb/otb_devices_widget.html">OTBDevicesWidget(BaseMultipleDeviceWidget)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/auto_examples/4_implementing_new_device.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-4-implementing-new-device-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="integrating-a-device-in-your-own-software">
+<span id="sphx-glr-auto-examples-4-implementing-new-device-py"></span><h1>Integrating a device in your own software.<a class="headerlink" href="#integrating-a-device-in-your-own-software" title="Link to this heading">¶</a></h1>
+<p>This example…</p>
+<p>%% Step 1.1: Add device type to the DeviceType Enum in biosignal_device_interface.constants.devices.base_device_constants.py.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aenum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+
+
+<span class="k">class</span> <span class="nc">DeviceType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum class for the different available devices.</span>
+<span class="sd">    Add new devices here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_init_</span> <span class="o">=</span> <span class="s2">&quot;value __doc__&quot;</span>
+    <span class="n">OTB_QUATTROCENTO_LIGHT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;OT Bioelettronica Quattrocento Light&quot;</span>
+    <span class="n">OTB_MUOVI</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;OT Bioelettronica Muovi&quot;</span>
+    <span class="n">OTB_MUOVI_PLUS</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;OT Bioelettronica Muovi Plus&quot;</span>
+    <span class="c1"># Add new device here</span>
+    <span class="n">MANU_MYNAMEDEVICE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;Manufacturer MyNameDevice&quot;</span>
+</pre></div>
+</div>
+<p>The file name should be the name of the manufacturer and the device, e.g., manu_mydevicename.py.
+The file should contain the device class that inherits from the BaseDevice class.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING" title="typing.TYPE_CHECKING" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">TYPE_CHECKING</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/typing.html#typing.Union" title="typing.Union" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Union</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/typing.html#typing.Dict" title="typing.Dict" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Dict</span></a>
+<span class="kn">from</span> <span class="nn">biosignal_device_interface.devices.core.base_device</span> <span class="kn">import</span> <span class="n">BaseDevice</span>
+<span class="kn">from</span> <span class="nn">biosignal_device_interface.constants.devices.core.base_device_constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DeviceType</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING" title="typing.TYPE_CHECKING" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">TYPE_CHECKING</span></a><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html#PySide6.QtWidgets.QMainWindow" title="PySide6.QtWidgets.QMainWindow" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QMainWindow</span></a><span class="p">,</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidget.html#PySide6.QtWidgets.QWidget" title="PySide6.QtWidgets.QWidget" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QWidget</span></a>
+    <span class="kn">from</span> <span class="nn">PySide6.QtNetwork</span> <span class="kn">import</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QTcpServer.html#PySide6.QtNetwork.QTcpServer" title="PySide6.QtNetwork.QTcpServer" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QTcpServer</span></a><span class="p">,</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QTcpSocket.html#PySide6.QtNetwork.QTcpSocket" title="PySide6.QtNetwork.QTcpSocket" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QTcpSocket</span></a><span class="p">,</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QUdpSocket.html#PySide6.QtNetwork.QUdpSocket" title="PySide6.QtNetwork.QUdpSocket" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QUdpSocket</span></a>
+    <span class="kn">from</span> <span class="nn">PySide6.QtSerialPort</span> <span class="kn">import</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtSerialPort/QSerialPort.html#PySide6.QtSerialPort.QSerialPort" title="PySide6.QtSerialPort.QSerialPort" class="sphx-glr-backref-module-PySide6-QtSerialPort sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QSerialPort</span></a>
+    <span class="kn">from</span> <span class="nn">aenum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+
+<span class="k">class</span> <span class="nc">MANUMyNameDevice</span><span class="p">(</span><span class="n">BaseDevice</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Union" title="typing.Union" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Union</span></a><span class="p">[</span><a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html#PySide6.QtWidgets.QMainWindow" title="PySide6.QtWidgets.QMainWindow" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QMainWindow</span></a><span class="p">,</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidget.html#PySide6.QtWidgets.QWidget" title="PySide6.QtWidgets.QWidget" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QWidget</span></a><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_type</span><span class="p">:</span> <span class="n">DeviceType</span> <span class="o">=</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">MANU_MYNAMEDEVICE</span>
+
+        <span class="c1"># Device Information</span>
+        <span class="c1"># TODO: Add fixed device information here</span>
+
+        <span class="c1"># Connection Parameters -&gt; Add parameters that are needed to connect to the device.</span>
+        <span class="c1"># self._interface is the variable that either server sockets or client socket or a serial connection.</span>
+        <span class="c1"># If self._interface serves as a server socket, a self._client_socket variable should be added.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interface</span><span class="p">:</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QTcpServer.html#PySide6.QtNetwork.QTcpServer" title="PySide6.QtNetwork.QTcpServer" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QTcpServer</span></a> <span class="o">|</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QTcpSocket.html#PySide6.QtNetwork.QTcpSocket" title="PySide6.QtNetwork.QTcpSocket" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QTcpSocket</span></a> <span class="o">|</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QUdpSocket.html#PySide6.QtNetwork.QUdpSocket" title="PySide6.QtNetwork.QUdpSocket" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QUdpSocket</span></a> <span class="o">|</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtSerialPort/QSerialPort.html#PySide6.QtSerialPort.QSerialPort" title="PySide6.QtSerialPort.QSerialPort" class="sphx-glr-backref-module-PySide6-QtSerialPort sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QSerialPort</span></a> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="c1"># Optional</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_socket</span><span class="p">:</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QTcpSocket.html#PySide6.QtNetwork.QTcpSocket" title="PySide6.QtNetwork.QTcpSocket" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QTcpSocket</span></a> <span class="o">|</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtNetwork/QUdpSocket.html#PySide6.QtNetwork.QUdpSocket" title="PySide6.QtNetwork.QUdpSocket" class="sphx-glr-backref-module-PySide6-QtNetwork sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QUdpSocket</span></a> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Configuration parameters</span>
+        <span class="c1"># TODO: Add configuration parameters here</span>
+        <span class="c1"># Example:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_frequency_mode</span><span class="p">:</span> <span class="n">Enum</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="c1"># ..note:: Import your device class in the __init__.py file in the biosignal_device_interface/devices/ directory for more accessible imports.</span>
+</pre></div>
+</div>
+<p>Some methods need to call the super() method.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MANUMyNameDevice</span><span class="p">(</span><span class="n">BaseDevice</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Union" title="typing.Union" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Union</span></a><span class="p">[</span><a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html#PySide6.QtWidgets.QMainWindow" title="PySide6.QtWidgets.QMainWindow" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QMainWindow</span></a><span class="p">,</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidget.html#PySide6.QtWidgets.QWidget" title="PySide6.QtWidgets.QWidget" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QWidget</span></a><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="c1"># See Step 1.2</span>
+
+    <span class="k">def</span> <span class="nf">_connect_to_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_make_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_disconnect_from_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_disconnect_from_device</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">configure_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Dict" title="typing.Dict" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Dict</span></a><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <a href="https://docs.python.org/3/library/typing.html#typing.Union" title="typing.Union" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Union</span></a><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <a href="https://docs.python.org/3/library/typing.html#typing.Dict" title="typing.Dict" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Dict</span></a><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">configure_device</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_start_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_start_streaming</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_stop_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_stop_streaming</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">clear_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>By inheriting from the BaseDevice class, the new device class has to emit the following Signals:</p>
+<ul class="simple">
+<li><p>data_arrived: Signal = Signal(np.ndarray) -&gt; Emitted when new data (all channels) is available. Typically emitted in _process_data.</p></li>
+<li><p>biosignal_data_arrived: Signal = Signal(np.ndarray) -&gt; Emitted when new biosignal data is available. Typically emitted in _process_data.</p></li>
+<li><p>auxiliary_data_arrived: Signal = Signal(np.ndarray) -&gt; Emitted when new auxiliary data is available. Typically emitted in _process_data.</p></li>
+<li><dl class="simple">
+<dt>connect_toggled: Signal = Signal(bool) -&gt; Emitted when the connection state of the device changes.</dt><dd><p>Typically emitted in _make_request and _disconnect_from_device (_disconnect_from_device is already implemented).
+Emit could also be happen in _read_data when response from device is validating connection.</p>
+</dd>
+</dl>
+</li>
+<li><p>configure_toggled: Signal = Signal(bool) -&gt; Emitted when the configuration state of the device changes. Typically emitted in configure_device.</p></li>
+<li><dl class="simple">
+<dt>stream_toggled: Signal = Signal(bool) -&gt; Emitted when the streaming state of the device changes. Typically emitted in _start_streaming and _stop_streaming.</dt><dd><p>Both are already implemented.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>%% Step 1.5: Implement the device configuration parameters as enums and use dictionaries to get correct values.
+Regarding the different configuration options, enums and dictionaries should be used to define the possible values.
+These constants should be defined in biosignal_device_interface/constants/devices/manu_mydevicename_constants.py.</p>
+<p>Example: Quattrocento Light device configuration parameters</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyNameDeviceSamplingFrequency</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum class for the sampling frequencies of the Quattrocento Light device.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_init_</span> <span class="o">=</span> <span class="s2">&quot;value __doc__&quot;</span>
+
+    <span class="n">LOW</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;512 Hz&quot;</span>
+    <span class="n">MEDIUM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;2048 Hz&quot;</span>
+    <span class="n">HIGH</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;5120 Hz&quot;</span>
+    <span class="n">ULTRA</span> <span class="o">=</span> <span class="n">auto</span><span class="p">(),</span> <span class="s2">&quot;10240 Hz&quot;</span>
+
+
+<span class="n">MY_NAME_DEVICE_SAMPLING_FREQUENCY_DICT</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">MyNameDeviceSamplingFrequency</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">MyNameDeviceSamplingFrequency</span><span class="o">.</span><span class="n">LOW</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="n">MyNameDeviceSamplingFrequency</span><span class="o">.</span><span class="n">MEDIUM</span><span class="p">:</span> <span class="mi">2048</span><span class="p">,</span>
+    <span class="n">MyNameDeviceSamplingFrequency</span><span class="o">.</span><span class="n">HIGH</span><span class="p">:</span> <span class="mi">5120</span><span class="p">,</span>
+    <span class="n">MyNameDeviceSamplingFrequency</span><span class="o">.</span><span class="n">ULTRA</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Dictionary to get sampling frequency for each mode.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># How to use that in configure_device(self, params: Dict[str, Union[Enum, Dict[str, Enum]]]) -&gt; None:</span>
+<span class="c1"># Example params (should be defined in your software or using the template_widgets):</span>
+<span class="c1"># .. note:: Even though the configuration parameter is initialized as a private variable with self._my_param, do not use the underscore in the dictionary key.</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;sampling_frequency_mode&quot;</span><span class="p">:</span> <span class="n">MyNameDeviceSamplingFrequency</span><span class="o">.</span><span class="n">LOW</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">MANUMyNameDevice</span><span class="p">(</span><span class="n">BaseDevice</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Union" title="typing.Union" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Union</span></a><span class="p">[</span><a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html#PySide6.QtWidgets.QMainWindow" title="PySide6.QtWidgets.QMainWindow" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QMainWindow</span></a><span class="p">,</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidget.html#PySide6.QtWidgets.QWidget" title="PySide6.QtWidgets.QWidget" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QWidget</span></a><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="c1"># See Step 1.2</span>
+
+        <span class="c1"># Configuration parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_frequency_mode</span><span class="p">:</span> <span class="n">Enum</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">configure_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <a href="https://docs.python.org/3/library/typing.html#typing.Dict" title="typing.Dict" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Dict</span></a><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <a href="https://docs.python.org/3/library/typing.html#typing.Union" title="typing.Union" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">Union</span></a><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <a href="https://docs.python.org/3/library/typing.html#typing.Dict" title="typing.Dict" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Dict</span></a><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Super call automatically sets the parameters to your device attributes.</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">configure_device</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Get the actual value of your configuration mode from the dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_frequency</span> <span class="o">=</span> <span class="n">MY_NAME_DEVICE_SAMPLING_FREQUENCY_DICT</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_frequency_mode</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<p>Typically such methods are needed to properly decode the data from the device.</p>
+<p>Preferably, design the GUI in Qt Designer and compile it to a Python file afterwards.
+The QT Designer file should be saved in the biosignal_device_interface/gui/ui/ directory.
+The compiled .py file should be saved in the biosignal_device_interface/gui/ui_compiled/ directory.</p>
+<p>The device widget is the graphical representation of the device in the Biosignal-Device-Interface.
+The device widget should inherit from the BaseDeviceWidget class.
+The device widget file should be implemented in the biosignal_device_interface/gui/device_template_widgets/ directory.
+The device widget file should be implemented with the name of the manufacturer and the device, e.g., manu_mydevicename_widget.</p>
+<p>Import the necessary libraries and classes.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING" title="typing.TYPE_CHECKING" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">TYPE_CHECKING</span></a>
+
+<span class="kn">from</span> <span class="nn">biosignal_device_interface.gui.device_template_widgets.core.base_device_widget</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseDeviceWidget</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># TODO: Import the compiled UI file from the biosignal_device_interface/gui/ui_compiled/ directory.</span>
+<span class="kn">from</span> <span class="nn">biosignal_device_interface.gui.ui_compiled.manu_mydevicename_widget</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Ui_MyDeviceNameForm</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># TODO: Import the device class from the biosignal_device_interface/devices/ directory.</span>
+<span class="kn">from</span> <span class="nn">biosignal_device_interface.devices</span> <span class="kn">import</span> <span class="n">MANUMyNameDevice</span>
+
+<span class="c1"># Constants</span>
+<span class="c1"># TODO: Implement your device constants here</span>
+
+<span class="k">if</span> <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING" title="typing.TYPE_CHECKING" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-data"><span class="n">TYPE_CHECKING</span></a><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span>
+        <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html#PySide6.QtWidgets.QMainWindow" title="PySide6.QtWidgets.QMainWindow" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QMainWindow</span></a><span class="p">,</span>
+        <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidget.html#PySide6.QtWidgets.QWidget" title="PySide6.QtWidgets.QWidget" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QWidget</span></a><span class="p">,</span>
+        <span class="n">QGroupBox</span><span class="p">,</span>
+        <span class="n">QPushButton</span><span class="p">,</span>
+        <span class="n">QComboBox</span><span class="p">,</span>
+        <span class="n">QLabel</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># The device widget should inherit from the BaseDeviceWidget class.</span>
+<span class="c1"># The device widget should implement the necessary methods to connect, configure, and stream the device.</span>
+<span class="k">class</span> <span class="nc">MANUMyNameDeviceWidget</span><span class="p">(</span><span class="n">BaseDeviceWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QWidget.html#PySide6.QtWidgets.QWidget" title="PySide6.QtWidgets.QWidget" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QWidget</span></a> <span class="o">|</span> <a href="https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QMainWindow.html#PySide6.QtWidgets.QMainWindow" title="PySide6.QtWidgets.QMainWindow" class="sphx-glr-backref-module-PySide6-QtWidgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QMainWindow</span></a> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="c1"># Set the device to the device widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_device</span><span class="p">(</span><span class="n">MANUMyNameDevice</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_toggle_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># TODO: Call self.device.toggle_connection() with the necessary connection parameters.</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_connection_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_connected</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Implement the connection toggled method that is called when the connection state changes.</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_toggle_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># TODO: Call self.device.configure_device(self._device_params) with the necessary configuration parameters.</span>
+        <span class="c1"># Get the configuration parameters from the UI.</span>
+        <span class="c1"># QComboBox recommended for multiple options.</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_configuration_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_configured</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Implement the configuration toggled method that is called when the configuration state changes.</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_toggle_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># TODO: Call self.device.toggle_streaming().</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_streaming_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_streaming</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Implement the streaming toggled method</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_device_params</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Example: Set the default sampling frequency mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;sampling_frequency_mode&quot;</span><span class="p">:</span> <span class="n">MyNameDeviceSamplingFrequency</span><span class="o">.</span><span class="n">MEDIUM</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Instantiate your UI class and set it up</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_MyDeviceNameForm</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Implement the necessary UI elements and link their signals here.</span>
+</pre></div>
+</div>
+<p><strong>Estimated memory usage:</strong>  0 MB</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-4-implementing-new-device-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/ae60512a78b6b2a0b6be8248a230a9d7/4_implementing_new_device.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">4_implementing_new_device.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/3a51b005e49df49355bdbacf042c2c80/4_implementing_new_device.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">4_implementing_new_device.py</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../api_documentation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API - Documentation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="3_integrating_device_interface_and_biosignal_plot.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Integrating all devices and a biosignal plot in your own software.</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023 - 2024, n-squared lab, FAU Erlangen-Nürnberg, Germany
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=878cd4f3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>
