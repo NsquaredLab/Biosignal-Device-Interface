@@ -10,7 +10,7 @@ from biosignal_device_interface.gui.ui_compiled.otb_muovi_template_widget import
 from biosignal_device_interface.devices import OTBMuovi
 
 # Constants
-from biosignal_device_interface.constants.devices.otb_muovi_constants import (
+from biosignal_device_interface.constants.devices.otb.otb_muovi_constants import (
     MuoviWorkingMode,
     MuoviDetectionMode,
     MUOVI_NETWORK_PORT,

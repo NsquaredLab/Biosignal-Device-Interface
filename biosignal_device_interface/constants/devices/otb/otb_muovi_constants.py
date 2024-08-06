@@ -115,8 +115,8 @@ MUOVI_AVAILABLE_CHANNELS_DICT: dict[DeviceType, dict[DeviceChannelTypes, int]] =
 """
 
 MUOVI_CONVERSION_FACTOR_DICT: dict[MuoviDetectionMode, int] = {
-    MuoviDetectionMode.MONOPOLAR_GAIN_8: 572.2e-9,
-    MuoviDetectionMode.MONOPOLAR_GAIN_4: 286.1e-9,
+    MuoviDetectionMode.MONOPOLAR_GAIN_8: 572.2e-6,
+    MuoviDetectionMode.MONOPOLAR_GAIN_4: 286.1e-6,
 }
 """
 Dictionary to get the gain of the Muovi detection mode. \\

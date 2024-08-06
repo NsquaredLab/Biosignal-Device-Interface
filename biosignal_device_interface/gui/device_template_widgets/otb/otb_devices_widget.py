@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     )
 
 
-class AllDevicesWidget(BaseMultipleDevicesWidget):
+class OTBDevicesWidget(BaseMultipleDevicesWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
 
