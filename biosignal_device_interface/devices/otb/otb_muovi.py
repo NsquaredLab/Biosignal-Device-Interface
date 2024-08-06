@@ -173,14 +173,6 @@ class OTBMuovi(BaseDevice):
             self._number_of_channels * self._samples_per_frame * self._bytes_per_sample
         )
 
-        print(
-            self._buffer_size,
-            self._number_of_channels,
-            self._samples_per_frame,
-            self._bytes_per_sample,
-            self._device_type,
-        )
-
         self._received_bytes = bytearray()
 
         self._configure_command()
