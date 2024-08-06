@@ -9,7 +9,7 @@ Biosignal Signal Interface
 .. toctree::
    :maxdepth: 1
 
-   Getting Started with Biosignal Device Interface <README.md>
+   Getting Started <README.md>
    auto_examples/index.rst
    api_documentation.rst
 

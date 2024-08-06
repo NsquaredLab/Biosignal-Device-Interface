@@ -10,9 +10,8 @@ from typing import TYPE_CHECKING
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout
 import sys
 
-from biosignal_device_interface.gui.device_template_widgets.all_devices_widget import (
-    AllDevicesWidget,
-)
+from biosignal_device_interface.devices import AllDevicesWidget
+
 from biosignal_device_interface.gui.plot_widgets.biosignal_plot_widget import (
     BiosignalPlotWidget,
 )

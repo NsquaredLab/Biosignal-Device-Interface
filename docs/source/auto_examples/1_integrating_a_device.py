@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 from PySide6.QtWidgets import QApplication, QMainWindow
 import sys
 
-from biosignal_device_interface.gui.device_template_widgets import (
+from biosignal_device_interface.devices import (
     OTBQuattrocentoLightWidget,
 )
 

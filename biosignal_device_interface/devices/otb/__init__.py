@@ -1,5 +1,4 @@
 from biosignal_device_interface.devices.otb.otb_quattrocento_light import (
-    OTBQuattrocento,
     OTBQuattrocentoLight,
 )
 from biosignal_device_interface.devices.otb.otb_muovi import OTBMuovi

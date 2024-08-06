@@ -1,4 +1,4 @@
-API - Biosignal Device Interface
+API - Documentation
 *********************************
 
 The device classes are responsible for interfacing to the device and reading the data, 
