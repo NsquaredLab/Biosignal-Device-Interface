@@ -14,12 +14,14 @@ The base device must be inherited by all other devices. It is the base class for
 .. toctree::
     :maxdepth: 1
 
-    modules/devices/core
+    modules/devices/core/base_device.rst
+
+Available devices are listed in the following section:
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
-    modules/devices
+    modules/devices/otb/otb.rst
 
 
 

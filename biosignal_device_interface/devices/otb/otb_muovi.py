@@ -19,7 +19,7 @@ from biosignal_device_interface.constants.devices.core.base_device_constants imp
 )
 
 # Constants
-from biosignal_device_interface.constants.devices.otb_muovi_constants import (
+from biosignal_device_interface.constants.devices.otb.otb_muovi_constants import (
     MUOVI_CONVERSION_FACTOR_DICT,
     MuoviWorkingMode,
     MuoviDetectionMode,

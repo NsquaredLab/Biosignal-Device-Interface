@@ -1,6 +1,8 @@
-OT Bioelettronica Devices
-==============================
+OT Bioelettronica
+==================
 
-.. automodule:: biosignal_device_interface.devices.otb
-    :members:
-    :show-inheritance:
+.. toctree::
+    :maxdepth: 21
+
+    modules/devices/otb/muovi.rst
+    modules/devices/otb/quattrocento.rst
