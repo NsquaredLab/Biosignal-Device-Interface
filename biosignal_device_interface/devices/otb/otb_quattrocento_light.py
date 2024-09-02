@@ -167,14 +167,13 @@ class OTBQuattrocentoLight(BaseDevice):
         super()._read_data()
 
         # Wait for connection response
-        if not self._is_connected:
-            if self._interface.bytesAvailable() == len(CONNECTION_RESPONSE):
-                if self._interface.readAll() == CONNECTION_RESPONSE:
-
-                    self._is_connected = True
-                    self.connect_toggled.emit(True)
-                    return
-
+        if not self._is_connected and (
+            self._interface.bytesAvailable() == len(CONNECTION_RESPONSE)
+            and self._interface.readAll() == CONNECTION_RESPONSE
+        ):
+            self._is_connected = True
+            self.connect_toggled.emit(True)
+            return
         if not self._is_streaming:
             self.clear_socket()
             return
@@ -204,8 +203,11 @@ class OTBQuattrocentoLight(BaseDevice):
 
         # Emit the data
         self.data_available.emit(processed_data)
-        self.biosignal_data_available.emit(self._extract_biosignal_data(processed_data))
-        self.auxiliary_data_available.emit(self._extract_auxiliary_data(processed_data))
+
+        biosignal_data = self._extract_biosignal_data(processed_data)
+        self.biosignal_data_available.emit(biosignal_data)
+        auxiliary_data = self._extract_auxiliary_data(processed_data)
+        self.auxiliary_data_available.emit(auxiliary_data)
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:  # type: ignore
         return super().get_device_information()

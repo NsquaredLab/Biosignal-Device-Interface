@@ -95,12 +95,12 @@ class BiosignalPlotWidget(QWidget):
     def configure(
         self,
         lines: int,
-        sampling_freuqency: int = 2000,
+        sampling_frequency: int = 2000,
         display_time: int = 10,
         background_color: np.ndarray = np.array([18.0, 18.0, 18.0, 1]),
     ):
         self.number_of_lines = lines
-        self.external_sampling_frequency = sampling_freuqency
+        self.external_sampling_frequency = sampling_frequency
 
         if (
             self.external_sampling_frequency

@@ -247,13 +247,10 @@ class BaseDevice(QObject):
             np.ndarray:
                 Extracted biosignal channels.
         """
-
+        biosignal_data = data[self._biosignal_channel_indices]
         if milli_volts:
-            return (
-                data[self._biosignal_channel_indices]
-                * self._conversion_factor_biosignal
-            )
-        return data[self._biosignal_channel_indices]
+            return biosignal_data * self._conversion_factor_biosignal
+        return biosignal_data
 
     def _extract_auxiliary_data(
         self, data: np.ndarray, milli_volts: bool = True

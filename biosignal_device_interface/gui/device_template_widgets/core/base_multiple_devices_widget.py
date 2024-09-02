@@ -49,9 +49,6 @@ class BaseMultipleDevicesWidget(QWidget):
 
         self.device_stacked_widget = self.ui.deviceStackedWidget
         self.device_selection_combo_box = self.ui.deviceSelectionComboBox
-        self.device_selection_combo_box.currentIndexChanged.connect(
-            self._update_stacked_widget
-        )
 
     def get_device_information(self) -> Dict[str, Union[str, int]]:
         return self._get_current_widget().get_device_information()
@@ -76,13 +73,16 @@ class BaseMultipleDevicesWidget(QWidget):
                 current_widget.stream_toggled.disconnect(self.stream_toggled)
 
             except (TypeError, RuntimeError):
-                pass
+                ...
 
         self.device_stacked_widget.setCurrentIndex(index)
         current_widget = self._get_current_widget()
 
+        # Data arrived
         current_widget.data_arrived.connect(self.data_arrived.emit)
+        # Biosignal data arrived
         current_widget.biosignal_data_arrived.connect(self.biosignal_data_arrived.emit)
+        # Auxiliary data arrived
         current_widget.auxiliary_data_arrived.connect(self.auxiliary_data_arrived.emit)
 
         current_widget.connect_toggled.connect(self.connect_toggled)
@@ -97,6 +97,9 @@ class BaseMultipleDevicesWidget(QWidget):
             self.device_selection_combo_box.addItem(DEVICE_NAME_DICT[device_type])
 
         self._update_stacked_widget(0)
+        self.device_selection_combo_box.currentIndexChanged.connect(
+            self._update_stacked_widget
+        )
 
     def _get_current_widget(self) -> BaseDeviceWidget:
         return self.device_stacked_widget.currentWidget()
