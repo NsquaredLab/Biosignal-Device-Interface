@@ -67,6 +67,7 @@ class MainWindow(QMainWindow):
         self.biosignal_plot.configure(
             lines=biosignal_channels,
             sampling_frequency=sampling_frequency,
+            line_height=200,
             display_time=10,
         )
 
