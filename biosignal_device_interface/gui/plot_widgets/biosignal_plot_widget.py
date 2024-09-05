@@ -96,11 +96,15 @@ class BiosignalPlotWidget(QWidget):
         self,
         lines: int,
         sampling_frequency: int = 2000,
+        plot_sampling_frequency: int | None = None,
         display_time: int = 10,
+        line_height: int = 50,
         background_color: np.ndarray = np.array([18.0, 18.0, 18.0, 1]),
     ):
         self.number_of_lines = lines
         self.external_sampling_frequency = sampling_frequency
+        if plot_sampling_frequency is not None:
+            self.internal_sampling_frequency_threshold = plot_sampling_frequency
 
         if (
             self.external_sampling_frequency
@@ -129,7 +133,7 @@ class BiosignalPlotWidget(QWidget):
         )
 
         self.space_for_each_line = min(
-            int(self.max_texture_size // self.number_of_lines // 1.5), 50
+            int(self.max_texture_size // self.number_of_lines // 1.5), line_height
         )
 
         self.canvas.configure(
