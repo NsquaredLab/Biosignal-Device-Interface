@@ -93,7 +93,7 @@ Examples of how you can use this package can be found in our [examples gallery](
 <!-- LICENSE -->
 ## License
 
-Distributed under the CC BY-SA 4.0 License. See `LICENSE.txt` for more information.
+Distributed under the GPL-3.0 license License. See `LICENSE.txt` for more information.
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
