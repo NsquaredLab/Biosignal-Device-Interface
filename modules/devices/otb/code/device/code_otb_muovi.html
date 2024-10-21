@@ -299,7 +299,7 @@ Last Update: 2024-06-05</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parent</strong> (<em>Union</em><em>[</em><em>QMainWindow</em><em>, </em><em>QWidget</em><em>]</em><em>, </em><em>optional</em>) – Parent widget to which the device is assigned to.
 Defaults to None.</p></li>
-<li><p><strong>is_muovi_plus</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – True if the device is a Muovi Plus, False if not.</p></li>
+<li><p><strong>is_muovi_plus</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – True if the device is a Muovi Plus, False if not.</p></li>
 </ul>
 </dd>
 </dl>
@@ -309,7 +309,7 @@ Defaults to None.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parent</strong> (<em>Union</em><em>[</em><em>QMainWindow</em><em>, </em><em>QWidget</em><em>]</em><em>, </em><em>optional</em>) – Parent widget. Defaults to None.</p></li>
-<li><p><strong>is_muovi_plus</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Boolean to initialize the Muovi device as Muovi+ (64 biosignal channels) or Muovi (32 biosignal channels). Defaults to False (Muovi).</p></li>
+<li><p><strong>is_muovi_plus</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Boolean to initialize the Muovi device as Muovi+ (64 biosignal channels) or Muovi (32 biosignal channels). Defaults to False (Muovi).</p></li>
 </ul>
 </dd>
 </dl>
@@ -322,7 +322,7 @@ Defaults to None.</p></li>
 <dd class="field-odd"><p>Success of the connection attempt.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -339,7 +339,7 @@ Signal connected_signal emits False.</p>
 <dd class="field-odd"><p>Success of the disconnection attempt.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -355,7 +355,7 @@ and sets the current state is_connected to True.</p>
 <dd class="field-odd"><p>Returns True if request was successfully. False if not.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -377,7 +377,7 @@ configuration_available_signal that emits the current parameters
 in a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytearray" title="(in Python v3.12)"><em>bytearray</em></a>) – Bytearray of the transmitted raw data.</p>
+<dd class="field-odd"><p><strong>input</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytearray" title="(in Python v3.13)"><em>bytearray</em></a>) – Bytearray of the transmitted raw data.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -450,7 +450,7 @@ biosignal_device_interface/constants/{device}.py.</p>
 <p>E.g., enums/sessantaquattro.py</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>params</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Enum</em><em>, </em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Enum</em><em>]</em><em>]</em><em>]</em>) – <p>Dictionary that holds the configuration settings
+<dd class="field-odd"><p><strong>params</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Enum</em><em>, </em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Enum</em><em>]</em><em>]</em><em>]</em>) – <p>Dictionary that holds the configuration settings
 to which the device should be configured to.</p>
 <p>The first one should be the attributes (configuration mode) name,
 and the second its respective value. Orient yourself on the
