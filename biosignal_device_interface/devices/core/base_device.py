@@ -395,6 +395,8 @@ class BaseDevice(QObject):
                     or "wifi" in interface.lower()
                     or "wireless" in interface.lower()
                     or "en0" in interface.lower()
+                    or "wlp" in interface.lower()
+                    or "wln" in interface.lower()
                 ):
                     for address in addresses:
                         # Check if the address is an IPv4 address and not a loopback or virtual address
