@@ -19,3 +19,6 @@ from biosignal_device_interface.gui.device_template_widgets.otb.otb_muovi_plus_w
 from biosignal_device_interface.gui.device_template_widgets.otb.otb_quattrocento_light_widget import (
     OTBQuattrocentoLightWidget,
 )
+from biosignal_device_interface.gui.device_template_widgets.otb.otb_syncstation_widget import (
+    OTBSyncStationWidget,
+)

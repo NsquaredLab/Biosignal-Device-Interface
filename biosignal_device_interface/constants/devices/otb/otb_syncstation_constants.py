@@ -221,3 +221,13 @@ PROBE_CHARACTERISTICS_DICT: Dict[
         DeviceChannelTypes.AUXILIARY: 6,
     },
 }
+
+SYNCSTATION_CONVERSION_FACTOR_DICT: dict[SyncStationDetectionMode, int] = {
+    SyncStationDetectionMode.MONOPOLAR_GAIN_HIGH: 572.2e-6,
+    SyncStationDetectionMode.MONOPOLAR_GAIN_LOW: 286.1e-6,
+}
+"""
+Dictionary to get the gain of the Muovi detection mode. \\
+The keys are the detection modes of the Muovi device. \\
+The values are the gain of the detection mode in V.
+"""

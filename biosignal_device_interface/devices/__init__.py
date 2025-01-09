@@ -7,6 +7,7 @@ from biosignal_device_interface.devices.otb import (
     OTBQuattrocentoLightWidget,
     OTBMuovi,
     OTBQuattrocentoLight,
+    OTBSyncStationWidget,
     OTBDevicesWidget,
 )
 

@@ -15,6 +15,7 @@ import numpy as np
 from biosignal_device_interface.constants.devices.otb.otb_syncstation_constants import (
     PROBE_CHARACTERISTICS_DICT,
     SYNCSTATION_CHARACTERISTICS_DICT,
+    SYNCSTATION_CONVERSION_FACTOR_DICT,
     SyncStationDetectionMode,
     SyncStationProbeConfigMode,
     SyncStationRecOnMode,
@@ -87,6 +88,10 @@ class OTBSyncStation(BaseDevice):
             self._disconnect_from_device()
             return False
 
+        self._is_connected = True
+        self.connect_toggled.emit(True)
+        print("Connected to SyncStation")
+
         self._interface.readyRead.connect(self._read_data)
         return True
 
@@ -97,19 +102,26 @@ class OTBSyncStation(BaseDevice):
         self._interface.readyRead.disconnect(self._read_data)
         self._interface.close()
 
+        self._is_connected = False
+        self.connect_toggled.emit(False)
+
     def configure_device(self, params) -> None:
         super().configure_device(params)
 
         success = self._configure_byte_sequence_A()
 
         if not success:
+            print("Unable to configure device.")
             return
 
         self._send_configuration_to_device()
 
+        self._is_configured = True
+        self.configure_toggled.emit(True)
+
     def _configure_byte_sequence_A(self) -> None:
         start_byte = 0
-        start_byte += self._rec_on_mode.value << 6
+        start_byte += (self._rec_on_mode.value - 1) << 6
 
         self._sampling_frequency = SYNCSTATION_CHARACTERISTICS_DICT[
             "channel_information"
@@ -129,10 +141,10 @@ class OTBSyncStation(BaseDevice):
 
         for key, value in self._bytes_configuration_A.items():
             probe_command = 0
-            probe_command += key.value << 4
-            probe_command += value["working_mode"].value << 3
-            probe_command += value["detection_mode"].value << 1
-            probe_command += value["probe_status"].value
+            probe_command += (key.value - 1) << 4
+            probe_command += (self._working_mode.value - 1) << 3
+            probe_command += (value["detection_mode"].value - 1) << 1
+            probe_command += int(value["probe_status"])
 
             if value["probe_status"]:
                 self._configuration_command_A.append(probe_command)
@@ -161,6 +173,12 @@ class OTBSyncStation(BaseDevice):
                 self._number_of_channels += channels
                 self._number_of_biosignal_channels += biosignal_channels
                 self._number_of_auxiliary_channels += auxiliary_channels
+
+        self._conversion_factor_biosignal = SYNCSTATION_CONVERSION_FACTOR_DICT[
+            value["detection_mode"]
+        ]
+        self._conversion_factor_auxiliary = self._conversion_factor_biosignal
+
         self._biosignal_channel_indices = np.hstack(self._biosignal_channel_indices)
         self._auxiliary_channel_indices = np.hstack(self._auxiliary_channel_indices)
         self._number_of_bytes = self._number_of_channels * self._bytes_per_sample
@@ -189,8 +207,12 @@ class OTBSyncStation(BaseDevice):
         num_probes = len(self._configuration_command_A)
         start_byte += num_probes << 1
         self._configuration_command_A.insert(0, start_byte)
-        start_byte_ckc8 = self._crc_check(self._configuration_command_A)
+        start_byte_ckc8 = self._crc_check(
+            self._configuration_command_A, len(self._configuration_command_A)
+        )
         self._configuration_command_A.append(start_byte_ckc8)
+
+        return True
 
     def _crc_check(self, command_bytes: bytearray, command_length: int) -> bytes:
         """
@@ -242,6 +264,9 @@ class OTBSyncStation(BaseDevice):
         ...
 
     def _send_configuration_to_device(self) -> None:
+        print(
+            f"Device configuration sent: {[int.from_bytes(self._configuration_command_A[i : i + 1], 'big') for i in range(len(self._configuration_command_A))]}"
+        )
         self._interface.write(self._configuration_command_A)
 
     def _stop_streaming(self):
@@ -286,13 +311,13 @@ class OTBSyncStation(BaseDevice):
                 if not packet_bytearray:
                     return
 
-                self.received_bytes.extend(packet_bytearray)
+                self._received_bytes.extend(packet_bytearray)
 
-                while len(self.received_bytes) >= self._samples_per_frame:
+                while len(self._received_bytes) >= self._samples_per_frame:
                     self._process_data(
-                        bytearray(self.received_bytes)[: self._samples_per_frame]
+                        bytearray(self._received_bytes)[: self._samples_per_frame]
                     )
-                    self.received_bytes = bytearray(self.received_bytes)[
+                    self._received_bytes = bytearray(self._received_bytes)[
                         self._samples_per_frame :
                     ]
 
@@ -321,7 +346,7 @@ class OTBSyncStation(BaseDevice):
         samples = self._samples_per_frame // self._number_of_bytes
         frame_data = np.zeros((self._number_of_channels, samples), dtype=np.float32)
         channels_to_read = 0
-        for device in SyncStationProbeConfigMode:
+        for device in list(SyncStationProbeConfigMode)[1:]:
             if self._bytes_configuration_A[device]["probe_status"]:
                 channel_number = PROBE_CHARACTERISTICS_DICT[device][
                     DeviceChannelTypes.ALL

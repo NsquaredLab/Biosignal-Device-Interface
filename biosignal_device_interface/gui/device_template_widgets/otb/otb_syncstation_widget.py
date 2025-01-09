@@ -44,7 +44,6 @@ class OTBSyncStationWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
         self._set_device(OTBSyncStation(self))
-        self._initialize_ui()
 
     def _toggle_connection(self):
         if not self._device._is_connected:
@@ -116,74 +115,6 @@ class OTBSyncStationWidget(BaseDeviceWidget):
             self._input_group_box.setEnabled(True)
 
         self.stream_toggled.emit(is_streaming)
-
-    def _configure_probes_dict(self) -> None:
-        return {
-            SyncStationProbeConfigMode.MUOVI_PROBE_ONE: {
-                "probe_status": self.ui.muoviProbeOneEnableCheckBox,
-                "detection_mode": self.ui.muoviProbeOneDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.MUOVI_PROBE_TWO: {
-                "probe_status": self.ui.muoviProbeTwoEnableCheckBox,
-                "detection_mode": self.ui.muoviProbeTwoDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.MUOVI_PROBE_THREE: {
-                "probe_status": self.ui.muoviProbeThreeEnableCheckBox,
-                "detection_mode": self.ui.muoviProbeThreeDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.MUOVI_PROBE_FOUR: {
-                "probe_status": self.ui.muoviProbeFourEnableCheckBox,
-                "detection_mode": self.ui.muoviProbeFourDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.MUOVI_PLUS_PROBE_ONE: {
-                "probe_status": self.ui.muoviPlusProbeOneEnableCheckBox,
-                "detection_mode": self.ui.muoviPlusProbeOneDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.MUOVI_PLUS_PROBE_TWO: {
-                "probe_status": self.ui.muoviPlusProbeTwoEnableCheckBox,
-                "detection_mode": self.ui.muoviPlusProbeTwoDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_ONE: {
-                "probe_status": self.ui.duePlusProbeOneEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeOneDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_TWO: {
-                "probe_status": self.ui.duePlusProbeTwoEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeTwoDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_THREE: {
-                "probe_status": self.ui.duePlusProbeThreeEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeThreeDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_FOUR: {
-                "probe_status": self.ui.duePlusProbeFourEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeFourDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_FIVE: {
-                "probe_status": self.ui.duePlusProbeFiveEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeFiveDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_SIX: {
-                "probe_status": self.ui.duePlusProbeSixEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeSixDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_SEVEN: {
-                "probe_status": self.ui.duePlusProbeSevenEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeSevenDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_EIGHT: {
-                "probe_status": self.ui.duePlusProbeEightEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeEightDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_NINE: {
-                "probe_status": self.ui.duePlusProbeNineEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeNineDetectionModeComboBox,
-            },
-            SyncStationProbeConfigMode.DUE_PLUS_PROBE_TEN: {
-                "probe_status": self.ui.duePlusProbeTenEnableCheckBox,
-                "detection_mode": self.ui.duePlusProbeTenDetectionModeComboBox,
-            },
-        }
 
     def _update_probe_params(self, probe: SyncStationProbeConfigMode, state) -> None:
         self._probes_dict[probe]["detection_mode"].setEnabled(state == 2)
@@ -261,3 +192,71 @@ class OTBSyncStationWidget(BaseDeviceWidget):
             )
 
         self._set_default_probe_params()
+
+    def _configure_probes_dict(self) -> None:
+        return {
+            SyncStationProbeConfigMode.MUOVI_PROBE_ONE: {
+                "probe_status": self.ui.muoviProbeOneEnableCheckBox,
+                "detection_mode": self.ui.muoviProbeOneDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.MUOVI_PROBE_TWO: {
+                "probe_status": self.ui.muoviProbeTwoEnableCheckBox,
+                "detection_mode": self.ui.muoviProbeTwoDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.MUOVI_PROBE_THREE: {
+                "probe_status": self.ui.muoviProbeThreeEnableCheckBox,
+                "detection_mode": self.ui.muoviProbeThreeDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.MUOVI_PROBE_FOUR: {
+                "probe_status": self.ui.muoviProbeFourEnableCheckBox,
+                "detection_mode": self.ui.muoviProbeFourDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.MUOVI_PLUS_PROBE_ONE: {
+                "probe_status": self.ui.muoviPlusProbeOneEnableCheckBox,
+                "detection_mode": self.ui.muoviPlusProbeOneDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.MUOVI_PLUS_PROBE_TWO: {
+                "probe_status": self.ui.muoviPlusProbeTwoEnableCheckBox,
+                "detection_mode": self.ui.muoviPlusProbeTwoDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_ONE: {
+                "probe_status": self.ui.duePlusProbeOneEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeOneDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_TWO: {
+                "probe_status": self.ui.duePlusProbeTwoEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeTwoDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_THREE: {
+                "probe_status": self.ui.duePlusProbeThreeEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeThreeDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_FOUR: {
+                "probe_status": self.ui.duePlusProbeFourEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeFourDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_FIVE: {
+                "probe_status": self.ui.duePlusProbeFiveEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeFiveDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_SIX: {
+                "probe_status": self.ui.duePlusProbeSixEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeSixDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_SEVEN: {
+                "probe_status": self.ui.duePlusProbeSevenEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeSevenDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_EIGHT: {
+                "probe_status": self.ui.duePlusProbeEightEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeEightDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_NINE: {
+                "probe_status": self.ui.duePlusProbeNineEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeNineDetectionModeComboBox,
+            },
+            SyncStationProbeConfigMode.DUE_PLUS_PROBE_TEN: {
+                "probe_status": self.ui.duePlusProbeTenEnableCheckBox,
+                "detection_mode": self.ui.duePlusProbeTenDetectionModeComboBox,
+            },
+        }

@@ -23,40 +23,9 @@ class Ui_SyncStationForm(object):
     def setupUi(self, SyncStationForm):
         if not SyncStationForm.objectName():
             SyncStationForm.setObjectName(u"SyncStationForm")
-        SyncStationForm.resize(354, 616)
+        SyncStationForm.resize(350, 608)
         self.gridLayout = QGridLayout(SyncStationForm)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer_3, 3, 0, 1, 1)
-
-        self.connectionGroupBox = QGroupBox(SyncStationForm)
-        self.connectionGroupBox.setObjectName(u"connectionGroupBox")
-        self.gridLayout_2 = QGridLayout(self.connectionGroupBox)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.label = QLabel(self.connectionGroupBox)
-        self.label.setObjectName(u"label")
-
-        self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
-
-        self.connectionIPAddressLabel = QLabel(self.connectionGroupBox)
-        self.connectionIPAddressLabel.setObjectName(u"connectionIPAddressLabel")
-
-        self.gridLayout_2.addWidget(self.connectionIPAddressLabel, 0, 1, 1, 1)
-
-        self.label_3 = QLabel(self.connectionGroupBox)
-        self.label_3.setObjectName(u"label_3")
-
-        self.gridLayout_2.addWidget(self.label_3, 1, 0, 1, 1)
-
-        self.connectionPortLabel = QLabel(self.connectionGroupBox)
-        self.connectionPortLabel.setObjectName(u"connectionPortLabel")
-
-        self.gridLayout_2.addWidget(self.connectionPortLabel, 1, 1, 1, 1)
-
-
-        self.gridLayout.addWidget(self.connectionGroupBox, 0, 0, 1, 1)
-
         self.inputGroupBox = QGroupBox(SyncStationForm)
         self.inputGroupBox.setObjectName(u"inputGroupBox")
         self.gridLayout_3 = QGridLayout(self.inputGroupBox)
@@ -350,6 +319,37 @@ class Ui_SyncStationForm(object):
 
         self.gridLayout.addWidget(self.commandsGroupBox, 2, 0, 1, 1)
 
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_3, 3, 0, 1, 1)
+
+        self.connectionGroupBox = QGroupBox(SyncStationForm)
+        self.connectionGroupBox.setObjectName(u"connectionGroupBox")
+        self.gridLayout_2 = QGridLayout(self.connectionGroupBox)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.label = QLabel(self.connectionGroupBox)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
+
+        self.connectionIPAddressLabel = QLabel(self.connectionGroupBox)
+        self.connectionIPAddressLabel.setObjectName(u"connectionIPAddressLabel")
+
+        self.gridLayout_2.addWidget(self.connectionIPAddressLabel, 0, 1, 1, 1)
+
+        self.label_3 = QLabel(self.connectionGroupBox)
+        self.label_3.setObjectName(u"label_3")
+
+        self.gridLayout_2.addWidget(self.label_3, 1, 0, 1, 1)
+
+        self.connectionPortLabel = QLabel(self.connectionGroupBox)
+        self.connectionPortLabel.setObjectName(u"connectionPortLabel")
+
+        self.gridLayout_2.addWidget(self.connectionPortLabel, 1, 1, 1, 1)
+
+
+        self.gridLayout.addWidget(self.connectionGroupBox, 0, 0, 1, 1)
+
 
         self.retranslateUi(SyncStationForm)
 
@@ -378,11 +378,6 @@ class Ui_SyncStationForm(object):
 
     def retranslateUi(self, SyncStationForm):
         SyncStationForm.setWindowTitle(QCoreApplication.translate("SyncStationForm", u"SyncStationForm", None))
-        self.connectionGroupBox.setTitle(QCoreApplication.translate("SyncStationForm", u"Connection parameters", None))
-        self.label.setText(QCoreApplication.translate("SyncStationForm", u"IP", None))
-        self.connectionIPAddressLabel.setText(QCoreApplication.translate("SyncStationForm", u"192.168.76.1", None))
-        self.label_3.setText(QCoreApplication.translate("SyncStationForm", u"TextLabel", None))
-        self.connectionPortLabel.setText(QCoreApplication.translate("SyncStationForm", u"54320", None))
         self.inputGroupBox.setTitle(QCoreApplication.translate("SyncStationForm", u"Input Parameters", None))
         self.inputWorkingModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"EEG", None))
         self.inputWorkingModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"EMG", None))
@@ -491,5 +486,10 @@ class Ui_SyncStationForm(object):
         self.commandConnectionPushButton.setText(QCoreApplication.translate("SyncStationForm", u"Connect", None))
         self.commandConfigurationPushButton.setText(QCoreApplication.translate("SyncStationForm", u"Configure", None))
         self.commandStreamPushButton.setText(QCoreApplication.translate("SyncStationForm", u"Stream", None))
+        self.connectionGroupBox.setTitle(QCoreApplication.translate("SyncStationForm", u"Connection parameters", None))
+        self.label.setText(QCoreApplication.translate("SyncStationForm", u"IP", None))
+        self.connectionIPAddressLabel.setText(QCoreApplication.translate("SyncStationForm", u"192.168.76.1", None))
+        self.label_3.setText(QCoreApplication.translate("SyncStationForm", u"TextLabel", None))
+        self.connectionPortLabel.setText(QCoreApplication.translate("SyncStationForm", u"54320", None))
     # retranslateUi
 
