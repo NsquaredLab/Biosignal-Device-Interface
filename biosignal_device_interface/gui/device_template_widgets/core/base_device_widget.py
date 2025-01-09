@@ -36,7 +36,7 @@ class BaseDeviceWidget(QWidget):
         self.parent_widget: QWidget | QMainWindow | None = parent
 
         # Device Setup
-        self.device: BaseDevice | None = None
+        self._device: BaseDevice | None = None
         self._device_params: Dict[str, Union[str, int, float]] = {}
 
         # GUI setup
@@ -90,16 +90,16 @@ class BaseDeviceWidget(QWidget):
     def _set_device(self, device: BaseDevice) -> None:
         """ """
         # Device Setup
-        self.device: BaseDevice = device
+        self._device: BaseDevice = device
         self._initialize_device_params()
         self._set_signals()
         self._initialize_ui()
 
     def _set_signals(self) -> None:
         """ """
-        self.device.data_available.connect(self.data_arrived.emit)
-        self.device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
-        self.device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
+        self._device.data_available.connect(self.data_arrived.emit)
+        self._device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
+        self._device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """
@@ -110,12 +110,12 @@ class BaseDeviceWidget(QWidget):
                 Dictionary that holds information about the
                 current device configuration and status.
         """
-        return self.device.get_device_information()
+        return self._device.get_device_information()
 
     def disconnect_device(self) -> None:
         """ """
-        if self.device._is_connected or self.device._is_streaming:
-            self.device.toggle_connection()
+        if self._device._is_connected or self._device._is_streaming:
+            self._device.toggle_connection()
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.disconnect_device()

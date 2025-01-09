@@ -7,7 +7,9 @@ from biosignal_device_interface.gui.device_template_widgets.core.base_device_wid
 from biosignal_device_interface.gui.ui_compiled.otb_quattrocento_light_template_widget import (
     Ui_QuattrocentoLightForm,
 )
-from biosignal_device_interface.devices.otb.otb_quattrocento_light import OTBQuattrocentoLight
+from biosignal_device_interface.devices.otb.otb_quattrocento_light import (
+    OTBQuattrocentoLight,
+)
 
 # Constants
 from biosignal_device_interface.constants.devices.otb.otb_quattrocento_light_constants import (
@@ -33,10 +35,10 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
         self._set_device(OTBQuattrocentoLight(self))
 
     def _toggle_connection(self) -> None:
-        if not self.device._is_connected:
+        if not self._device._is_connected:
             self.connect_push_button.setEnabled(False)
 
-        self.device.toggle_connection(
+        self._device.toggle_connection(
             (self.connection_ip_label.text(), int(self.connection_port_label.text())),
         )
 
@@ -74,7 +76,7 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
             )
         )
 
-        self.device.configure_device(self._device_params)
+        self._device.configure_device(self._device_params)
 
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
@@ -88,7 +90,7 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
 
     def _toggle_stream(self) -> None:
         self.stream_push_button.setEnabled(False)
-        self.device.toggle_streaming()
+        self._device.toggle_streaming()
 
     def _stream_toggled(self, is_streaming: bool) -> None:
         self.stream_push_button.setEnabled(True)
@@ -119,17 +121,17 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
         # Command Push Buttons
         self.connect_push_button: QPushButton = self.ui.commandConnectionPushButton
         self.connect_push_button.clicked.connect(self._toggle_connection)
-        self.device.connect_toggled.connect(self._connection_toggled)
+        self._device.connect_toggled.connect(self._connection_toggled)
 
         self.configure_push_button: QPushButton = self.ui.commandConfigurationPushButton
         self.configure_push_button.clicked.connect(self._toggle_configuration)
         self.configure_push_button.setEnabled(False)
-        self.device.configure_toggled.connect(self._configuration_toggled)
+        self._device.configure_toggled.connect(self._configuration_toggled)
 
         self.stream_push_button: QPushButton = self.ui.commandStreamPushButton
         self.stream_push_button.clicked.connect(self._toggle_stream)
         self.stream_push_button.setEnabled(False)
-        self.device.stream_toggled.connect(self._stream_toggled)
+        self._device.stream_toggled.connect(self._stream_toggled)
 
         # Connection parameters
         self.connection_group_box: QGroupBox = self.ui.connectionGroupBox

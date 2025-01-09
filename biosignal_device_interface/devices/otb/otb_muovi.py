@@ -1,4 +1,3 @@
-# Python Libraries
 """
 Device class for real-time interfacing the Muovi device.
 Developer: Dominik I. Braun

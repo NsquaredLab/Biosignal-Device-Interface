@@ -34,10 +34,10 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
         self._set_device(OTBMuovi(parent=self, is_muovi_plus=True))
 
     def _toggle_connection(self) -> None:
-        if not self.device._is_connected:
+        if not self._device._is_connected:
             self.connect_push_button.setEnabled(False)
 
-        self.device.toggle_connection(
+        self._device.toggle_connection(
             (
                 self.connection_ip_combo_box.currentText(),
                 int(self.connection_port_label.text()),
@@ -68,7 +68,7 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
             self.input_detection_mode_combo_box.currentIndex() + 1
         )
 
-        self.device.configure_device(self._device_params)
+        self._device.configure_device(self._device_params)
 
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
@@ -82,7 +82,7 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
 
     def _toggle_stream(self) -> None:
         self.stream_push_button.setEnabled(False)
-        self.device.toggle_streaming()
+        self._device.toggle_streaming()
 
     def _stream_toggled(self, is_streaming: bool) -> None:
         self.stream_push_button.setEnabled(True)
@@ -112,17 +112,17 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
         # Command Push Buttons
         self.connect_push_button: QPushButton = self.ui.commandConnectionPushButton
         self.connect_push_button.clicked.connect(self._toggle_connection)
-        self.device.connect_toggled.connect(self._connection_toggled)
+        self._device.connect_toggled.connect(self._connection_toggled)
 
         self.configure_push_button: QPushButton = self.ui.commandConfigurationPushButton
         self.configure_push_button.clicked.connect(self._toggle_configuration)
         self.configure_push_button.setEnabled(False)
-        self.device.configure_toggled.connect(self._configuration_toggled)
+        self._device.configure_toggled.connect(self._configuration_toggled)
 
         self.stream_push_button: QPushButton = self.ui.commandStreamPushButton
         self.stream_push_button.clicked.connect(self._toggle_stream)
         self.stream_push_button.setEnabled(False)
-        self.device.stream_toggled.connect(self._stream_toggled)
+        self._device.stream_toggled.connect(self._stream_toggled)
 
         # Connection parameters
         self.connection_group_box: QGroupBox = self.ui.connectionGroupBox
@@ -135,13 +135,13 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
             lambda: (
                 self.connection_ip_combo_box.clear(),
                 self.connection_ip_combo_box.addItems(
-                    self.device.get_server_wifi_ip_address()
+                    self._device.get_server_wifi_ip_address()
                 ),
             )
         )
 
         self.connection_ip_combo_box.clear()
-        self.connection_ip_combo_box.addItems(self.device.get_server_wifi_ip_address())
+        self.connection_ip_combo_box.addItems(self._device.get_server_wifi_ip_address())
 
         self.connection_port_label.setText(str(MUOVI_NETWORK_PORT))
 
