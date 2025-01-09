@@ -322,9 +322,7 @@ class OTBSyncStation(BaseDevice):
                     ]
 
     def _process_data(self, input: bytearray) -> None:
-        super()._process_data(input)
-
-        data = np.ndarray = np.frombuffer(input, dtype=np.uint8).astype(np.float32)
+        data: np.ndarray = np.frombuffer(input, dtype=np.uint8).astype(np.float32)
 
         samples = self._samples_per_frame // self._number_of_bytes
         data = np.reshape(data, (samples, self._number_of_bytes)).T
