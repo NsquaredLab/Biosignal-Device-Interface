@@ -1,9 +1,6 @@
 """
-1)  Quattrocento Light class for real-time interface to 
-    Quattrocento using OT Biolab Light.
-
-2)  Quattrocento class for direct real-time interface to 
-    Quattrocento without using OT Biolab Light.
+Quattrocento Light class for real-time interface to 
+Quattrocento using OT Biolab Light.
 
 Developer: Dominik I. Braun
 Contact: dome.braun@fau.de

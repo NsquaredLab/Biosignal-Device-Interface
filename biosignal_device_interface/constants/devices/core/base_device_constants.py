@@ -16,6 +16,7 @@ class DeviceType(Enum):
     """
 
     _init_ = "value __doc__"
+    OTB_QUATTROCENTO = auto(), "OT Bioelettronica Quattrocento"
     OTB_QUATTROCENTO_LIGHT = auto(), "OT Bioelettronica Quattrocento Light"
     OTB_MUOVI = auto(), "OT Bioelettronica Muovi"
     OTB_MUOVI_PLUS = auto(), "OT Bioelettronica Muovi Plus"
@@ -28,6 +29,9 @@ class OTBDeviceType(Enum):
     Add new devices here.
     """
 
+    _init_ = "value __doc__"
+
+    QUATTROCENTO = auto(), "Quattrocento"
     QUATTROCENTO_LIGHT = auto(), "Quattrocento Light"
     MUOVI = auto(), "Muovi"
     MUOVI_PLUS = auto(), "Muovi Plus"
@@ -44,6 +48,8 @@ class DeviceChannelTypes(Enum):
 
 ############# CONSTANTS #############
 DEVICE_NAME_DICT: dict[DeviceType | OTBDeviceType, str] = {
+    DeviceType.OTB_QUATTROCENTO: "Quattrocento",
+    OTBDeviceType.QUATTROCENTO: "Quattrocento",
     DeviceType.OTB_QUATTROCENTO_LIGHT: "Quattrocento Light",
     OTBDeviceType.QUATTROCENTO_LIGHT: "Quattrocento Light",
     DeviceType.OTB_MUOVI: "Muovi",
