@@ -20,6 +20,10 @@ from biosignal_device_interface.constants.devices.core.base_device_constants imp
     DeviceType,
 )
 from biosignal_device_interface.constants.devices.otb.otb_quattrocento_constants import (
+    QUATTROCENTO_AUXILIARY_CHANNELS,
+    QUATTROCENTO_BYTES_PER_SAMPLE,
+    QUATTROCENTO_SAMPLES_PER_FRAME,
+    QUATTROCENTO_SUPPLEMENTARY_CHANNELS,
     QuattrocentoAcqSettByte,
     QuattrocentoINXConf2Byte,
     QuattrocentoRecordingMode,
@@ -81,6 +85,8 @@ class OTBQuattrocento(BaseDevice):
         self._multiple_input_four_configuration: QuattrocentoINXConf2Byte = (
             QuattrocentoINXConf2Byte()
         )
+        self._grid_size: int = 64  # TODO: This is only valid for the big electrodes
+        self._grids: list[int] | None = None
 
         self._configuration_command: bytearray = bytearray(40)
 
@@ -103,8 +109,8 @@ class OTBQuattrocento(BaseDevice):
 
         self._interface.readyRead.connect(self._read_data)
 
-        self._is_connected = True
-        self.connect_toggled.emit(self._is_connected)
+        self.is_connected = True
+        self.connect_toggled.emit(self.is_connected)
 
         return True
 
@@ -114,23 +120,6 @@ class OTBQuattrocento(BaseDevice):
         self._interface.disconnectFromHost()
         self._interface.readyRead.disconnect(self._read_data)
         self._interface.close()
-
-    def _update_configuration_parameters(
-        self, params: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
-    ) -> None:
-        """
-        Overwrite the base class method to update the configuration parameters
-        """
-        for key, value in params.items():
-            key = f"_{key}"
-            if hasattr(self, key):
-                setattr(self, key, value)
-            else:
-                print(
-                    f"Attribute '{key}' not found in the class of {self._device_type.name}",
-                )
-
-        # TODO: Update Config Byte classes depending on input
 
     def configure_device(
         self, params: Dict[str, Union[Enum, Dict[str, Enum]]]  # type: ignore
@@ -142,52 +131,87 @@ class OTBQuattrocento(BaseDevice):
             self._acq_sett_configuration.get_number_of_channels()
         )
 
+        self._configuration_command = bytearray(40)
         # Configure the device
         # Byte 1: ACQ_SETT
-        self._configuration_command[0] = bytes(self._acq_sett_configuration)
+        self._configuration_command[0] = int(self._acq_sett_configuration)
 
         # Byte 2: Configure AN_OUT_IN_SEL
-        self._configuration_command[1] = bytes(0)  # TODO:
+        self._configuration_command[1] = 0  # TODO:
 
         # Byte 3: Configure AN_OUT_CH_SEL
-        self._configuration_command[2] = bytes(0)  # TODO:
+        self._configuration_command[2] = 0  # TODO:
 
         # Byte 4-15: Configure IN1-4 -> TODO: change that to individual configuration
         for i in range(4):
-            self._configuration_command[3 + i * 3 : 3 + i * 3 + 3] = bytes(
-                self._input_top_left_configuration
-            )
+            config = int(self._input_top_left_configuration)
+            self._configuration_command[3 + i * 3] = (config >> 16) & 0xFF
+            self._configuration_command[4 + i * 3] = (config >> 8) & 0xFF
+            self._configuration_command[5 + i * 3] = config & 0xFF
 
         # Byte 16-27: Configure IN5-8 -> TODO: change that to individual configuration
         for i in range(4):
-            self._configuration_command[15 + i * 3 : 15 + i * 3 + 3] = bytes(
-                self._input_top_right_configuration
-            )
+            config = int(self._input_top_right_configuration)
+            self._configuration_command[15 + i * 3] = (config >> 16) & 0xFF
+            self._configuration_command[16 + i * 3] = (config >> 8) & 0xFF
+            self._configuration_command[17 + i * 3] = config & 0xFF
 
         # Byte 28-30: Configure MULTIPLE IN 1
-        self._configuration_command[27:30] = bytes(
-            self._multiple_input_one_configuration
-        )
+        config = int(self._multiple_input_one_configuration)
+        self._configuration_command[27] = (config >> 16) & 0xFF
+        self._configuration_command[28] = (config >> 8) & 0xFF
+        self._configuration_command[29] = config & 0xFF
 
         # Byte 31-33: Configure MULTIPLE IN 2
-        self._configuration_command[30:33] = bytes(
-            self._multiple_input_two_configuration
-        )
+        config = int(self._multiple_input_two_configuration)
+        self._configuration_command[30] = (config >> 16) & 0xFF
+        self._configuration_command[31] = (config >> 8) & 0xFF
+        self._configuration_command[32] = config & 0xFF
 
         # Byte 34-36: Configure MULTIPLE IN 3
-        self._configuration_command[33:36] = bytes(
-            self._multiple_input_three_configuration
-        )
+        config = int(self._multiple_input_three_configuration)
+        self._configuration_command[33] = (config >> 16) & 0xFF
+        self._configuration_command[34] = (config >> 8) & 0xFF
+        self._configuration_command[35] = config & 0xFF
 
         # Byte 37-39: Configure MULTIPLE IN 4
-        self._configuration_command[36:39] = bytes(
-            self._multiple_input_four_configuration
-        )
+        config = int(self._multiple_input_four_configuration)
+        self._configuration_command[36] = (config >> 16) & 0xFF
+        self._configuration_command[37] = (config >> 8) & 0xFF
+        self._configuration_command[38] = config & 0xFF
 
         # Control Byte
         self._configuration_command[39] = self._crc_check(
             self._configuration_command, 39
         )
+
+        self._number_of_channels = (
+            len(self._grids) * self._grid_size
+            + QUATTROCENTO_AUXILIARY_CHANNELS
+            + QUATTROCENTO_SUPPLEMENTARY_CHANNELS
+        )
+
+        self._number_of_biosignal_channels = len(self._grids) * self._grid_size
+        self._biosignal_channel_indices = np.array(
+            [
+                i * self._grid_size + j
+                for i in self._grids
+                for j in range(self._grid_size)
+            ]
+        )
+        self._number_of_auxiliary_channels = QUATTROCENTO_AUXILIARY_CHANNELS
+        self._auxiliary_channel_indices = np.arange(
+            self._number_of_streamed_channels
+            - self._number_of_auxiliary_channels
+            - QUATTROCENTO_SUPPLEMENTARY_CHANNELS,
+            self._number_of_streamed_channels - QUATTROCENTO_SUPPLEMENTARY_CHANNELS,
+        )
+
+        self._samples_per_frame = QUATTROCENTO_SAMPLES_PER_FRAME
+        self._bytes_per_sample = QUATTROCENTO_BYTES_PER_SAMPLE
+        self._buffer_size = (
+            self._number_of_streamed_channels * self._bytes_per_sample
+        ) * self._samples_per_frame
 
         self._send_configuration_to_device()
 
@@ -242,6 +266,9 @@ class OTBQuattrocento(BaseDevice):
         if success == -1:
             print("Error while sending configuration to device")
 
+        self._is_configured = True
+        self.configure_toggled.emit(self._is_configured)
+
     def _stop_streaming(self) -> None:
         super()._stop_streaming()
 
@@ -290,11 +317,16 @@ class OTBQuattrocento(BaseDevice):
         super()._process_data(input)
 
         data = np.frombuffer(input, dtype="<i2")
-        reshaped_data = data.reshape((self._number_of_streamed_channels, -1), order="F")
+        reshaped_data = data.reshape(
+            (self._number_of_streamed_channels, -1), order="F"
+        ).astype(np.float32)
 
+        biosignal_data = self._extract_biosignal_data(reshaped_data)
+        auxiliary_data = self._extract_auxiliary_data(reshaped_data)
+        supplementary_data = reshaped_data[-QUATTROCENTO_SUPPLEMENTARY_CHANNELS:]
         # TODO: Slice the data to get only selected channels
-        processed_data = reshaped_data[self._number_of_channels, :].astype(np.float32)
+        processed_data = np.vstack((biosignal_data, auxiliary_data, supplementary_data))
 
         self.data_available.emit(processed_data)
-        self.biosignal_data_available.emit(self._extract_biosignal_data(processed_data))
-        self.auxiliary_data_available.emit(self._extract_auxiliary_data(processed_data))
+        self.biosignal_data_available.emit(biosignal_data)
+        self.auxiliary_data_available.emit(auxiliary_data)

@@ -96,7 +96,7 @@ class QuattrocentoNumberOfChannelsMode(Enum):
     ULTRA = auto(), "IN1-IN8, MULTIPLE_IN1-MULTIPLE_IN4 are active."
 
 
-class QuattrocentoAcquisition(Enum):
+class QuattrocentoAcquisitionMode(Enum):
     """
     Enum class for the acquisition bit.
     """
@@ -119,7 +119,9 @@ class QuattrocentoAcqSettByte:
         self._sampling_frequency: int = None
         self._number_of_channels_mode: QuattrocentoNumberOfChannelsMode = None
         self._number_of_channels: int = None
-        self._acquisition_mode: QuattrocentoAcquisition = None
+        self._acquisition_mode: QuattrocentoAcquisitionMode = (
+            QuattrocentoAcquisitionMode
+        ).INACTIVE
 
     def update(
         self,
@@ -127,13 +129,11 @@ class QuattrocentoAcqSettByte:
         recording_mode: QuattrocentoRecordingMode,
         sampling_frequency_mode: QuattrocentoSamplingFrequencyMode,
         number_of_channels_mode: QuattrocentoNumberOfChannelsMode,
-        acquisition_mode: QuattrocentoAcquisition,
     ):
         self._decimation_mode = decimation_mode
         self._recording_mode = recording_mode
         self._sampling_frequency_mode = sampling_frequency_mode
         self._number_of_channels_mode = number_of_channels_mode
-        self._acquisition_mode = acquisition_mode
 
         self._configure()
 
@@ -175,7 +175,7 @@ class QuattrocentoAcqSettByte:
     def get_number_of_channels(self) -> int:
         return self._number_of_channels
 
-    def __bytes__(self):
+    def __int__(self):
         acq_sett_byte = 1 << 7
         acq_sett_byte += (self._decimation_mode.value - 1) << 6
         acq_sett_byte += (self._recording_mode.value - 1) << 5
@@ -183,7 +183,7 @@ class QuattrocentoAcqSettByte:
         acq_sett_byte += (self._number_of_channels_mode.value - 1) << 1
         acq_sett_byte += self._acquisition_mode.value - 1
 
-        return bytes(acq_sett_byte)
+        return int(acq_sett_byte)
 
 
 # ---------- AN_OUT_IN_SEL BYTE ----------
@@ -279,7 +279,7 @@ class QuattrocentoINXConf2Byte:
     def __init__(self):
         self._muscle_selection_mode: QuattrocentoMuscleSelectionMode = None
         self._sensor_selection_mode: QuattrocentoSensorSelectionMode = None
-        self._side_mode: QuattrocentoSideMode = None
+        self._side_mode: QuattrocentoSideMode = QuattrocentoSideMode.UNDEFINED
         self._high_pass_filter: QuattrocentoHighPassFilterMode = None
         self._low_pass_filter: QuattrocentoLowPassFilterMode = None
         self._detection_mode: QuattrocentoDetectionMode = None
@@ -294,7 +294,7 @@ class QuattrocentoINXConf2Byte:
         self._low_pass_filter = low_pass_filter
         self._detection_mode = detection_mode
 
-    def __bytes__(self):
+    def __int__(self):
         input_conf_byte_1 = 0  # TODO: Muscle
         input_conf_byte_2 = 0  # TODO: Sensor + Adapter
         input_conf_byte_3 = (self._side_mode.value - 1) << 6
@@ -302,4 +302,12 @@ class QuattrocentoINXConf2Byte:
         input_conf_byte_3 += (self._low_pass_filter.value - 1) << 2
         input_conf_byte_3 += self._detection_mode.value - 1
 
-        return bytes(input_conf_byte_1, input_conf_byte_2, input_conf_byte_3)  # TODO
+        return int(
+            (input_conf_byte_1 << 16) + (input_conf_byte_2 << 8) + input_conf_byte_3
+        )
+
+
+QUATTROCENTO_AUXILIARY_CHANNELS: int = 16
+QUATTROCENTO_SUPPLEMENTARY_CHANNELS: int = 8
+QUATTROCENTO_SAMPLES_PER_FRAME: int = 64
+QUATTROCENTO_BYTES_PER_SAMPLE: int = 2

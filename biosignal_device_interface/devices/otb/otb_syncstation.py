@@ -88,7 +88,7 @@ class OTBSyncStation(BaseDevice):
             self._disconnect_from_device()
             return False
 
-        self._is_connected = True
+        self.is_connected = True
         self.connect_toggled.emit(True)
         print("Connected to SyncStation")
 
@@ -102,7 +102,7 @@ class OTBSyncStation(BaseDevice):
         self._interface.readyRead.disconnect(self._read_data)
         self._interface.close()
 
-        self._is_connected = False
+        self.is_connected = False
         self.connect_toggled.emit(False)
 
     def configure_device(self, params) -> None:

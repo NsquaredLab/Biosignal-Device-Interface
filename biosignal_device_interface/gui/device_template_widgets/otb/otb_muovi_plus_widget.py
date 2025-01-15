@@ -34,7 +34,7 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
         self._set_device(OTBMuovi(parent=self, is_muovi_plus=True))
 
     def _toggle_connection(self) -> None:
-        if not self._device._is_connected:
+        if not self._device.is_connected:
             self.connect_push_button.setEnabled(False)
 
         self._device.toggle_connection(

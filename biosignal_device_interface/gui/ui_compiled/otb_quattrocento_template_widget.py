@@ -88,11 +88,13 @@ class Ui_QuattrocentoForm(object):
         self.inputChannelComboBox.addItem("")
         self.inputChannelComboBox.addItem("")
         self.inputChannelComboBox.setObjectName(u"inputChannelComboBox")
+        self.inputChannelComboBox.setEnabled(False)
 
         self.gridLayout_4.addWidget(self.inputChannelComboBox, 0, 1, 1, 1)
 
         self.inputConfigurationPushButton = QPushButton(self.inputGroupBox)
         self.inputConfigurationPushButton.setObjectName(u"inputConfigurationPushButton")
+        self.inputConfigurationPushButton.setEnabled(False)
 
         self.gridLayout_4.addWidget(self.inputConfigurationPushButton, 4, 1, 1, 1)
 
@@ -165,6 +167,7 @@ class Ui_QuattrocentoForm(object):
 
         self.acquisitionRecordingCheckBox = QCheckBox(self.acquisitionGroupBox)
         self.acquisitionRecordingCheckBox.setObjectName(u"acquisitionRecordingCheckBox")
+        self.acquisitionRecordingCheckBox.setEnabled(False)
 
         self.gridLayout.addWidget(self.acquisitionRecordingCheckBox, 2, 1, 1, 1)
 
@@ -197,7 +200,7 @@ class Ui_QuattrocentoForm(object):
 
         self.gridTwoCheckBox = QCheckBox(self.gridSelectionGroupBox)
         self.gridTwoCheckBox.setObjectName(u"gridTwoCheckBox")
-        self.gridTwoCheckBox.setLayoutDirection(Qt.LeftToRight)
+        self.gridTwoCheckBox.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
 
         self.gridLayout_5.addWidget(self.gridTwoCheckBox, 0, 3, 1, 1)
 

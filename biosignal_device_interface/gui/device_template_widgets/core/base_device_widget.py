@@ -19,6 +19,7 @@ from biosignal_device_interface.devices.core.base_device import BaseDevice
 
 if TYPE_CHECKING:
     from enum import Enum
+    from PySide6.QtWidgets import QLineEdit
 
 
 class BaseDeviceWidget(QWidget):
@@ -114,8 +115,16 @@ class BaseDeviceWidget(QWidget):
 
     def disconnect_device(self) -> None:
         """ """
-        if self._device._is_connected or self._device._is_streaming:
+        if self._device.is_connected or self._device._is_streaming:
             self._device.toggle_connection()
+
+    def _check_ip_input(self, line_edit: QLineEdit, default: str) -> None:
+        if not self._device.check_valid_ip(line_edit.text()):
+            line_edit.setText(default)
+
+    def _check_port_input(self, line_edit: QLineEdit, default: str) -> None:
+        if not self._device.check_valid_port(line_edit.text()):
+            line_edit.setText(default)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.disconnect_device()

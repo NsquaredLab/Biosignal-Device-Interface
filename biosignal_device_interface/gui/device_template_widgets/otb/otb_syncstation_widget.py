@@ -46,7 +46,7 @@ class OTBSyncStationWidget(BaseDeviceWidget):
         self._set_device(OTBSyncStation(self))
 
     def _toggle_connection(self):
-        if not self._device._is_connected:
+        if not self._device.is_connected:
             self._command_connect_push_button.setEnabled(False)
 
         self._device.toggle_connection(
