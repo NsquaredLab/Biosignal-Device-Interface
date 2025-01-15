@@ -90,7 +90,6 @@ class OTBSyncStation(BaseDevice):
 
         self._is_connected = True
         self.connect_toggled.emit(True)
-        print("Connected to SyncStation")
 
         self._interface.readyRead.connect(self._read_data)
         return True
