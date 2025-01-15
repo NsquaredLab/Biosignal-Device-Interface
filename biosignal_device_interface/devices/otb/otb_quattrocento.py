@@ -324,7 +324,7 @@ class OTBQuattrocento(BaseDevice):
         biosignal_data = self._extract_biosignal_data(reshaped_data)
         auxiliary_data = self._extract_auxiliary_data(reshaped_data)
         supplementary_data = reshaped_data[-QUATTROCENTO_SUPPLEMENTARY_CHANNELS:]
-        # TODO: Slice the data to get only selected channels
+
         processed_data = np.vstack((biosignal_data, auxiliary_data, supplementary_data))
 
         self.data_available.emit(processed_data)
