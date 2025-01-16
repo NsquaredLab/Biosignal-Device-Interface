@@ -1,4 +1,3 @@
-# Python Libraries
 """
 Device class for real-time interfacing the Muovi device.
 Developer: Dominik I. Braun
@@ -101,9 +100,9 @@ class OTBMuovi(BaseDevice):
 
             self._client_socket.readyRead.connect(self._read_data)
 
-            if not self._is_connected:
-                self._is_connected = True
-                self.connect_toggled.emit(self._is_connected)
+            if not self.is_connected:
+                self.is_connected = True
+                self.connect_toggled.emit(self.is_connected)
                 self._connection_timeout_timer.stop()
                 return True
 
@@ -130,7 +129,7 @@ class OTBMuovi(BaseDevice):
     ) -> None:
         super().configure_device(params)
 
-        if not self._is_connected or self._client_socket is None:
+        if not self.is_connected or self._client_socket is None:
             return
 
         # Check if detection mode is valid for working mode (Case EEG -> MONOPOLAR_GAIN_4 => MONOPOLAR_GAIN_8)

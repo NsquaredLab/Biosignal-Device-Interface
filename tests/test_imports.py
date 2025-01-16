@@ -91,19 +91,20 @@ class TestApplication(QMainWindow):
         # Individual Widgets
         self.devices_widget: devices.OTBMuoviWidget = devices.OTBMuoviWidget()
         assert (
-            self.devices_widget.device._device_type == DeviceType.OTB_MUOVI
+            self.devices_widget._device._device_type == DeviceType.OTB_MUOVI
         ), "Muovi device type is incorrect."
 
         self.devices_widget: devices.OTBMuoviPlusWidget = devices.OTBMuoviPlusWidget()
         assert (
-            self.devices_widget.device._device_type == DeviceType.OTB_MUOVI_PLUS
+            self.devices_widget._device._device_type == DeviceType.OTB_MUOVI_PLUS
         ), "Muovi Plus device type is incorrect."
 
         self.devices_widget: devices.OTBQuattrocentoLightWidget = (
             devices.OTBQuattrocentoLightWidget()
         )
         assert (
-            self.devices_widget.device._device_type == DeviceType.OTB_QUATTROCENTO_LIGHT
+            self.devices_widget._device._device_type
+            == DeviceType.OTB_QUATTROCENTO_LIGHT
         ), "Quattrocento Light device type is incorrect."
 
 

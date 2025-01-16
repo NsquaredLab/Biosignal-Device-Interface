@@ -7,7 +7,9 @@ from biosignal_device_interface.gui.device_template_widgets.core.base_device_wid
 from biosignal_device_interface.gui.ui_compiled.otb_quattrocento_light_template_widget import (
     Ui_QuattrocentoLightForm,
 )
-from biosignal_device_interface.devices.otb.otb_quattrocento_light import OTBQuattrocentoLight
+from biosignal_device_interface.devices.otb.otb_quattrocento_light import (
+    OTBQuattrocentoLight,
+)
 
 # Constants
 from biosignal_device_interface.constants.devices.otb.otb_quattrocento_light_constants import (
@@ -33,74 +35,74 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
         self._set_device(OTBQuattrocentoLight(self))
 
     def _toggle_connection(self) -> None:
-        if not self.device._is_connected:
-            self.connect_push_button.setEnabled(False)
+        if not self._device.is_connected:
+            self._connect_push_button.setEnabled(False)
 
-        self.device.toggle_connection(
-            (self.connection_ip_label.text(), int(self.connection_port_label.text())),
+        self._device.toggle_connection(
+            (self._connection_ip_label.text(), int(self._connection_port_label.text())),
         )
 
     def _connection_toggled(self, is_connected: bool) -> None:
-        self.connect_push_button.setEnabled(True)
+        self._connect_push_button.setEnabled(True)
         if is_connected:
-            self.connect_push_button.setText("Disconnect")
-            self.connect_push_button.setChecked(True)
-            self.configure_push_button.setEnabled(True)
-            self.connection_group_box.setEnabled(False)
+            self._connect_push_button.setText("Disconnect")
+            self._connect_push_button.setChecked(True)
+            self._configure_push_button.setEnabled(True)
+            self._connection_group_box.setEnabled(False)
         else:
-            self.connect_push_button.setText("Connect")
-            self.connect_push_button.setChecked(False)
-            self.configure_push_button.setEnabled(False)
-            self.stream_push_button.setEnabled(False)
-            self.connection_group_box.setEnabled(True)
+            self._connect_push_button.setText("Connect")
+            self._connect_push_button.setChecked(False)
+            self._configure_push_button.setEnabled(False)
+            self._stream_push_button.setEnabled(False)
+            self._connection_group_box.setEnabled(True)
 
         self.connect_toggled.emit(is_connected)
 
     def _toggle_configuration(self) -> None:
         self._device_params["grids"] = [
             i
-            for i, check_box in enumerate(self.grid_selection_check_box_list)
+            for i, check_box in enumerate(self._grid_selection_check_box_list)
             if check_box.isChecked()
         ]
 
         self._device_params["streaming_frequency_mode"] = (
             QuattrocentoLightStreamingFrequency(
-                self.acquisition_streaming_frequency_combo_box.currentIndex() + 1
+                self._acquisition_streaming_frequency_combo_box.currentIndex() + 1
             )
         )
         self._device_params["sampling_frequency_mode"] = (
             QuattrocentoLightSamplingFrequency(
-                self.acquisition_sampling_frequency_combo_box.currentIndex() + 1
+                self._acquisition_sampling_frequency_combo_box.currentIndex() + 1
             )
         )
 
-        self.device.configure_device(self._device_params)
+        self._device.configure_device(self._device_params)
 
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
-            self.stream_push_button.setEnabled(True)
+            self._stream_push_button.setEnabled(True)
 
         self.configure_toggled.emit(is_configured)
 
     def _toggle_configuration_group_boxes(self) -> None:
-        for group_box in self.configuration_group_boxes:
+        for group_box in self._configuration_group_boxes:
             group_box.setEnabled(not group_box.isEnabled())
 
     def _toggle_stream(self) -> None:
-        self.stream_push_button.setEnabled(False)
-        self.device.toggle_streaming()
+        self._stream_push_button.setEnabled(False)
+        self._device.toggle_streaming()
 
     def _stream_toggled(self, is_streaming: bool) -> None:
-        self.stream_push_button.setEnabled(True)
+        self._stream_push_button.setEnabled(True)
         if is_streaming:
-            self.stream_push_button.setText("Stop Streaming")
-            self.stream_push_button.setChecked(True)
-            self.configure_push_button.setEnabled(False)
+            self._stream_push_button.setText("Stop Streaming")
+            self._stream_push_button.setChecked(True)
+            self._configure_push_button.setEnabled(False)
             self._toggle_configuration_group_boxes()
         else:
-            self.stream_push_button.setText("Stream")
-            self.stream_push_button.setChecked(False)
-            self.configure_push_button.setEnabled(True)
+            self._stream_push_button.setText("Stream")
+            self._stream_push_button.setChecked(False)
+            self._configure_push_button.setEnabled(True)
             self._toggle_configuration_group_boxes()
 
         self.stream_toggled.emit(is_streaming)
@@ -117,37 +119,39 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
         self.ui.setupUi(self)
 
         # Command Push Buttons
-        self.connect_push_button: QPushButton = self.ui.commandConnectionPushButton
-        self.connect_push_button.clicked.connect(self._toggle_connection)
-        self.device.connect_toggled.connect(self._connection_toggled)
+        self._connect_push_button: QPushButton = self.ui.commandConnectionPushButton
+        self._connect_push_button.clicked.connect(self._toggle_connection)
+        self._device.connect_toggled.connect(self._connection_toggled)
 
-        self.configure_push_button: QPushButton = self.ui.commandConfigurationPushButton
-        self.configure_push_button.clicked.connect(self._toggle_configuration)
-        self.configure_push_button.setEnabled(False)
-        self.device.configure_toggled.connect(self._configuration_toggled)
+        self._configure_push_button: QPushButton = (
+            self.ui.commandConfigurationPushButton
+        )
+        self._configure_push_button.clicked.connect(self._toggle_configuration)
+        self._configure_push_button.setEnabled(False)
+        self._device.configure_toggled.connect(self._configuration_toggled)
 
-        self.stream_push_button: QPushButton = self.ui.commandStreamPushButton
-        self.stream_push_button.clicked.connect(self._toggle_stream)
-        self.stream_push_button.setEnabled(False)
-        self.device.stream_toggled.connect(self._stream_toggled)
+        self._stream_push_button: QPushButton = self.ui.commandStreamPushButton
+        self._stream_push_button.clicked.connect(self._toggle_stream)
+        self._stream_push_button.setEnabled(False)
+        self._device.stream_toggled.connect(self._stream_toggled)
 
         # Connection parameters
-        self.connection_group_box: QGroupBox = self.ui.connectionGroupBox
-        self.connection_ip_label: QLabel = self.ui.connectionIPLabel
-        self.connection_port_label: QLabel = self.ui.connectionPortLabel
+        self._connection_group_box: QGroupBox = self.ui.connectionGroupBox
+        self._connection_ip_label: QLabel = self.ui.connectionIPLabel
+        self._connection_port_label: QLabel = self.ui.connectionPortLabel
 
         # Acquisition parameters
-        self.acquisition_group_box: QGroupBox = self.ui.acquisitionGroupBox
-        self.acquisition_sampling_frequency_combo_box: QComboBox = (
+        self._acquisition_group_box: QGroupBox = self.ui.acquisitionGroupBox
+        self._acquisition_sampling_frequency_combo_box: QComboBox = (
             self.ui.acquisitionSamplingFrequencyComboBox
         )
-        self.acquisition_streaming_frequency_combo_box: QComboBox = (
+        self._acquisition_streaming_frequency_combo_box: QComboBox = (
             self.ui.acquisitionStreamingFrequencyComboBox
         )
 
         # Grid parameters
-        self.grid_selection_group_box: QGroupBox = self.ui.gridSelectionGroupBox
-        self.grid_selection_check_box_list: list[QCheckBox] = [
+        self._grid_selection_group_box: QGroupBox = self.ui.gridSelectionGroupBox
+        self._grid_selection_check_box_list: list[QCheckBox] = [
             self.ui.gridOneCheckBox,
             self.ui.gridTwoCheckBox,
             self.ui.gridThreeCheckBox,
@@ -158,13 +162,13 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
 
         [
             check_box.setChecked(False)
-            for check_box in self.grid_selection_check_box_list
+            for check_box in self._grid_selection_check_box_list
         ]
-        self.grid_selection_check_box_list[2].setChecked(True)
-        self.grid_selection_check_box_list[3].setChecked(True)
+        self._grid_selection_check_box_list[2].setChecked(True)
+        self._grid_selection_check_box_list[3].setChecked(True)
 
         # Configuration parameters
-        self.configuration_group_boxes: list[QGroupBox] = [
-            self.acquisition_group_box,
-            self.grid_selection_group_box,
+        self._configuration_group_boxes: list[QGroupBox] = [
+            self._acquisition_group_box,
+            self._grid_selection_group_box,
         ]

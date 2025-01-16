@@ -73,7 +73,7 @@ class BaseDevice(QObject):
         self._connection_timeout_timer.setInterval(1000)
 
         # Device Status
-        self._is_connected: bool = False
+        self.is_connected: bool = False
         self._is_configured: bool = False
         self._is_streaming: bool = False
 
@@ -114,7 +114,7 @@ class BaseDevice(QObject):
             bool:
                 Success of the disconnection attempt.
         """
-        self._is_connected = False
+        self.is_connected = False
         self.connect_toggled.emit(False)
         self._is_configured = False
         self.configure_toggled.emit(False)
@@ -299,7 +299,7 @@ class BaseDevice(QObject):
         """
         self._connection_settings = settings
 
-        if self._is_connected:
+        if self.is_connected:
             if self._is_streaming:
                 self.toggle_streaming()
 

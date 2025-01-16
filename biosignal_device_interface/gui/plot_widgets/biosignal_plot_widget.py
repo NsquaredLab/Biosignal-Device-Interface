@@ -347,7 +347,8 @@ class VispyFastPlotCanvas(app.Canvas):
             self.line_data[:, :-input_vertices] = self.line_data[:, input_vertices:]
             self.line_data[:, -input_vertices:] = input_data
 
-        self.program["a_position"].set_data(self.line_data.ravel().astype(np.float32))
+        plot_data = self.line_data.ravel().astype(np.float32)
+        self.program["a_position"].set_data(plot_data)
         self.update()
         self.context.flush()
 

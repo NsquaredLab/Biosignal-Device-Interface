@@ -1,9 +1,6 @@
 """
-1)  Quattrocento Light class for real-time interface to 
-    Quattrocento using OT Biolab Light.
-
-2)  Quattrocento class for direct real-time interface to 
-    Quattrocento without using OT Biolab Light.
+Quattrocento Light class for real-time interface to 
+Quattrocento using OT Biolab Light.
 
 Developer: Dominik I. Braun
 Contact: dome.braun@fau.de
@@ -167,11 +164,11 @@ class OTBQuattrocentoLight(BaseDevice):
         super()._read_data()
 
         # Wait for connection response
-        if not self._is_connected and (
+        if not self.is_connected and (
             self._interface.bytesAvailable() == len(CONNECTION_RESPONSE)
             and self._interface.readAll() == CONNECTION_RESPONSE
         ):
-            self._is_connected = True
+            self.is_connected = True
             self.connect_toggled.emit(True)
             return
         if not self._is_streaming:

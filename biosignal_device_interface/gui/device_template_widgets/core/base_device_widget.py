@@ -19,6 +19,7 @@ from biosignal_device_interface.devices.core.base_device import BaseDevice
 
 if TYPE_CHECKING:
     from enum import Enum
+    from PySide6.QtWidgets import QLineEdit
 
 
 class BaseDeviceWidget(QWidget):
@@ -36,7 +37,7 @@ class BaseDeviceWidget(QWidget):
         self.parent_widget: QWidget | QMainWindow | None = parent
 
         # Device Setup
-        self.device: BaseDevice | None = None
+        self._device: BaseDevice | None = None
         self._device_params: Dict[str, Union[str, int, float]] = {}
 
         # GUI setup
@@ -90,16 +91,16 @@ class BaseDeviceWidget(QWidget):
     def _set_device(self, device: BaseDevice) -> None:
         """ """
         # Device Setup
-        self.device: BaseDevice = device
+        self._device: BaseDevice = device
         self._initialize_device_params()
         self._set_signals()
         self._initialize_ui()
 
     def _set_signals(self) -> None:
         """ """
-        self.device.data_available.connect(self.data_arrived.emit)
-        self.device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
-        self.device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
+        self._device.data_available.connect(self.data_arrived.emit)
+        self._device.biosignal_data_available.connect(self.biosignal_data_arrived.emit)
+        self._device.auxiliary_data_available.connect(self.auxiliary_data_arrived.emit)
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """
@@ -110,12 +111,20 @@ class BaseDeviceWidget(QWidget):
                 Dictionary that holds information about the
                 current device configuration and status.
         """
-        return self.device.get_device_information()
+        return self._device.get_device_information()
 
     def disconnect_device(self) -> None:
         """ """
-        if self.device._is_connected or self.device._is_streaming:
-            self.device.toggle_connection()
+        if self._device.is_connected or self._device._is_streaming:
+            self._device.toggle_connection()
+
+    def _check_ip_input(self, line_edit: QLineEdit, default: str) -> None:
+        if not self._device.check_valid_ip(line_edit.text()):
+            line_edit.setText(default)
+
+    def _check_port_input(self, line_edit: QLineEdit, default: str) -> None:
+        if not self._device.check_valid_port(line_edit.text()):
+            line_edit.setText(default)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.disconnect_device()

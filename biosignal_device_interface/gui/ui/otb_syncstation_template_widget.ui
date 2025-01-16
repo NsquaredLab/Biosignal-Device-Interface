@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SyncStationForm</class>
+ <widget class="QWidget" name="SyncStationForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>608</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SyncStationForm</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="inputGroupBox">
+     <property name="title">
+      <string>Input Parameters</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <widget class="QComboBox" name="inputWorkingModeComboBox">
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>EEG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>EMG</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Working Mode</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QTabWidget" name="probesTabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="muoviWidget">
+         <attribute name="title">
+          <string>Muovi</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="muoviProbeOneEnableCheckBox">
+            <property name="text">
+             <string>Muovi Probe 1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="muoviProbeOneDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="muoviProbeTwoEnableCheckBox">
+            <property name="text">
+             <string>Muovi Probe 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="muoviProbeTwoDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="muoviProbeThreeEnableCheckBox">
+            <property name="text">
+             <string>Muovi Probe 3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="muoviProbeThreeDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="muoviProbeFourEnableCheckBox">
+            <property name="text">
+             <string>Muovi Probe 4</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="muoviProbeFourDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>154</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="muoviPlusWidget">
+         <attribute name="title">
+          <string>Muovi+</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="muoviPlusProbeOneEnableCheckBox">
+            <property name="text">
+             <string>Muovi+ Probe 1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="muoviPlusProbeOneDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="muoviPlusProbeTwoEnableCheckBox">
+            <property name="text">
+             <string>Muovi+ Probe 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="muoviPlusProbeTwoDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="duePlusWidget">
+         <attribute name="title">
+          <string>Due+</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_16">
+          <item row="9" column="0">
+           <widget class="QCheckBox" name="duePlusProbeNineEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 9</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QCheckBox" name="duePlusProbeTenEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 10</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QComboBox" name="duePlusProbeSixDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QComboBox" name="duePlusProbeTenDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="QComboBox" name="duePlusProbeNineDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QComboBox" name="duePlusProbeFourDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="duePlusProbeThreeEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QCheckBox" name="duePlusProbeSixEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 6</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QCheckBox" name="duePlusProbeEightEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 8</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QComboBox" name="duePlusProbeThreeDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QCheckBox" name="duePlusProbeSevenEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 7</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QComboBox" name="duePlusProbeTwoDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="duePlusProbeTwoEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <widget class="QComboBox" name="duePlusProbeEightDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QComboBox" name="duePlusProbeSevenDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QCheckBox" name="duePlusProbeFourEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 4</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QComboBox" name="duePlusProbeFiveDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="duePlusProbeFiveEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 5</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QComboBox" name="duePlusProbeOneDetectionModeComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 8)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Monopolar (Gain 4)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Impedance Check</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="duePlusProbeOneEnableCheckBox">
+            <property name="text">
+             <string>Due+ Probe 1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="commandsGroupBox">
+     <property name="title">
+      <string>Commands</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_10">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="commandConnectionPushButton">
+        <property name="text">
+         <string>Connect</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="commandConfigurationPushButton">
+        <property name="text">
+         <string>Configure</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="commandStreamPushButton">
+        <property name="text">
+         <string>Stream</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="connectionGroupBox">
+     <property name="title">
+      <string>Connection parameters</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>IP</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="connectionIPAddressLabel">
+        <property name="text">
+         <string>192.168.76.1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="connectionPortLabel">
+        <property name="text">
+         <string>54320</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
