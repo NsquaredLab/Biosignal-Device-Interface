@@ -196,12 +196,10 @@ class OTBSyncStation(BaseDevice):
         )
 
         self._samples_per_frame = int(
-            self._number_of_bytes
-            * self._sampling_frequency
-            * (1 / SYNCSTATION_CHARACTERISTICS_DICT["FPS"])
+            (1 / SYNCSTATION_CHARACTERISTICS_DICT["FPS"]) * self._sampling_frequency
         )
 
-        self._buffer_size = SYNCSTATION_CHARACTERISTICS_DICT["package_size"]
+        self._buffer_size = int(self._number_of_bytes * self._samples_per_frame)
 
         num_probes = len(self._configuration_command_A)
         start_byte += num_probes << 1
@@ -312,18 +310,18 @@ class OTBSyncStation(BaseDevice):
 
                 self._received_bytes.extend(packet_bytearray)
 
-                while len(self._received_bytes) >= self._samples_per_frame:
+                while len(self._received_bytes) >= self._buffer_size:
                     self._process_data(
-                        bytearray(self._received_bytes)[: self._samples_per_frame]
+                        bytearray(self._received_bytes)[: self._buffer_size]
                     )
                     self._received_bytes = bytearray(self._received_bytes)[
-                        self._samples_per_frame :
+                        self._buffer_size :
                     ]
 
     def _process_data(self, input: bytearray) -> None:
         data: np.ndarray = np.frombuffer(input, dtype=np.uint8).astype(np.float32)
 
-        samples = self._samples_per_frame // self._number_of_bytes
+        samples = self._samples_per_frame
         data = np.reshape(data, (samples, self._number_of_bytes)).T
         processed_data = self._bytes_to_integers(data)
 
@@ -340,7 +338,7 @@ class OTBSyncStation(BaseDevice):
         self,
         data: np.ndarray,
     ) -> np.ndarray:
-        samples = self._samples_per_frame // self._number_of_bytes
+        samples = self._samples_per_frame
         frame_data = np.zeros((self._number_of_channels, samples), dtype=np.float32)
         channels_to_read = 0
         for device in list(SyncStationProbeConfigMode)[1:]:
