@@ -21,6 +21,7 @@ class DeviceType(Enum):
     OTB_MUOVI = auto(), "OT Bioelettronica Muovi"
     OTB_MUOVI_PLUS = auto(), "OT Bioelettronica Muovi Plus"
     OTB_SYNCSTATION = auto(), "OT Bioelettronica SyncStation"
+    Mindrove = auto(), "Mindrove"
 
 
 class OTBDeviceType(Enum):
@@ -36,6 +37,7 @@ class OTBDeviceType(Enum):
     MUOVI = auto(), "Muovi"
     MUOVI_PLUS = auto(), "Muovi Plus"
     SYNCSTATION = auto(), "SyncStation"
+    Mindrove = auto(), "Mindrove"
 
 
 class DeviceChannelTypes(Enum):
@@ -58,4 +60,6 @@ DEVICE_NAME_DICT: dict[DeviceType | OTBDeviceType, str] = {
     OTBDeviceType.MUOVI_PLUS: "Muovi Plus",
     DeviceType.OTB_SYNCSTATION: "SyncStation",
     OTBDeviceType.SYNCSTATION: "SyncStation",
+    DeviceType.Mindrove: "Mindrove",
+    OTBDeviceType.Mindrove: "Mindrove",
 }

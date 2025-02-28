@@ -29,6 +29,9 @@ from biosignal_device_interface.gui.device_template_widgets.otb.otb_quattrocento
 from biosignal_device_interface.gui.device_template_widgets.otb.otb_syncstation_widget import (
     OTBSyncStationWidget,
 )
+from biosignal_device_interface.gui.device_template_widgets.other_devices.mindrove_widget import (
+    MindroveWidget,
+)
 
 if TYPE_CHECKING:
     from PySide6.QtWidgets import QWidget, QMainWindow
@@ -47,5 +50,6 @@ class AllDevicesWidget(BaseMultipleDevicesWidget):
             DeviceType.OTB_MUOVI: OTBMuoviWidget(self),
             DeviceType.OTB_MUOVI_PLUS: OTBMuoviPlusWidget(self),
             DeviceType.OTB_SYNCSTATION: OTBSyncStationWidget(self),
+            DeviceType.Mindrove: MindroveWidget(self),
         }
         self._set_devices(self._device_selection)

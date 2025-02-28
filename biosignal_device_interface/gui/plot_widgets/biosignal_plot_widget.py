@@ -196,7 +196,6 @@ class BiosignalPlotWidget(QWidget):
                 output_samples,
                 axis=1,
             )
-
         self.canvas.on_update(input_data)
 
     def reset_data(self) -> None:
