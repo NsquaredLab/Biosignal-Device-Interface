@@ -20,33 +20,49 @@ if TYPE_CHECKING:
 
 from biosignal_device_interface.constants.devices.core.base_device_constants import DeviceType
 
-
 class Mindrove(BaseDevice):
     def __init__(self, parent: Union[QMainWindow, QWidget] = None) -> None:
+        # Ensure BaseDevice is initialized first
         super().__init__(parent)
 
-        # Set device type properly
+        # Set device type
         self._device_type = DeviceType.Mindrove
 
+        # Initialize board
         self.board_id = BoardIds.MINDROVE_WIFI_BOARD
         self.params = MindRoveInputParams()
         self.board_shim = BoardShim(self.board_id, self.params)
 
-        # Ensure sampling frequency is set dynamically
+      
         self._sampling_frequency = BoardShim.get_sampling_rate(self.board_id)
 
-        # Define EMG channels correctly
+    
         self.emg_channels = BoardShim.get_exg_channels(self.board_id)
 
-        # Set number of EMG channels
+        # Set number of biosignal channels
         self._number_of_biosignal_channels = len(self.emg_channels)
         self._biosignal_channel_indices = self.emg_channels
 
-        # num_points per read
-        self.num_points = self._determine_optimal_num_points()
+      
+        self._number_of_auxiliary_channels = 0  
 
-        # Compute the timer interval dynamically based on num_points
-        self.timer_interval_ms = int((self.num_points / self._sampling_frequency) * 1000)
+    
+        self._samples_per_frame = self._determine_samples_per_frame()
+
+ 
+        self._number_of_channels = self._number_of_biosignal_channels + self._number_of_auxiliary_channels
+
+   
+        self._conversion_factor_biosignal = 6e-6 # Scale raw data to mV
+        self._conversion_factor_auxiliary = 1
+
+
+        self.num_points = self._samples_per_frame
+
+    
+        #self.timer_interval_ms = int((self.num_points / self._sampling_frequency) * 1000)
+        self.timer_interval_ms = 20
+
 
         # Timer for polling data
         self._timer = QTimer(self)
@@ -54,26 +70,18 @@ class Mindrove(BaseDevice):
 
         self._is_streaming = False
 
-        # Scaling factor to convert raw data to mV
-        self.scaling_factor = 0.001
-
-    def _determine_optimal_num_points(self) -> int:
+    def _determine_samples_per_frame(self) -> int:
         """
-        Dynamically determines the optimal number of samples per update based on the sampling rate.
+        Determines the optimal number of samples per frame dynamically based on the sampling frequency.
         Ensures at least 10 updates per second.
-
-        :return: Optimal number of data points per read.
         """
         if self._sampling_frequency is None or self._sampling_frequency <= 0:
             raise ValueError("Invalid sampling frequency detected.")
 
-        # Default to at least 10 updates per second
         return max(1, self._sampling_frequency // 10)
 
     def _connect_to_device(self) -> bool:
-        """
-        Prepares the session for the Mindrove board.
-        """
+        """ Prepares the session for the Mindrove board. """
         try:
             self.board_shim.prepare_session()
             self.is_connected = True
@@ -82,7 +90,6 @@ class Mindrove(BaseDevice):
 
             self._is_configured = True
             self.configure_toggled.emit(True)
-
             return True
         except Exception as e:
             self.is_connected = False
@@ -90,9 +97,7 @@ class Mindrove(BaseDevice):
             return False
 
     def _disconnect_from_device(self) -> bool:
-        """
-        Releases the Mindrove session.
-        """
+        """ Releases the Mindrove session. """
         try:
             self.board_shim.release_session()
             self.is_connected = False
@@ -103,17 +108,12 @@ class Mindrove(BaseDevice):
             return False
 
     def configure_device(self, params: Dict[str, Union[Enum, Dict[str, Enum]]]) -> None:
-        """
-        For raw EMG streaming, no extra configuration is needed.
-        This method is provided for interface compatibility.
-        """
+        """ No extra configuration needed for raw EMG streaming. """
         super().configure_device(params)
         self.configure_toggled.emit(True)
 
     def _start_streaming(self) -> None:
-        """
-        Starts the Mindrove data stream and polling timer.
-        """
+        """ Starts the Mindrove data stream and polling timer. """
         if not self.is_connected:
             if not self._connect_to_device():
                 return
@@ -127,9 +127,7 @@ class Mindrove(BaseDevice):
             print("Error starting stream:", e)
 
     def _stop_streaming(self) -> None:
-        """
-        Stops the data stream and polling timer.
-        """
+        """ Stops the data stream and polling timer. """
         if self._is_streaming:
             try:
                 self._timer.stop()
@@ -141,19 +139,14 @@ class Mindrove(BaseDevice):
                 print("Error stopping stream:", e)
 
     def toggle_streaming(self) -> None:
-        """
-        Public method to toggle streaming on and off.
-        """
+        """ Toggles streaming on and off. """
         if self._is_streaming:
             self._stop_streaming()
         else:
             self._start_streaming()
 
-
     def _read_data(self) -> None:
-        """
-        Reads data from the Mindrove board and processes it.
-        """
+        """ Reads data from the Mindrove board and processes it. """
         if not self._is_streaming:
             return
 
@@ -166,7 +159,7 @@ class Mindrove(BaseDevice):
 
             # Process data (detrending and scaling)
             processed_data = self._process_data(raw_emg)
-            
+
             # Emit processed data
             self.data_available.emit(processed_data)
             self.biosignal_data_available.emit(processed_data)
@@ -175,16 +168,11 @@ class Mindrove(BaseDevice):
             print("Error reading or processing data:", e)
 
     def _process_data(self, data: np.ndarray) -> np.ndarray:
-        """
-        Processes the raw EMG data by applying detrending and scaling.
-
-        :param data: Raw EMG data as a NumPy array.
-        :return: Processed data as a NumPy array.
-        """
+        """ Processes raw EMG data by applying detrending and scaling. """
         # Apply Detrending (Remove DC Offset)
         for ch in range(data.shape[0]):
             if data[ch].size > 0:
                 DataFilter.detrend(data[ch], DetrendOperations.CONSTANT.value)
 
         # Apply Scaling Factor (Convert to mV)
-        return data * self.scaling_factor
+        return data * self._conversion_factor_biosignal
