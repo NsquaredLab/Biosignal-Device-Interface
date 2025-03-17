@@ -27,7 +27,6 @@ class MindroveWidget(BaseDeviceWidget):
     def _toggle_connection(self) -> None:
         self.connect_push_button.setEnabled(False)
 
-        # ✅ Only toggle UI if connection is actually successful
         if self._device._connect_to_device():
             self._connection_toggled(True)
         else:
