@@ -61,7 +61,7 @@ class Mindrove(BaseDevice):
 
     
         #self.timer_interval_ms = int((self.num_points / self._sampling_frequency) * 1000)
-        self.timer_interval_ms = 50
+        self.timer_interval_ms = 20
 
 
         # Timer for polling data
@@ -78,7 +78,7 @@ class Mindrove(BaseDevice):
         if self._sampling_frequency is None or self._sampling_frequency <= 0:
             raise ValueError("Invalid sampling frequency detected.")
 
-        return max(1, self._sampling_frequency // 20)
+        return max(1, self._sampling_frequency // 10)
 
     def _connect_to_device(self) -> bool:
         """ Prepares the session for the Mindrove board. """
