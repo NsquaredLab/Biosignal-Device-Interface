@@ -1,0 +1,29 @@
+name: Publish to PyPI
+
+on:
+  push:
+    branches:
+      - main  # Only trigger on the main branch
+
+jobs:
+  deploy:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Authenticate PyPI
+        run: poetry config pypi-token.pypi "${{ secrets.PYPI_API_TOKEN }}"
+
+      - name: Publish to PyPI
+        run: poetry publish --build --no-interaction
