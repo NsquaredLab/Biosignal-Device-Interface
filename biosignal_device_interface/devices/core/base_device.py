@@ -30,6 +30,23 @@ if TYPE_CHECKING:
     from PySide6.QtSerialPort import QSerialPort
     from aenum import Enum
 
+import warnings
+
+# Set to keep track of seen error messages
+_seen_error_messages = set()
+
+
+def warn_once(e):
+    """
+    Issue a warning for the given error, but only once per unique message.
+
+    Args:
+        e: Exception instance whose message will be used to track uniqueness.
+    """
+    error_message = str(e)
+    if error_message not in _seen_error_messages:
+        warnings.warn(f"An error occurred: {error_message}", UserWarning)
+        _seen_error_messages.add(error_message)
 
 class BaseDevice(QObject):
     # Signals
@@ -390,13 +407,7 @@ class BaseDevice(QObject):
             # Iterate through interfaces to find the one associated with WiFi
             for interface, addresses in interfaces.items():
                 if (
-                    "wlan" in interface.lower()
-                    or "wi-fi" in interface.lower()
-                    or "wifi" in interface.lower()
-                    or "wireless" in interface.lower()
-                    or "en0" in interface.lower()
-                    or "wlp" in interface.lower()
-                    or "wln" in interface.lower()
+                    any(keyword in interface.lower() for keyword in ["wlan", "wi-fi", "wifi", "wireless", "en0", "wlp", "wln", "wl"])
                 ):
                     for address in addresses:
                         # Check if the address is an IPv4 address and not a loopback or virtual address
@@ -408,5 +419,6 @@ class BaseDevice(QObject):
 
             return addresses_return[::-1] if addresses_return else [""]
 
-        except Exception:
+        except Exception as e:
+            warn_once("Error occurred while getting server IP address: " + str(e))
             return [""]
