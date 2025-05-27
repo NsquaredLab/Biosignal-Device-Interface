@@ -1,9 +1,16 @@
 """
-Integrating a device in your own software.
-==========================================
+Implementing a new device in the Biosignal-Device-Interface.
+============================================================
 
-This example...
+This example demonstrates the complete process of implementing a new biosignal device
+into the Biosignal-Device-Interface package. It covers all steps from device class
+implementation to GUI widget creation.
+
+This is a tutorial/guide example that shows the structure and requirements for
+adding new device support to the package.
 """
+
+from __future__ import annotations
 
 # %% Implementation of a custom device into the Biosignal-Device-Interface package.
 
@@ -31,7 +38,6 @@ class DeviceType(Enum):
 # %% Step 1.2: Create a new Python file in the biosignal_device_interface/devices/ directory.
 # The file name should be the name of the manufacturer and the device, e.g., manu_mydevicename.py.
 # The file should contain the device class that inherits from the BaseDevice class.
-from __future__ import annotations
 from typing import TYPE_CHECKING, Union, Dict
 from biosignal_device_interface.devices.core.base_device import BaseDevice
 from biosignal_device_interface.constants.devices.core.base_device_constants import (
@@ -191,7 +197,6 @@ class MANUMyNameDevice(BaseDevice):
 
 # %% Step 3.1: Implement the device widget.
 # Import the necessary libraries and classes.
-from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from biosignal_device_interface.gui.device_template_widgets.core.base_device_widget import (

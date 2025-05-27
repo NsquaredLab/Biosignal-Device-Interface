@@ -2,13 +2,20 @@
 Integrating all devices and a biosignal plot in your own software.
 ==================================================================
 
-This example...
+This example demonstrates how to integrate all available biosignal device widgets 
+along with a real-time biosignal plot into your own PySide6 application. The example 
+shows how to create a main window with a horizontal layout containing both the device 
+interface and a plot widget that displays incoming biosignal data in real-time.
+
+Note: This example creates a GUI application. When run directly, it will open a window.
+During documentation generation, it only demonstrates the setup without showing the GUI.
 """
 
 from __future__ import annotations
 from typing import TYPE_CHECKING
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout
+import os
 import sys
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout
 
 from biosignal_device_interface.devices import AllDevicesWidget
 
@@ -72,15 +79,70 @@ class MainWindow(QMainWindow):
         )
 
 
-if __name__ == "__main__":
-    # Create the application object
+# %%
+# Creating the Application and Main Window
+# =========================================
+#
+# Here we demonstrate how to set up the application and create the main window
+# with both device interface and biosignal plot widgets.
+
+# Check if we're in a headless environment (like during documentation generation)
+# or if DISPLAY is not available
+is_headless = (
+    os.environ.get('DISPLAY', '') == '' or 
+    'sphinx' in sys.modules or
+    'PYTEST_CURRENT_TEST' in os.environ
+)
+
+if not is_headless:
+    # Only create QApplication if we're not in a headless environment
     app = QApplication(sys.argv)
+else:
+    # For documentation/testing, we can still demonstrate the setup
+    app = None
 
-    # Create an instance of the main window
+# Create an instance of the main window
+# This demonstrates the complete setup process
+print("Creating MainWindow instance...")
+if app is not None:
     window = MainWindow()
+    print("MainWindow created successfully!")
+    print("Device interface and biosignal plot widgets integrated.")
+    print("Real-time plotting configured and ready.")
+else:
+    print("Running in headless mode - skipping GUI creation")
+    print("In a real application, you would:")
+    print("1. Create QApplication(sys.argv)")
+    print("2. Create MainWindow() instance")
+    print("3. Call window.show()")
+    print("4. Call sys.exit(app.exec())")
 
-    # Show the main window
+# %%
+# Running the Application
+# =======================
+#
+# To actually run this application with a visible GUI, execute this script directly:
+#
+# .. code-block:: bash
+#
+#    python examples/3_integrating_device_interface_and_biosignal_plot.py
+#
+# This will open a window with:
+#
+# * **Left panel**: Device interfaces for all available biosignal devices
+# * **Right panel**: Real-time biosignal plot that automatically updates
+#
+# You can:
+#
+# * Connect to multiple biosignal devices
+# * Configure device settings and plot parameters
+# * Start data streaming to see real-time biosignal visualization
+# * Monitor multiple channels simultaneously with automatic scaling
+
+if __name__ == "__main__" and not is_headless:
+    # Show the main window and start the event loop
     window.show()
-
-    # Execute the application
+    print("Starting application event loop...")
     sys.exit(app.exec())
+elif __name__ == "__main__":
+    print("Headless mode detected - example completed without showing GUI")
