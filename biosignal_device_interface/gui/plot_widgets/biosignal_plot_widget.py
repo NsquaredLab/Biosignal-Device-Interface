@@ -124,6 +124,9 @@ class BiosignalPlotWidget(QWidget):
 
         self.number_of_vertices = int(display_time * self.internal_sampling_frequency)
 
+        # Reset downsample buffer when reconfiguring to prevent display issues
+        self.downsample_buffer = None
+
         background_color = self._check_background_color_for_format(background_color)
         self.setStyleSheet(
             f"background-color: rgba({background_color[0]}, {background_color[1]}, {background_color[2]}, {background_color[3]});"
@@ -139,6 +142,10 @@ class BiosignalPlotWidget(QWidget):
         self.canvas.configure(
             self.number_of_lines, self.number_of_vertices, background_color
         )
+        
+        # Reset the canvas data when reconfiguring to prevent wrong time display
+        if hasattr(self.canvas, 'on_reset'):
+            self.canvas.on_reset()
 
         # Clear the layout
         for i in reversed(range(self.container_widget_layout.rowCount())):

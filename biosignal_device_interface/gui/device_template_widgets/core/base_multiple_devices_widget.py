@@ -54,35 +54,36 @@ class BaseMultipleDevicesWidget(QWidget):
         return self._get_current_widget().get_device_information()
 
     def _update_stacked_widget(self, index: int):
-        current_widget = self._get_current_widget()
-        current_widget.disconnect_device()
+        # Disconnect signals from current widget before switching
+        if self.device_stacked_widget.currentWidget() is not None:
+            current_widget = self._get_current_widget()
+            current_widget.disconnect_device()
 
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore")
-            try:
-                current_widget.data_arrived.disconnect(self.data_arrived.emit)
-                current_widget.biosignal_data_arrived.disconnect(
-                    self.biosignal_data_arrived.emit
-                )
-                current_widget.auxiliary_data_arrived.disconnect(
-                    self.auxiliary_data_arrived.emit
-                )
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore")
+                try:
+                    current_widget.data_arrived.disconnect(self.data_arrived.emit)
+                    current_widget.biosignal_data_arrived.disconnect(
+                        self.biosignal_data_arrived.emit
+                    )
+                    current_widget.auxiliary_data_arrived.disconnect(
+                        self.auxiliary_data_arrived.emit
+                    )
 
-                current_widget.connect_toggled.disconnect(self.connect_toggled)
-                current_widget.configure_toggled.disconnect(self.configure_toggled)
-                current_widget.stream_toggled.disconnect(self.stream_toggled)
+                    current_widget.connect_toggled.disconnect(self.connect_toggled)
+                    current_widget.configure_toggled.disconnect(self.configure_toggled)
+                    current_widget.stream_toggled.disconnect(self.stream_toggled)
 
-            except (TypeError, RuntimeError):
-                ...
+                except (TypeError, RuntimeError):
+                    ...
 
+        # Switch to new widget
         self.device_stacked_widget.setCurrentIndex(index)
         current_widget = self._get_current_widget()
 
-        # Data arrived
+        # Connect signals to new widget
         current_widget.data_arrived.connect(self.data_arrived.emit)
-        # Biosignal data arrived
         current_widget.biosignal_data_arrived.connect(self.biosignal_data_arrived.emit)
-        # Auxiliary data arrived
         current_widget.auxiliary_data_arrived.connect(self.auxiliary_data_arrived.emit)
 
         current_widget.connect_toggled.connect(self.connect_toggled)

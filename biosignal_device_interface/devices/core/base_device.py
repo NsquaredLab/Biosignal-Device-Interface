@@ -1,7 +1,28 @@
 """
-Base Device class for real-time interfaces to hardware devices.
-Developer: Dominik I. Braun
-Contact: dome.braun@fau.de
+Base Device Class for Biosignal Hardware Interfaces
+===================================================
+
+This module provides the abstract base class for all biosignal device interfaces.
+It defines the common interface and functionality that all device implementations
+must provide for real-time data acquisition and streaming.
+
+The BaseDevice class handles:
+- Device connection management (TCP/IP, UDP, Serial)
+- Configuration parameter management
+- Real-time data streaming
+- Signal emission for GUI integration
+- Data processing and conversion
+
+All concrete device implementations must inherit from this class and implement
+the abstract methods for device-specific communication protocols.
+
+Classes:
+    BaseDevice: Abstract base class for all biosignal devices
+
+Functions:
+    warn_once: Utility function for issuing warnings only once per unique message
+
+Author: Dominik I. Braun <dome.braun@fau.de>
 Last Update: 2024-06-05
 """
 
@@ -39,9 +60,19 @@ _seen_error_messages = set()
 def warn_once(e):
     """
     Issue a warning for the given error, but only once per unique message.
+    
+    This utility function prevents spam warnings by tracking seen error messages
+    and only issuing warnings for new, unique error messages.
 
-    Args:
-        e: Exception instance whose message will be used to track uniqueness.
+    Parameters
+    ----------
+    e : Exception
+        Exception instance whose message will be used to track uniqueness.
+        
+    Notes
+    -----
+    The function maintains an internal set of seen error messages to prevent
+    duplicate warnings during the application lifetime.
     """
     error_message = str(e)
     if error_message not in _seen_error_messages:
@@ -49,6 +80,34 @@ def warn_once(e):
         _seen_error_messages.add(error_message)
 
 class BaseDevice(QObject):
+    """
+    Abstract base class for all biosignal device interfaces.
+    
+    This class provides the common interface and functionality for real-time
+    communication with biosignal acquisition devices. It handles connection
+    management, data streaming, and signal emission for GUI integration.
+    
+    All device-specific implementations must inherit from this class and
+    implement the abstract methods for their specific communication protocols.
+    
+    Attributes
+    ----------
+    is_connected : bool
+        Current connection status of the device
+    connect_toggled : Signal(bool)
+        Emitted when device connection state changes
+    configure_toggled : Signal(bool)
+        Emitted when device configuration state changes  
+    stream_toggled : Signal(bool)
+        Emitted when data streaming state changes
+    data_available : Signal(np.ndarray)
+        Emitted when new data is available (all channels)
+    biosignal_data_available : Signal(np.ndarray)
+        Emitted when new biosignal data is available
+    auxiliary_data_available : Signal(np.ndarray)
+        Emitted when new auxiliary data is available
+    """
+    
     # Signals
     connect_toggled: Signal = Signal(bool)
     configure_toggled: Signal = Signal(bool)
@@ -58,6 +117,16 @@ class BaseDevice(QObject):
     auxiliary_data_available: Signal = Signal(np.ndarray)
 
     def __init__(self, parent: Union[QMainWindow, QWidget] = None, **kwargs) -> None:
+        """
+        Initialize the BaseDevice.
+        
+        Parameters
+        ----------
+        parent : Union[QMainWindow, QWidget], optional
+            Parent widget for the device. Defaults to None.
+        **kwargs
+            Additional keyword arguments for device-specific initialization.
+        """
         super().__init__(parent)
 
         # Device Parameters
@@ -97,39 +166,43 @@ class BaseDevice(QObject):
     @abstractmethod
     def _connect_to_device(self) -> bool:
         """
-        Function to attempt a connection to the devices.
+        Attempt a connection to the device.
 
-        Returns:
-            bool:
-                Success of the connection attempt.
+        Returns
+        -------
+        bool
+            Success of the connection attempt.
         """
         pass
 
     @abstractmethod
     def _make_request(self) -> bool:
         """
-        Requests a connection or checks if someone connected to the server.
+        Request a connection or check if someone connected to the server.
+        
         After connection is successful, the Signal connected_signal emits True
         and sets the current state is_connected to True.
 
-        Returns:
-            bool:
-                Returns True if request was successfully. False if not.
+        Returns
+        -------
+        bool
+            True if request was successful, False if not.
         """
         pass
 
     @abstractmethod
     def _disconnect_from_device(self) -> bool:
         """
-        Closes the connection to the device.
+        Close the connection to the device.
 
-        self.interface closes and is set to None.
+        The interface closes and is set to None.
         Device state is_connected is set to False.
         Signal connected_signal emits False.
 
-        Returns:
-            bool:
-                Success of the disconnection attempt.
+        Returns
+        -------
+        bool
+            Success of the disconnection attempt.
         """
         self.is_connected = False
         self.connect_toggled.emit(False)
@@ -139,30 +212,28 @@ class BaseDevice(QObject):
     @abstractmethod
     def configure_device(self, params: Dict[str, Union[Enum, Dict[str, Enum]]]) -> None:  # type: ignore
         """
-        Sends a configuration byte sequence based on selected params to the device.
+        Send a configuration byte sequence based on selected params to the device.
+        
         An overview of possible configurations can be seen in
         biosignal_device_interface/constants/{device}.py.
 
-        E.g., enums/sessantaquattro.py
-
-
-        Args:
-            params (Dict[str, Union[Enum, Dict[str, Enum]]]):
-                Dictionary that holds the configuration settings
-                to which the device should be configured to.
-
-                The first one should be the attributes (configuration mode) name,
-                and the second its respective value. Orient yourself on the
-                enums of the device to choose the correct configuration settings.
+        Parameters
+        ----------
+        params : Dict[str, Union[Enum, Dict[str, Enum]]]
+            Dictionary that holds the configuration settings to which the device 
+            should be configured. The first element should be the attributes 
+            (configuration mode) name, and the second its respective value. 
+            Orient yourself on the enums of the device to choose the correct 
+            configuration settings.
         """
         self._update_configuration_parameters(params)
 
     @abstractmethod
     def _start_streaming(self) -> None:
         """
-        Sends the command to start the streaming to the device.
+        Send the command to start streaming to the device.
 
-        if successful:
+        If successful:
             Device state is_streaming is set to True.
             Signal streaming_signal emits True.
         """
@@ -172,9 +243,9 @@ class BaseDevice(QObject):
     @abstractmethod
     def _stop_streaming(self) -> None:
         """
-        Sends the command to stop the streaing to the device
+        Send the command to stop streaming to the device.
 
-        if successful:
+        If successful:
             Device state is_streaming is set to False.
             Signal streaming_signal emits False.
         """
@@ -183,12 +254,14 @@ class BaseDevice(QObject):
 
     @abstractmethod
     def clear_socket(self) -> None:
-        """Reads all the bytes from the buffer."""
+        """Read all the bytes from the buffer."""
         pass
 
     @abstractmethod
     def _read_data(self) -> None:
         """
+        Read data when bytes are ready in the buffer.
+        
         This function is called when bytes are ready to be read in the buffer.
         After reading the bytes from the buffer, _process_data is called to
         decode and process the raw data.
@@ -198,27 +271,27 @@ class BaseDevice(QObject):
     @abstractmethod
     def _process_data(self, input: bytearray) -> None:
         """
-        Decodes the transmitted bytes and convert them to respective
+        Decode the transmitted bytes and convert them to respective output format.
+        
+        Decodes the transmitted bytes and converts them to the respective
         output format (e.g., mV).
 
         Emits the processed data through the Signal data_available_signal
         which can be connected to a function using:
         {self.device}.data_available_signal.connect(your_custom_function).
 
-        This works perfectly fine outside of this class.
-
-        Your custom function your_custom_function needs to have a parameter
-        "data" which is of type np.ndarray.
-
+        Your custom function needs to have a parameter "data" which is of 
+        type np.ndarray.
 
         In case that the current configuration of the device was requested,
         the configuration is provided through the Signal
         configuration_available_signal that emits the current parameters
         in a dictionary.
 
-        Args:
-            input (bytearray):
-                Bytearray of the transmitted raw data.
+        Parameters
+        ----------
+        input : bytearray
+            Bytearray of the transmitted raw data.
         """
         pass
 
@@ -226,16 +299,16 @@ class BaseDevice(QObject):
         self, params: Dict[str, Union[Enum, Dict[str, Enum]]]
     ) -> None:
         """
-        Updates the device attributes with the new configuration parameters.
+        Update the device attributes with the new configuration parameters.
 
-        Args:
-            params (Dict[str, Union[Enum, Dict[str, Enum]]]):
-                Dictionary that holds the configuration settings
-                to which the device should be configured to.
-
-                The first one should be the attributes (configuration mode) name,
-                and the second its respective value. Orient yourself on the
-                enums of the device to choose the correct configuration settings.
+        Parameters
+        ----------
+        params : Dict[str, Union[Enum, Dict[str, Enum]]]
+            Dictionary that holds the configuration settings to which the device 
+            should be configured. The first element should be the attributes 
+            (configuration mode) name, and the second its respective value. 
+            Orient yourself on the enums of the device to choose the correct 
+            configuration settings.
         """
         for key, value in params.items():
             key = "_" + key
@@ -250,19 +323,20 @@ class BaseDevice(QObject):
         self, data: np.ndarray, milli_volts: bool = True
     ) -> np.ndarray:
         """
-        Extracts the biosignals from the transmitted data.
+        Extract the biosignals from the transmitted data.
 
-        Args:
-            data (np.ndarray):
-                Raw data that got transmitted.
+        Parameters
+        ----------
+        data : np.ndarray
+            Raw data that got transmitted.
+        milli_volts : bool, optional
+            If True, the biosignal data is converted to milli volts.
+            Defaults to True.
 
-            milli_volts (bool, optional):
-                If True, the biosignal data is converted to milli volts.
-                Defaults to True.
-
-        Returns:
-            np.ndarray:
-                Extracted biosignal channels.
+        Returns
+        -------
+        np.ndarray
+            Extracted biosignal channels.
         """
         biosignal_data = data[self._biosignal_channel_indices]
         if milli_volts:
@@ -275,16 +349,18 @@ class BaseDevice(QObject):
         """
         Extract auxiliary channels from the transmitted data.
 
-        Args:
-            data (np.ndarray):
-                Raw data that got transmitted.
-            milli_volts (bool, optional):
-                If True, the auxiliary data is converted to milli volts.
-                Defaults to True.
+        Parameters
+        ----------
+        data : np.ndarray
+            Raw data that got transmitted.
+        milli_volts : bool, optional
+            If True, the auxiliary data is converted to milli volts.
+            Defaults to True.
 
-        Returns:
-            np.ndarray:
-                Extracted auxiliary channel data.
+        Returns
+        -------
+        np.ndarray
+            Extracted auxiliary channel data.
         """
 
         if milli_volts:
@@ -296,23 +372,25 @@ class BaseDevice(QObject):
 
     def toggle_connection(self, settings: Tuple[str, int] = None) -> bool:
         """
-        Toggles the connection to the device.
+        Toggle the connection to the device.
 
-        Args:
-            settings (Tuple[str, int], optional):
-                If CommunicationProtocol.TCPIP:
-                Tuple[0] = IP -> string
-                Tuple[1] = Port -> int
+        Parameters
+        ----------
+        settings : Tuple[str, int], optional
+            Connection settings. For TCP/IP:
+            - Tuple[0] = IP address (string)
+            - Tuple[1] = Port (int)
+            
+            For Serial/USB:
+            - Tuple[0] = COM Port (string)
+            - Tuple[1] = Baudrate (int)
+            
+            Defaults to None.
 
-                If CommunicationProtocol.SERIAL pr CommunicationProtocol.USB:
-                Tuple[0] = COM Port -> string
-                Tuple[1] = Baudrate -> int
-
-                Defaults to None.
-
-        Returns:
-            bool:
-                True if connection attempt was successfully. False if not.
+        Returns
+        -------
+        bool
+            True if connection attempt was successful, False if not.
         """
         self._connection_settings = settings
 
@@ -328,7 +406,8 @@ class BaseDevice(QObject):
 
     def toggle_streaming(self) -> None:
         """
-        Toggles the current state of the streaming.
+        Toggle the current state of the streaming.
+        
         If device is streaming, the streaming is stopped and vice versa.
         """
         if self._is_streaming:
@@ -341,12 +420,13 @@ class BaseDevice(QObject):
 
     def get_device_information(self) -> Dict[str, Enum | int | float | str]:
         """
-        Gets the current configuration of the device.
+        Get the current configuration of the device.
 
-        Returns:
-            Dict[str, Enum | int | float | str]:
-                Dictionary that holds information about the
-                current device configuration and status.
+        Returns
+        -------
+        Dict[str, Enum | int | float | str]
+            Dictionary that holds information about the current device 
+            configuration and status.
         """
         return {
             "name": DEVICE_NAME_DICT[self._device_type],
@@ -359,15 +439,67 @@ class BaseDevice(QObject):
             "conversion_factor_auxiliary": self._conversion_factor_auxiliary,
         }
 
+    def extract_biosignal_data(
+        self, data: np.ndarray, milli_volts: bool = True
+    ) -> np.ndarray:
+        """
+        Extract the biosignals from the transmitted data.
+        
+        This is a public method that allows users to manually extract
+        biosignal channels from raw data.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Raw data that got transmitted.
+        milli_volts : bool, optional
+            If True, the biosignal data is converted to milli volts.
+            Defaults to True.
+
+        Returns
+        -------
+        np.ndarray
+            Extracted biosignal channels.
+        """
+        return self._extract_biosignal_data(data, milli_volts)
+
+    def extract_auxiliary_data(
+        self, data: np.ndarray, milli_volts: bool = True
+    ) -> np.ndarray:
+        """
+        Extract auxiliary channels from the transmitted data.
+        
+        This is a public method that allows users to manually extract
+        auxiliary channels from raw data.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Raw data that got transmitted.
+        milli_volts : bool, optional
+            If True, the auxiliary data is converted to milli volts.
+            Defaults to True.
+
+        Returns
+        -------
+        np.ndarray
+            Extracted auxiliary channel data.
+        """
+        return self._extract_auxiliary_data(data, milli_volts)
+
     def check_valid_ip(self, ip_address: str) -> bool:
         """
-        Checks if the provided IP is valid.
+        Check if the provided IP address is valid.
 
-        Args:
-            ip (str): IP to be checked.
+        Parameters
+        ----------
+        ip_address : str
+            IP address to be checked.
 
-        Returns:
-            bool: True if IP is valid. False if not.
+        Returns
+        -------
+        bool
+            True if IP is valid, False if not.
         """
         ip_pattern = re.compile(
             r"^([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\."
@@ -380,13 +512,17 @@ class BaseDevice(QObject):
 
     def check_valid_port(self, port: str) -> bool:
         """
-        Checks if the provided port is valid.
+        Check if the provided port is valid.
 
-        Args:
-            port (str): Port to be checked.
+        Parameters
+        ----------
+        port : str
+            Port to be checked.
 
-        Returns:
-            bool: True if port is valid. False if not.
+        Returns
+        -------
+        bool
+            True if port is valid, False if not.
         """
         try:
             port_num = int(port)
@@ -396,7 +532,12 @@ class BaseDevice(QObject):
 
     def get_server_wifi_ip_address(self) -> list[str]:
         """
-        Returns the IP address of the host server.
+        Get the IP address of the host server.
+        
+        Returns
+        -------
+        list[str]
+            List of WiFi IP addresses found on the system.
         """
         try:
             # Get all network interfaces

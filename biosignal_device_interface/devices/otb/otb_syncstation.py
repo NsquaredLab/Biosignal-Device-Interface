@@ -257,8 +257,14 @@ class OTBSyncStation(BaseDevice):
         return crc
 
     def _configure_byte_sequence_B(self) -> None:
-        # TODO: Implement this method
-        ...
+        """
+        Configure byte sequence B for the SyncStation device.
+        
+        Note: This method is currently not implemented as the byte sequence B
+        configuration is not required for basic device operation.
+        """
+        # TODO: Implement this method when byte sequence B configuration is needed
+        pass
 
     def _send_configuration_to_device(self) -> None:
         print(

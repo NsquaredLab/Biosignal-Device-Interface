@@ -1,7 +1,27 @@
 """
-Device class for real-time interfacing the Muovi device.
-Developer: Dominik I. Braun
-Contact: dome.braun@fau.de
+OT Bioelettronica Muovi Device Interface
+========================================
+
+This module provides real-time interface implementation for OT Bioelettronica Muovi
+and Muovi Plus devices. The Muovi is a wireless EMG acquisition system that supports
+up to 32 channels (Muovi) or 64 channels (Muovi Plus) of high-quality biosignal recording.
+
+The implementation uses TCP/IP protocol for communication and supports various
+working modes including EMG, EEG, and different detection modes with configurable
+gain settings.
+
+Key Features:
+- Real-time data streaming over TCP/IP
+- Support for both Muovi (32 ch) and Muovi Plus (64 ch)
+- Multiple working modes (EMG, EEG, etc.)
+- Configurable detection modes and gain settings
+- Automatic data conversion to millivolts
+- Frame-based data acquisition
+
+Classes:
+    OTBMuovi: Main device class for Muovi/Muovi Plus devices
+
+Author: Dominik I. Braun <dome.braun@fau.de>
 Last Update: 2024-06-05
 """
 
@@ -34,17 +54,46 @@ if TYPE_CHECKING:
 
 class OTBMuovi(BaseDevice):
     """
-    Muovi device class derived from BaseDevice class.
-
-    Args:
-        parent (Union[QMainWindow, QWidget], optional):
-            Parent widget to which the device is assigned to.
-            Defaults to None.
-
-        is_muovi_plus (bool):
-            True if the device is a Muovi Plus, False if not.
-
-    The Muovi class is using a TCP/IP protocol to communicate with the device.
+    OT Bioelettronica Muovi/Muovi Plus device interface.
+    
+    This class provides real-time communication with Muovi and Muovi Plus devices
+    using TCP/IP protocol. The device acts as a TCP server, waiting for connections
+    from the Muovi hardware.
+    
+    The Muovi supports various working modes:
+    - EMG: Electromyography recording
+    - EEG: Electroencephalography recording  
+    - Other specialized modes
+    
+    Detection modes with different gain settings:
+    - MONOPOLAR_GAIN_1, MONOPOLAR_GAIN_2, MONOPOLAR_GAIN_4, MONOPOLAR_GAIN_8
+    - DIFFERENTIAL modes
+    - IMPEDANCE_CHECK mode
+    
+    Parameters
+    ----------
+    parent : Union[QMainWindow, QWidget], optional
+        Parent widget for the device. Defaults to None.
+    is_muovi_plus : bool, optional
+        Set to True for Muovi Plus (64 channels), False for standard Muovi 
+        (32 channels). Defaults to False.
+            
+    Attributes
+    ----------
+    _device_type : DeviceType
+        Type of device (MUOVI or MUOVI_PLUS)
+    _working_mode : MuoviWorkingMode
+        Current working mode configuration
+    _detection_mode : MuoviDetectionMode
+        Current detection mode configuration
+    _configuration_command : int
+        Encoded configuration command for the device
+        
+    Notes
+    -----
+    The device uses TCP/IP protocol where this class acts as a server and the
+    Muovi hardware connects as a client. Connection settings specify the IP
+    address and port to listen on.
     """
 
     def __init__(
@@ -55,9 +104,13 @@ class OTBMuovi(BaseDevice):
         """
         Initialize the Muovi device.
 
-        Args:
-            parent (Union[QMainWindow, QWidget], optional): Parent widget. Defaults to None.
-            is_muovi_plus (bool, optional): Boolean to initialize the Muovi device as Muovi+ (64 biosignal channels) or Muovi (32 biosignal channels). Defaults to False (Muovi).
+        Parameters
+        ----------
+        parent : Union[QMainWindow, QWidget], optional
+            Parent widget. Defaults to None.
+        is_muovi_plus : bool, optional
+            Boolean to initialize the Muovi device as Muovi+ (64 biosignal channels) 
+            or Muovi (32 biosignal channels). Defaults to False (Muovi).
         """
         super().__init__(parent)
 
@@ -178,6 +231,12 @@ class OTBMuovi(BaseDevice):
         self._send_configuration_to_device()
 
     def _send_configuration_to_device(self) -> None:
+        """
+        Send the configuration command to the connected Muovi device.
+        
+        Converts the configuration command to bytes and sends it via TCP socket.
+        If sending fails, disconnects from the device.
+        """
         configuration_bytes = int(self._configuration_command).to_bytes(
             1, byteorder="big"
         )
@@ -188,6 +247,13 @@ class OTBMuovi(BaseDevice):
             self._disconnect_from_device()
 
     def _configure_command(self) -> None:
+        """
+        Encode the working mode and detection mode into a configuration command.
+        
+        The configuration command is a single byte where:
+        - Bits 2-7: Working mode value (shifted left by 2)
+        - Bits 0-1: Detection mode value
+        """
         self._configuration_command = self._working_mode.value << 2
         self._configuration_command += self._detection_mode.value
 
@@ -246,11 +312,26 @@ class OTBMuovi(BaseDevice):
         self.biosignal_data_available.emit(self._extract_biosignal_data(processed_data))
         self.auxiliary_data_available.emit(self._extract_auxiliary_data(processed_data))
 
-    # Convert channels from bytes to integers
     def _bytes_to_integers(
         self,
         data: bytearray,
     ) -> np.ndarray:
+        """
+        Convert raw byte data to integer values.
+        
+        Separates channels from the byte stream and converts each channel's
+        bytes to integer values based on the current working mode.
+        
+        Parameters
+        ----------
+        data : bytearray
+            Raw byte data from the device
+            
+        Returns
+        -------
+        np.ndarray
+            Array of integer values for each channel
+        """
         channel_values = []
         # Separate channels from byte-string. One channel has
         # "bytes_in_sample" many bytes in it.
@@ -271,6 +352,19 @@ class OTBMuovi(BaseDevice):
         return np.array(channel_values)
 
     def _decode_int16(self, bytes_value: bytearray) -> int:
+        """
+        Decode 2 bytes to a 16-bit signed integer using two's complement.
+        
+        Parameters
+        ----------
+        bytes_value : bytearray
+            2-byte array to decode
+            
+        Returns
+        -------
+        int
+            Decoded 16-bit signed integer value
+        """
         value = None
         # Combine 2 bytes to a 16 bit integer value
         value = bytes_value[0] * 2**8 + bytes_value[1]
@@ -279,8 +373,20 @@ class OTBMuovi(BaseDevice):
             value -= 2**16
         return value
 
-    # Convert byte-array value to an integer value and apply two's complement
     def _decode_int24(self, bytes_value: bytearray) -> int:
+        """
+        Decode 3 bytes to a 24-bit signed integer using two's complement.
+        
+        Parameters
+        ----------
+        bytes_value : bytearray
+            3-byte array to decode
+            
+        Returns
+        -------
+        int
+            Decoded 24-bit signed integer value
+        """
         value = None
         # Combine 3 bytes to a 24 bit integer value
         value = bytes_value[0] * 2**16 + bytes_value[1] * 2**8 + bytes_value[2]
