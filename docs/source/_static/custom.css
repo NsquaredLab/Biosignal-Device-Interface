@@ -1,0 +1,246 @@
+/* Custom CSS for Biosignal Device Interface Documentation */
+
+/* Improve code block styling */
+.highlight {
+    border-radius: 8px;
+    border: 1px solid var(--color-background-border);
+    margin: 1rem 0;
+}
+
+.highlight pre {
+    padding: 1rem;
+    margin: 0;
+    overflow-x: auto;
+}
+
+/* Style for grid cards */
+.sd-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.sd-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Improve table styling */
+table.docutils {
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table.docutils th {
+    background-color: var(--color-brand-primary);
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+}
+
+table.docutils td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--color-background-border);
+}
+
+table.docutils tr:nth-child(even) {
+    background-color: var(--color-background-secondary);
+}
+
+/* Style for admonitions */
+.admonition {
+    border-radius: 8px;
+    border-left: 4px solid;
+    margin: 1.5rem 0;
+    padding: 1rem;
+}
+
+.admonition.note {
+    border-left-color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.admonition.warning {
+    border-left-color: #f39c12;
+    background-color: rgba(243, 156, 18, 0.1);
+}
+
+.admonition.tip {
+    border-left-color: #2ecc71;
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.admonition.important {
+    border-left-color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* Improve navigation styling */
+.toctree-wrapper ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.toctree-wrapper li {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.toctree-wrapper li:hover {
+    background-color: var(--color-background-hover);
+}
+
+/* Style for badges */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem;
+    margin: 0.125rem;
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+
+.badge-info {
+    color: #fff;
+    background-color: #17a2b8;
+}
+
+/* Improve header styling */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    border-bottom: 3px solid var(--color-brand-primary);
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    border-bottom: 2px solid var(--color-background-border);
+    padding-bottom: 0.3rem;
+}
+
+/* Style for inline code */
+code {
+    background-color: var(--color-background-secondary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border: 1px solid var(--color-background-border);
+}
+
+/* Improve link styling */
+a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Style for API documentation */
+.py.class, .py.method, .py.function {
+    border-left: 3px solid var(--color-brand-primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+}
+
+.py.class > dt, .py.method > dt, .py.function > dt {
+    background-color: var(--color-background-secondary);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+    .sd-container-fluid {
+        padding: 0 1rem;
+    }
+    
+    .highlight pre {
+        font-size: 0.85rem;
+    }
+    
+    table.docutils {
+        font-size: 0.9rem;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .sd-card {
+        background-color: var(--color-background-primary);
+        border: 1px solid var(--color-background-border);
+    }
+    
+    table.docutils th {
+        background-color: var(--color-brand-primary);
+    }
+    
+    .highlight {
+        background-color: var(--color-background-secondary);
+    }
+}
+
+/* Custom styling for version badges */
+.version-badge {
+    display: inline-block;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+/* Styling for feature highlights */
+.feature-highlight {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.feature-highlight h3 {
+    margin-top: 0;
+    color: white;
+    border-bottom: none;
+}
+
+/* Improve search box styling */
+.search-input {
+    border-radius: 20px;
+    border: 2px solid var(--color-background-border);
+    padding: 0.5rem 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: var(--color-brand-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+} 

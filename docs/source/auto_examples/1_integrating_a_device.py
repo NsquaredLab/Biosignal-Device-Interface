@@ -2,13 +2,19 @@
 Integrating a device in your own software.
 ==========================================
 
-This example...
+This example demonstrates how to integrate a biosignal device widget into your own
+PySide6 application. The example shows how to create a main window, instantiate a
+device widget, connect its signals, and handle the incoming data.
+
+Note: This example creates a GUI application. When run directly, it will open a window.
+During documentation generation, it only demonstrates the setup without showing the GUI.
 """
 
 from __future__ import annotations
 from typing import TYPE_CHECKING
-from PySide6.QtWidgets import QApplication, QMainWindow
+import os
 import sys
+from PySide6.QtWidgets import QApplication, QMainWindow
 
 from biosignal_device_interface.devices import (
     OTBQuattrocentoLightWidget,
@@ -40,7 +46,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(muovi_widget)
 
     def _update(self, data: np.ndarray):
-        print("Incoming data frome device:", data.shape)
+        print("Incoming data from device:", data.shape)
 
     def _emg_update(self, data: np.ndarray):
         print("Incoming emg data from device:", data.shape)
@@ -58,15 +64,64 @@ class MainWindow(QMainWindow):
         print("Streaming state:", is_streaming)
 
 
-if __name__ == "__main__":
-    # Create the application object
+# %%
+# Creating the Application and Main Window
+# =========================================
+#
+# Here we demonstrate how to set up the application and create the main window.
+# In a real application, you would call app.exec() to start the event loop.
+
+# Check if we're in a headless environment (like during documentation generation)
+# or if DISPLAY is not available
+is_headless = (
+    os.environ.get('DISPLAY', '') == '' or 
+    'sphinx' in sys.modules or
+    'PYTEST_CURRENT_TEST' in os.environ
+)
+
+if not is_headless:
+    # Only create QApplication if we're not in a headless environment
     app = QApplication(sys.argv)
+else:
+    # For documentation/testing, we can still demonstrate the setup
+    app = None
 
-    # Create an instance of the main window
+# Create an instance of the main window
+# This demonstrates the complete setup process
+print("Creating MainWindow instance...")
+if app is not None:
     window = MainWindow()
+    print("MainWindow created successfully!")
+    print("Device widget integrated and signals connected.")
+else:
+    print("Running in headless mode - skipping GUI creation")
+    print("In a real application, you would:")
+    print("1. Create QApplication(sys.argv)")
+    print("2. Create MainWindow() instance")
+    print("3. Call window.show()")
+    print("4. Call sys.exit(app.exec())")
 
-    # Show the main window
+# %%
+# Running the Application
+# =======================
+#
+# To actually run this application with a visible GUI, execute this script directly:
+#
+# .. code-block:: bash
+#
+#    python examples/1_integrating_a_device.py
+#
+# This will open a window with the device interface where you can:
+#
+# * Connect to a Quattrocento Light device
+# * Configure the device settings
+# * Start/stop data streaming
+# * Monitor incoming biosignal and auxiliary data
+
+if __name__ == "__main__" and not is_headless:
+    # Show the main window and start the event loop
     window.show()
-
-    # Execute the application
+    print("Starting application event loop...")
     sys.exit(app.exec())
+elif __name__ == "__main__":
+    print("Headless mode detected - example completed without showing GUI")

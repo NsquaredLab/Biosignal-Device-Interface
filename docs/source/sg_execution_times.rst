@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.000** total execution time for 4 files **from all galleries**:
+**00:00.013** total execution time for 4 files **from all galleries**:
 
 .. container::
 
@@ -32,6 +32,9 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
+   * - :ref:`sphx_glr_auto_examples_4_implementing_new_device.py` (``..\..\examples\4_implementing_new_device.py``)
+     - 00:00.013
+     - 0.0
    * - :ref:`sphx_glr_auto_examples_1_integrating_a_device.py` (``..\..\examples\1_integrating_a_device.py``)
      - 00:00.000
      - 0.0
@@ -39,8 +42,5 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_examples_3_integrating_device_interface_and_biosignal_plot.py` (``..\..\examples\3_integrating_device_interface_and_biosignal_plot.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_4_implementing_new_device.py` (``..\..\examples\4_implementing_new_device.py``)
      - 00:00.000
      - 0.0

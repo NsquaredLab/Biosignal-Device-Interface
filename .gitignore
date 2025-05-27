@@ -163,3 +163,4 @@ cython_debug/
 
 # Visual Studio Code
 .vscode/
+/docs/source/auto_examples/

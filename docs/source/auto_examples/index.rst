@@ -15,7 +15,7 @@ Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to integrate a biosignal device widget into your own PySide6 appl...">
 
 .. only:: html
 
@@ -32,7 +32,7 @@ Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to integrate all available biosignal device widgets  into your ow...">
 
 .. only:: html
 
@@ -49,7 +49,7 @@ Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to integrate all available biosignal device widgets  along with a...">
 
 .. only:: html
 
@@ -66,7 +66,7 @@ Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the complete process of implementing a new biosignal device into the ...">
 
 .. only:: html
 
@@ -77,7 +77,7 @@ Examples
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Integrating a device in your own software.</div>
+      <div class="sphx-glr-thumbnail-title">Implementing a new device in the Biosignal-Device-Interface.</div>
     </div>
 
 
@@ -96,18 +96,6 @@ Examples
    /auto_examples/3_integrating_device_interface_and_biosignal_plot
    /auto_examples/4_implementing_new_device
 
-
-.. only:: html
-
-  .. container:: sphx-glr-footer sphx-glr-footer-gallery
-
-    .. container:: sphx-glr-download sphx-glr-download-python
-
-      :download:`Download all examples in Python source code: auto_examples_python.zip </auto_examples/auto_examples_python.zip>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip </auto_examples/auto_examples_jupyter.zip>`
 
 
 .. only:: html

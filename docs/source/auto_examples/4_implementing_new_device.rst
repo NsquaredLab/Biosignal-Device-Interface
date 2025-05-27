@@ -18,16 +18,35 @@
 .. _sphx_glr_auto_examples_4_implementing_new_device.py:
 
 
-Integrating a device in your own software.
-==========================================
+Implementing a new device in the Biosignal-Device-Interface.
+============================================================
 
-This example...
+This example demonstrates the complete process of implementing a new biosignal device
+into the Biosignal-Device-Interface package. It covers all steps from device class
+implementation to GUI widget creation.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-13
+This is a tutorial/guide example that shows the structure and requirements for
+adding new device support to the package.
+
+.. GENERATED FROM PYTHON SOURCE LINES 12-15
+
+.. code-block:: Python
+
+
+    from __future__ import annotations
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 19-20
 
 %% Step 1.1: Add device type to the DeviceType Enum in biosignal_device_interface.constants.devices.base_device_constants.py.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-31
+.. GENERATED FROM PYTHON SOURCE LINES 21-38
 
 .. code-block:: Python
 
@@ -49,16 +68,21 @@ This example...
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-34
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 39-41
 
 The file name should be the name of the manufacturer and the device, e.g., manu_mydevicename.py.
 The file should contain the device class that inherits from the BaseDevice class.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-75
+.. GENERATED FROM PYTHON SOURCE LINES 41-81
 
 .. code-block:: Python
 
-    from __future__ import annotations
     from typing import TYPE_CHECKING, Union, Dict
     from biosignal_device_interface.devices.core.base_device import BaseDevice
     from biosignal_device_interface.constants.devices.core.base_device_constants import (
@@ -100,11 +124,17 @@ The file should contain the device class that inherits from the BaseDevice class
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-77
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 82-83
 
 Some methods need to call the super() method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-110
+.. GENERATED FROM PYTHON SOURCE LINES 83-116
 
 .. code-block:: Python
 
@@ -142,7 +172,13 @@ Some methods need to call the super() method.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-129
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 117-135
 
 By inheriting from the BaseDevice class, the new device class has to emit the following Signals:
 
@@ -163,7 +199,7 @@ These constants should be defined in biosignal_device_interface/constants/device
 
 Example: Quattrocento Light device configuration parameters
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-178
+.. GENERATED FROM PYTHON SOURCE LINES 135-184
 
 .. code-block:: Python
 
@@ -217,32 +253,37 @@ Example: Quattrocento Light device configuration parameters
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-180
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 185-186
 
 Typically such methods are needed to properly decode the data from the device.
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-185
+.. GENERATED FROM PYTHON SOURCE LINES 188-191
 
 Preferably, design the GUI in Qt Designer and compile it to a Python file afterwards.
 The QT Designer file should be saved in the biosignal_device_interface/gui/ui/ directory.
 The compiled .py file should be saved in the biosignal_device_interface/gui/ui_compiled/ directory.
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-191
+.. GENERATED FROM PYTHON SOURCE LINES 193-197
 
 The device widget is the graphical representation of the device in the Biosignal-Device-Interface.
 The device widget should inherit from the BaseDeviceWidget class.
 The device widget file should be implemented in the biosignal_device_interface/gui/device_template_widgets/ directory.
 The device widget file should be implemented with the name of the manufacturer and the device, e.g., manu_mydevicename_widget.
 
-.. GENERATED FROM PYTHON SOURCE LINES 193-194
+.. GENERATED FROM PYTHON SOURCE LINES 199-200
 
 Import the necessary libraries and classes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-271
+.. GENERATED FROM PYTHON SOURCE LINES 200-276
 
 .. code-block:: Python
 
-    from __future__ import annotations
     from typing import TYPE_CHECKING
 
     from biosignal_device_interface.gui.device_template_widgets.core.base_device_widget import (
@@ -320,7 +361,23 @@ Import the necessary libraries and classes.
 
 
 
-**Estimated memory usage:**  0 MB
+
+.. rst-class:: sphx-glr-script-out
+
+.. code-block:: pytb
+
+    Traceback (most recent call last):
+      File "D:\Research\projects\Biosignal-Device-Interface\examples\4_implementing_new_device.py", line 207, in <module>
+        from biosignal_device_interface.gui.ui_compiled.manu_mydevicename_widget import (
+    ModuleNotFoundError: No module named 'biosignal_device_interface.gui.ui_compiled.manu_mydevicename_widget'
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 0.013 seconds)
 
 
 .. _sphx_glr_download_auto_examples_4_implementing_new_device.py:
