@@ -350,7 +350,6 @@ class VispyFastPlotCanvas(app.Canvas):
         plot_data = self.line_data.ravel().astype(np.float32)
         self.program["a_position"].set_data(plot_data)
         self.update()
-        self.context.flush()
 
     def on_update_color(self, line_number: int, disable: bool = False) -> None:
         # Update alpha value of the line color
