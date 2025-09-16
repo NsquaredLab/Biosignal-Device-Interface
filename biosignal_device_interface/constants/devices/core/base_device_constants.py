@@ -21,7 +21,7 @@ class DeviceType(Enum):
     OTB_MUOVI = auto(), "OT Bioelettronica Muovi"
     OTB_MUOVI_PLUS = auto(), "OT Bioelettronica Muovi Plus"
     OTB_SYNCSTATION = auto(), "OT Bioelettronica SyncStation"
-    OTB_SESSANTACQUATTRO = auto(), "OT Bioelettronica Sessantaquattro"
+    OTB_SESSANTAQUATTRO = auto(), "OT Bioelettronica Sessantaquattro"
 
 
 class OTBDeviceType(Enum):
@@ -37,7 +37,7 @@ class OTBDeviceType(Enum):
     MUOVI = auto(), "Muovi"
     MUOVI_PLUS = auto(), "Muovi Plus"
     SYNCSTATION = auto(), "SyncStation"
-    SESSANTACQUATTRO = auto(), "Sessantaquattro"
+    SESSANTAQUATTRO = auto(), "Sessantaquattro"
 
 
 class DeviceChannelTypes(Enum):
@@ -60,6 +60,6 @@ DEVICE_NAME_DICT: dict[DeviceType | OTBDeviceType, str] = {
     OTBDeviceType.MUOVI_PLUS: "Muovi Plus",
     DeviceType.OTB_SYNCSTATION: "SyncStation",
     OTBDeviceType.SYNCSTATION: "SyncStation",
-    DeviceType.OTB_SESSANTACQUATTRO: "Sessantaquattro",
-    OTBDeviceType.SESSANTACQUATTRO: "Sessantaquattro",
+    DeviceType.OTB_SESSANTAQUATTRO: "Sessantaquattro",
+    OTBDeviceType.SESSANTAQUATTRO: "Sessantaquattro",
 }

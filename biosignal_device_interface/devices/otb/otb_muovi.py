@@ -212,6 +212,7 @@ class OTBMuovi(BaseDevice):
     def clear_socket(self) -> None:
         if self._client_socket is not None:
             self._client_socket.readAll()
+            self._received_bytes = bytearray()
 
     def _read_data(self) -> None:
         super()._read_data()

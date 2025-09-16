@@ -6,24 +6,12 @@ Contact: dome.braun@fau.de
 Last Update: 2025-09-16
 """
 
+from typing import Dict
 from aenum import Enum, auto
 
 from biosignal_device_interface.constants.devices.core.base_device_constants import (
-    DeviceType,
     DeviceChannelTypes,
 )
-
-
-class SessantaquattroActionMode(Enum):
-    """
-    Enum class for the action mode of the Sessantaquattro device.
-    """
-
-    _init_ = "value __doc__"
-
-    NONE = 0, "No action mode set."
-    SET = auto(), "Set the parameters of the device."
-    GET = auto(), "Get the parameters of the device."
 
 
 class SessantaquattroSamplingFrequencyMode(Enum):
@@ -32,10 +20,10 @@ class SessantaquattroSamplingFrequencyMode(Enum):
     _init_ = "value __doc__"
 
     NONE = 0, "No sampling frequency set."
-    LOW = auto(), "Low Sampling Frequency"
-    MEDIUM = auto(), "Medium Sampling Frequency"
-    HIGH = auto(), "High Sampling Frequency"
-    ULTRA = auto(), "Ultra Sampling Frequency"
+    LOW = auto(), "500 Hz (2000 Hz - Accelerometer)"
+    MEDIUM = auto(), "1000 Hz (4000 Hz - Accelerometer)"
+    HIGH = auto(), "2000 Hz (8000 Hz - Accelerometer)"
+    ULTRA = auto(), "4000 Hz (16000 Hz - Accelerometer)"
 
 
 class SessantaquattroDetectionMode(Enum):
@@ -64,10 +52,18 @@ class SessantaquattroChannelMode(Enum):
     _init_ = "value __doc__"
 
     NONE = 0, "No channel mode set."
-    LOW = auto(), ("Low Channel Mode")
-    MEDIUM = auto(), ("Medium Channel Mode")
-    HIGH = auto(), ("High Channel Mode")
-    ULTRA = auto(), ("Ultra Channel Mode")
+    LOW = auto(), (
+        "8 bioelec. + 2 AUX + 2 accessory (if MODE=001: 4 bio + 2 AUX + 2 acc)"
+    )
+    MEDIUM = auto(), (
+        "16 bioelec. + 2 AUX + 2 accessory (if MODE=001: 8 bio + 2 AUX + 2 acc)"
+    )
+    HIGH = auto(), (
+        "32 bioelec. + 2 AUX + 2 accessory (if MODE=001: 16 bio + 2 AUX + 2 acc)"
+    )
+    ULTRA = auto(), (
+        "64 bioelec. + 2 AUX + 2 accessory (if MODE=001: 32 bio + 2 AUX + 2 acc)"
+    )
 
 
 class SessantaquattroResolutionMode(Enum):
@@ -80,18 +76,6 @@ class SessantaquattroResolutionMode(Enum):
     NONE = 0, "No resolution mode set."
     LOW = auto(), ("16 Bits Resolution")
     HIGH = auto(), ("24 Bits Resolution")
-
-
-class SessantaquattroFilterMode(Enum):
-    """
-    Enum class for the filter mode of the Sessantaquattro device.
-    """
-
-    _init_ = "value __doc__"
-
-    NONE = 0, "No filter mode set."
-    OFF = auto(), ("High Pass Filter Off")
-    ON = auto(), ("High Pass Filter On")
 
 
 class SessantaquattroGainMode(Enum):
@@ -144,41 +128,101 @@ class SessantaquattroRecordingMode(Enum):
     START = auto(), ("Start the recording. Works only if TRIG = 3 (SDCARD).")
 
 
-class SessantoquattroTransmissionMode(Enum):
-    """
-    Enum class for the transmission mode of the Sessantaquattro device.
-    """
+def _get_sampling_frequency(
+    detection_mode: SessantaquattroDetectionMode,
+    sampling_freq_mode: SessantaquattroSamplingFrequencyMode,
+) -> int:
+    """Get sampling frequency for given detection and sampling frequency modes."""
+    if detection_mode == SessantaquattroDetectionMode.ACCELEROMETER:
+        base_freq = 2000
+    else:
+        base_freq = 500
 
-    _init_ = "value __doc__"
-
-    NONE = 0, "No transmission mode set."
-    OFF = auto(), ("No data transmission.")
-    ON = auto(), ("Data transmission active.")
+    multiplier = 2 ** (sampling_freq_mode.value - 1)
+    return base_freq * multiplier
 
 
-SESSANTAQUATTRO_DETECTION_MODE_CHARACTERISTICS_DICT: dict[
-    SessantaquattroDetectionMode, dict[SessantaquattroSamplingFrequencyMode, int]
+def _get_biosignal_channel_count(
+    sampling_freq_mode: SessantaquattroSamplingFrequencyMode,
+    detection_mode: SessantaquattroDetectionMode,
+) -> int:
+    """Get biosignal channel count for given modes."""
+    base_channels = 8 * (2 ** (sampling_freq_mode.value - 1))
+
+    # Bipolar mode has half the channels
+    if detection_mode == SessantaquattroDetectionMode.BIPOLAR:
+        return base_channels // 2
+
+    return base_channels
+
+
+# Generate dictionaries using functions
+SESSANTAQUATTRO_DETECTION_MODE_CHARACTERISTICS_DICT: Dict[
+    SessantaquattroDetectionMode, Dict[SessantaquattroSamplingFrequencyMode, int]
 ] = {
-    SessantaquattroDetectionMode.MONOPOLAR: {
-        SessantaquattroSamplingFrequencyMode.LOW: 500
-    },
-    SessantaquattroDetectionMode.BIPOLAR: {
-        SessantaquattroSamplingFrequencyMode.LOW: 500
-    },
-    SessantaquattroDetectionMode.DIFFERENTIAL: {
-        SessantaquattroSamplingFrequencyMode.LOW: 500
-    },
-    SessantaquattroDetectionMode.ACCELEROMETER: {
-        SessantaquattroSamplingFrequencyMode.LOW: 2000
-    },
-    SessantaquattroDetectionMode.UNDEFINED: {
-        SessantaquattroSamplingFrequencyMode.LOW: 500
-    },
-    SessantaquattroDetectionMode.IMPEDANCE_ADVANCED: {
-        SessantaquattroSamplingFrequencyMode.LOW: 500
-    },
-    SessantaquattroDetectionMode.IMPEDANCE: {
-        SessantaquattroSamplingFrequencyMode.LOW: 500
-    },
-    SessantaquattroDetectionMode.TEST: {SessantaquattroSamplingFrequencyMode.LOW: 500},
+    detection_mode: {
+        sampling_freq: _get_sampling_frequency(detection_mode, sampling_freq)
+        for sampling_freq in SessantaquattroSamplingFrequencyMode
+        if sampling_freq != SessantaquattroSamplingFrequencyMode.NONE
+    }
+    for detection_mode in SessantaquattroDetectionMode
+    if detection_mode != SessantaquattroDetectionMode.NONE
 }
+
+SESSANTAQUATTRO_CHANNEL_MODE_CHARACTERISTICS_DICT: Dict[
+    SessantaquattroSamplingFrequencyMode,
+    Dict[SessantaquattroDetectionMode, Dict[DeviceChannelTypes, int]],
+] = {
+    sampling_freq: {
+        detection_mode: {
+            DeviceChannelTypes.BIOSIGNAL: _get_biosignal_channel_count(
+                sampling_freq, detection_mode
+            ),
+            DeviceChannelTypes.AUXILIARY: 4,
+        }
+        for detection_mode in SessantaquattroDetectionMode
+        if detection_mode != SessantaquattroDetectionMode.NONE
+    }
+    for sampling_freq in SessantaquattroSamplingFrequencyMode
+    if sampling_freq != SessantaquattroSamplingFrequencyMode.NONE
+}
+
+SESSANTAQUATTRO_GAIN_MODE_CHARACTERISTICS_DICT: Dict[
+    SessantaquattroResolutionMode, Dict[SessantaquattroGainMode, float]
+] = {
+    SessantaquattroResolutionMode.LOW: {
+        SessantaquattroGainMode.DEFAULT: 8.0,
+        SessantaquattroGainMode.LOW: 4.0,
+        SessantaquattroGainMode.MEDIUM: 6.0,
+        SessantaquattroGainMode.HIGH: 8.0,
+    },
+    SessantaquattroResolutionMode.HIGH: {
+        SessantaquattroGainMode.DEFAULT: 2.0,
+        SessantaquattroGainMode.LOW: 4.0,
+        SessantaquattroGainMode.MEDIUM: 6.0,
+        SessantaquattroGainMode.HIGH: 8.0,
+    },
+}
+SESSANTAQUATTRO_BIOSIGNAL_LSB: float = 286.1e-6  # in mV (originally 268.1 nV)
+
+SESSANTAQUATTRO_AUXILIARY_LSB_DICT: Dict[SessantaquattroResolutionMode, float] = {
+    SessantaquattroResolutionMode.LOW: 146.48e-6,  # in mV (originally 146.48 nV)
+    SessantaquattroResolutionMode.HIGH: 572.2e-6,  # in mV (originally 572.2 nV)
+}
+
+SESSANTAQUATTRO_SAMPLES_PER_FRAME_DICT: Dict[SessantaquattroChannelMode, int] = {
+    SessantaquattroChannelMode.LOW: 48,
+    SessantaquattroChannelMode.MEDIUM: 28,
+    SessantaquattroChannelMode.HIGH: 16,
+    SessantaquattroChannelMode.ULTRA: 8,
+}
+
+if __name__ == "__main__":
+    # Print the generated dictionaries for verification
+    import pprint
+
+    print("Sessantaquattro Detection Mode Characteristics Dictionary:")
+    pprint.pprint(SESSANTAQUATTRO_DETECTION_MODE_CHARACTERISTICS_DICT)
+
+    print("\nSessantaquattro Channel Mode Characteristics Dictionary:")
+    pprint.pprint(SESSANTAQUATTRO_CHANNEL_MODE_CHARACTERISTICS_DICT)
