@@ -122,8 +122,6 @@ class OTBSessantaquattroWidget(BaseDeviceWidget):
             "recording_mode": None,  # TODO: Implement recording mode
         }
 
-        print(self._device_params)  # TODO: Remove
-
     def _initialize_device_params(self) -> None:
         self._device_params = {
             "sampling_frequency_mode": SessantaquattroSamplingFrequencyMode.NONE,
