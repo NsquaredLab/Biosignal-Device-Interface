@@ -79,7 +79,7 @@ class BaseDeviceWidget(QWidget):
         self.stream_toggled.emit(is_streaming)
 
     @abstractmethod
-    def _update_device_params(self) -> None:
+    def _initialize_device_params(self) -> None:
         """ """
         pass
 
@@ -92,7 +92,7 @@ class BaseDeviceWidget(QWidget):
         """ """
         # Device Setup
         self._device: BaseDevice = device
-        self._update_device_params()
+        self._initialize_device_params()
         self._set_signals()
         self._initialize_ui()
 
