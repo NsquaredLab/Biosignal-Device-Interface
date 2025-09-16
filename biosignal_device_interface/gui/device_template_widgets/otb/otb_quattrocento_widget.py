@@ -159,7 +159,7 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
             self._configure_push_button.setEnabled(True)
             self._toggle_configuration_group_boxes(True)
 
-    def _initialize_device_params(self):
+    def _update_device_params(self):
         self._device_params: dict = {
             "grids": [],
             "acq_sett_configuration": QuattrocentoAcqSettByte(),

@@ -18,7 +18,7 @@
     <widget class="QWidget" name="widget" native="true">
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="2" column="0">
-       <widget class="QGroupBox" name="inputGroupBox">
+       <widget class="QGroupBox" name="inputParametersGroupBox">
         <property name="title">
          <string>Input Parameters</string>
         </property>
@@ -34,17 +34,42 @@
           <widget class="QComboBox" name="inputDetectionModeComboBox">
            <item>
             <property name="text">
-             <string>MONOPOLAR</string>
+             <string>Monopolar</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>BIPOLAR</string>
+             <string>Bipolar</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>DIFFERENTIAL</string>
+             <string>Differential</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Accelerometer</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Undefined</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Impedance (Advanced)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Impedance</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Test</string>
             </property>
            </item>
           </widget>
@@ -87,7 +112,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QComboBox" name="inputGainComboBox">
+          <widget class="QComboBox" name="inputGainModeComboBox">
            <item>
             <property name="text">
              <string>Default</string>
@@ -95,17 +120,17 @@
            </item>
            <item>
             <property name="text">
-             <string>Low</string>
+             <string>Gain 4</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Medium</string>
+             <string>Gain 6</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>High</string>
+             <string>Gain 8</string>
             </property>
            </item>
           </widget>
@@ -157,9 +182,9 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="acquisitionSamplingFrequencyComboBox">
+          <widget class="QComboBox" name="acquisitionSamplingFrequencyModeComboBox">
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <item>
             <property name="text">
@@ -184,7 +209,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="acquisitionNumberOfChannelsComboBox">
+          <widget class="QComboBox" name="acquisitionChannelModeComboBox">
            <property name="currentIndex">
             <number>3</number>
            </property>
@@ -236,7 +261,7 @@
          <item row="0" column="1">
           <widget class="QLineEdit" name="connectionIPLineEdit">
            <property name="text">
-            <string>127.0.0.1</string>
+            <string>0.0.0.0</string>
            </property>
           </widget>
          </item>
@@ -250,7 +275,7 @@
          <item row="1" column="1">
           <widget class="QLineEdit" name="connectionPortLineEdit">
            <property name="text">
-            <string>31000</string>
+            <string>45454</string>
            </property>
           </widget>
          </item>

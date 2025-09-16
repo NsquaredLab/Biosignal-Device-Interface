@@ -103,7 +103,7 @@ class OTBMuoviWidget(BaseDeviceWidget):
 
         self.stream_toggled.emit(is_streaming)
 
-    def _initialize_device_params(self) -> None:
+    def _update_device_params(self) -> None:
         self._device_params = {
             "working_mode": MuoviWorkingMode.EMG,
             "detection_mode": MuoviDetectionMode.MONOPOLAR_GAIN_8,

@@ -254,7 +254,7 @@ class MANUMyNameDeviceWidget(BaseDeviceWidget):
         # Implement the streaming toggled method
         pass
 
-    def _initialize_device_params(self) -> None:
+    def _update_device_params(self) -> None:
         # Example: Set the default sampling frequency mode
         self._device_params = {
             "sampling_frequency_mode": MyNameDeviceSamplingFrequency.MEDIUM
