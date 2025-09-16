@@ -111,7 +111,7 @@ class OTBQuattrocentoLightWidget(BaseDeviceWidget):
 
         self.stream_toggled.emit(is_streaming)
 
-    def _update_device_params(self) -> None:
+    def _initialize_device_params(self) -> None:
         self._device_params = {
             "grids": [2, 3],
             "streaming_frequency_mode": QuattrocentoLightStreamingFrequency.THIRTYTWO,

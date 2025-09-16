@@ -15,7 +15,6 @@ from biosignal_device_interface.devices.otb.otb_sessantaquattro import (
 from biosignal_device_interface.constants.devices.otb.otb_sessantaquattro_constants import (
     SessantaquattroChannelMode,
     SessantaquattroDetectionMode,
-    MUOVI_NETWORK_PORT,
     SessantaquattroGainMode,
     SessantaquattroResolutionMode,
     SessantaquattroSamplingFrequencyMode,
@@ -33,7 +32,7 @@ if TYPE_CHECKING:
     )
 
 
-class OTBSessantaQuattroWidget(BaseDeviceWidget):
+class OTBSessantaquattroWidget(BaseDeviceWidget):
     def __init__(self, parent: QWidget | QMainWindow | None = None):
         super().__init__(parent)
 
@@ -125,6 +124,17 @@ class OTBSessantaQuattroWidget(BaseDeviceWidget):
 
         print(self._device_params)  # TODO: Remove
 
+    def _initialize_device_params(self) -> None:
+        self._device_params = {
+            "sampling_frequency_mode": SessantaquattroSamplingFrequencyMode.NONE,
+            "channel_mode": SessantaquattroChannelMode.NONE,
+            "detection_mode": SessantaquattroDetectionMode.NONE,
+            "resolution_mode": SessantaquattroResolutionMode.NONE,
+            "gain_mode": SessantaquattroGainMode.NONE,
+            "trigger_mode": None,  # TODO: Implement trigger mode
+            "recording_mode": None,  # TODO: Implement recording mode
+        }
+
     def _get_enum_value(self, combo_box: QComboBox) -> int | None:
         index = combo_box.currentIndex()
         return index + 1
@@ -192,5 +202,3 @@ class OTBSessantaQuattroWidget(BaseDeviceWidget):
             self._input_parameters_group_box,
             self._acquisition_group_box,
         ]
-
-        self._update_device_params()

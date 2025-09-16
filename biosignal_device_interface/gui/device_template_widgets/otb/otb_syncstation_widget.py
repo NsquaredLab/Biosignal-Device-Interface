@@ -123,7 +123,7 @@ class OTBSyncStationWidget(BaseDeviceWidget):
     def _update_probe_params(self, probe: SyncStationProbeConfigMode, state) -> None:
         self._probes_dict[probe]["detection_mode"].setEnabled(state == 2)
 
-    def _update_device_params(self) -> None:
+    def _initialize_device_params(self) -> None:
         self._device_params = {
             "rec_on_mode": SyncStationRecOnMode.OFF,
             "working_mode": SyncStationWorkingMode.EMG,

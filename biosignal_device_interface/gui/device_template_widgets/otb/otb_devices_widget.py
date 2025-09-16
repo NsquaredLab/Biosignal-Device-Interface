@@ -43,6 +43,6 @@ class OTBDevicesWidget(BaseMultipleDevicesWidget):
             DeviceType.OTB_MUOVI: OTBMuoviWidget(self),
             DeviceType.OTB_MUOVI_PLUS: OTBMuoviPlusWidget(self),
             DeviceType.OTB_SYNCSTATION: OTBSyncStationWidget(self),
-            DeviceType.OTB_SESSANTACQUATTRO: OTBSessantaquattroWidget(self),
+            DeviceType.OTB_SESSANTAQUATTRO: OTBSessantaquattroWidget(self),
         }
         self._set_devices(self._device_selection)
