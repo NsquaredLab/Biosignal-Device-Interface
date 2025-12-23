@@ -16,8 +16,10 @@ from biosignal_device_interface.constants.devices.otb.otb_sessantaquattro_consta
     SessantaquattroChannelMode,
     SessantaquattroDetectionMode,
     SessantaquattroGainMode,
+    SessantaquattroRecordingMode,
     SessantaquattroResolutionMode,
     SessantaquattroSamplingFrequencyMode,
+    SessantaquattroTriggerMode,
 )
 
 if TYPE_CHECKING:
@@ -118,8 +120,8 @@ class OTBSessantaquattroWidget(BaseDeviceWidget):
             "gain_mode": SessantaquattroGainMode(
                 self._get_enum_value(self._input_gain_mode_combo_box)
             ),
-            "trigger_mode": None,  # TODO: Implement trigger mode
-            "recording_mode": None,  # TODO: Implement recording mode
+            "trigger_mode": SessantaquattroTriggerMode.DEFAULT,
+            "recording_mode": SessantaquattroRecordingMode.STOP,
         }
 
     def _initialize_device_params(self) -> None:
@@ -129,8 +131,8 @@ class OTBSessantaquattroWidget(BaseDeviceWidget):
             "detection_mode": SessantaquattroDetectionMode.NONE,
             "resolution_mode": SessantaquattroResolutionMode.NONE,
             "gain_mode": SessantaquattroGainMode.NONE,
-            "trigger_mode": None,  # TODO: Implement trigger mode
-            "recording_mode": None,  # TODO: Implement recording mode
+            "trigger_mode": SessantaquattroTriggerMode.NONE,
+            "recording_mode": SessantaquattroRecordingMode.NONE,
         }
 
     def _get_enum_value(self, combo_box: QComboBox) -> int | None:

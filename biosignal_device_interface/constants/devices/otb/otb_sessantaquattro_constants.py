@@ -191,19 +191,18 @@ SESSANTAQUATTRO_GAIN_MODE_CHARACTERISTICS_DICT: Dict[
     SessantaquattroResolutionMode, Dict[SessantaquattroGainMode, float]
 ] = {
     SessantaquattroResolutionMode.LOW: {
-        SessantaquattroGainMode.DEFAULT: 8.0,
-        SessantaquattroGainMode.LOW: 4.0,
-        SessantaquattroGainMode.MEDIUM: 6.0,
-        SessantaquattroGainMode.HIGH: 8.0,
+        SessantaquattroGainMode.DEFAULT: 286.1e-6,  # Gain8, 16-bit (in mV, originally 286.1 nV)
+        SessantaquattroGainMode.LOW: 572.2e-6,  # Gain4, 16-bit (in mV, originally 572.2 nV)
+        SessantaquattroGainMode.MEDIUM: 381.5e-6,  # Gain6, 16-bit (in mV, originally 381.5 nV)
+        SessantaquattroGainMode.HIGH: 286.1e-6,  # Gain8, 16-bit (in mV, originally 286.1 nV)
     },
     SessantaquattroResolutionMode.HIGH: {
-        SessantaquattroGainMode.DEFAULT: 2.0,
-        SessantaquattroGainMode.LOW: 4.0,
-        SessantaquattroGainMode.MEDIUM: 6.0,
-        SessantaquattroGainMode.HIGH: 8.0,
+        SessantaquattroGainMode.DEFAULT: 71.5e-6,  # Gain8, 24-bit (in mV, originally 71.5 nV)
+        SessantaquattroGainMode.LOW: 143.0e-6,  # Gain4, 24-bit (in mV, originally 143.0 nV)
+        SessantaquattroGainMode.MEDIUM: 95.4e-6,  # Gain6, 24-bit (in mV, originally 95.4 nV)
+        SessantaquattroGainMode.HIGH: 71.5e-6,  # Gain8, 24-bit (in mV, originally 71.5 nV)
     },
 }
-SESSANTAQUATTRO_BIOSIGNAL_LSB: float = 286.1e-6  # in mV (originally 268.1 nV)
 
 SESSANTAQUATTRO_AUXILIARY_LSB_DICT: Dict[SessantaquattroResolutionMode, float] = {
     SessantaquattroResolutionMode.LOW: 146.48e-6,  # in mV (originally 146.48 nV)
