@@ -23,7 +23,6 @@ from biosignal_device_interface.constants.devices.otb.otb_sessantaquattro_consta
     SESSANTAQUATTRO_CHANNEL_MODE_CHARACTERISTICS_DICT,
     SESSANTAQUATTRO_DETECTION_MODE_CHARACTERISTICS_DICT,
     SESSANTAQUATTRO_GAIN_MODE_CHARACTERISTICS_DICT,
-    SESSANTAQUATTRO_BIOSIGNAL_LSB,
     SESSANTAQUATTRO_SAMPLES_PER_FRAME_DICT,
     SessantaquattroChannelMode,
     SessantaquattroDetectionMode,
@@ -172,11 +171,9 @@ class OTBSessantaquattro(BaseDevice):
             2 if self._resolution_mode == SessantaquattroResolutionMode.LOW else 3
         )
 
-        self._conversion_factor_biosignal = SESSANTAQUATTRO_BIOSIGNAL_LSB * (
-            SESSANTAQUATTRO_GAIN_MODE_CHARACTERISTICS_DICT[self._resolution_mode][
-                self._gain_mode
-            ]
-        )
+        self._conversion_factor_biosignal = SESSANTAQUATTRO_GAIN_MODE_CHARACTERISTICS_DICT[
+            self._resolution_mode
+        ][self._gain_mode]
 
         self._conversion_factor_auxiliary = SESSANTAQUATTRO_AUXILIARY_LSB_DICT[
             self._resolution_mode
@@ -198,7 +195,7 @@ class OTBSessantaquattro(BaseDevice):
 
     def _send_configuration_to_device(self) -> None:
         configuration_bytes = int(self._configuration_command).to_bytes(
-            1, byteorder="big"
+            2, byteorder="big"
         )
 
         success = self._client_socket.write(configuration_bytes)
@@ -212,41 +209,41 @@ class OTBSessantaquattro(BaseDevice):
         # Control Byte 0
         # Bit 0 - Transmission Mode | Handled by Start / Stop Streaming
         # Bit 1
-        if self._recording_mode == SessantaquattroRecordingMode.NONE:
+        if self._recording_mode is None or self._recording_mode == SessantaquattroRecordingMode.NONE:
             self._recording_mode = SessantaquattroRecordingMode.STOP
         self._configuration_command += (self._recording_mode.value - 1) << 1
 
         # Bit 3-2
-        if self._trigger_mode == SessantaquattroTriggerMode.NONE:
+        if self._trigger_mode is None or self._trigger_mode == SessantaquattroTriggerMode.NONE:
             self._trigger_mode = SessantaquattroTriggerMode.DEFAULT
         self._configuration_command += (self._trigger_mode.value - 1) << 2
 
         # Bit 5-4
-        if self._gain_mode == SessantaquattroGainMode.NONE:
+        if self._gain_mode is None or self._gain_mode == SessantaquattroGainMode.NONE:
             self._gain_mode = SessantaquattroGainMode.DEFAULT
         self._configuration_command += (self._gain_mode.value - 1) << 4
 
-        # Bit 6 - Filter mode: disable high pass filter
-        self._configuration_command += 0 << 6
+        # Bit 6 - Filter mode: enable high pass filter
+        self._configuration_command += 1 << 6
 
         # Bit 7 - Resolution mode
-        if self._resolution_mode == SessantaquattroResolutionMode.NONE:
+        if self._resolution_mode is None or self._resolution_mode == SessantaquattroResolutionMode.NONE:
             self._resolution_mode = SessantaquattroResolutionMode.LOW
         self._configuration_command += (self._resolution_mode.value - 1) << 7
 
         # Control Byte 1
         # Bit 2-0 - Detection Mode
-        if self._detection_mode == SessantaquattroDetectionMode.NONE:
+        if self._detection_mode is None or self._detection_mode == SessantaquattroDetectionMode.NONE:
             self._detection_mode = SessantaquattroDetectionMode.MONOPOLAR
         self._configuration_command += (self._detection_mode.value - 1) << 8
 
         # Bit 4-3 - Channel Mode
-        if self._channel_mode == SessantaquattroChannelMode.NONE:
+        if self._channel_mode is None or self._channel_mode == SessantaquattroChannelMode.NONE:
             self._channel_mode = SessantaquattroChannelMode.LOW
         self._configuration_command += (self._channel_mode.value - 1) << 11
 
         # Bit 6-5 - Sampling Frequency Mode
-        if self._sampling_frequency_mode == SessantaquattroSamplingFrequencyMode.NONE:
+        if self._sampling_frequency_mode is None or self._sampling_frequency_mode == SessantaquattroSamplingFrequencyMode.NONE:
             self._sampling_frequency_mode = SessantaquattroSamplingFrequencyMode.HIGH
         self._configuration_command += (self._sampling_frequency_mode.value - 1) << 13
 
