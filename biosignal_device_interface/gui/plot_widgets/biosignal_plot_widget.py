@@ -154,7 +154,7 @@ class BiosignalPlotWidget(QWidget):
         self.lines_enabled = np.ones((self.number_of_lines,)).astype(bool)
 
         for i in range(self.number_of_lines):
-            checkbox = QCheckBox(f"Line {i + 1}")
+            checkbox = QCheckBox(f"Ch {i + 1}")
             checkbox.setChecked(True)
             checkbox.stateChanged.connect(partial(self._toggle_line, i))
             checkbox.setStyleSheet("padding-left: 10px;")
