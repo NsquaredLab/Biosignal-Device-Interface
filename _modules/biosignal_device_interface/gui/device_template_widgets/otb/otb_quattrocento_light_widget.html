@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>biosignal_device_interface.gui.device_template_widgets.otb.otb_quattrocento_light_widget - biosignal-device-interface 0.1.312 documentation</title>
+        <title>biosignal_device_interface.gui.device_template_widgets.otb.otb_quattrocento_light_widget - biosignal-device-interface 0.2.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery.css?v=61a4c737" />
@@ -169,7 +169,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">biosignal-device-interface 0.1.312 documentation</div></a>
+      <a href="../../../../../index.html"><div class="brand">biosignal-device-interface 0.2.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -193,7 +193,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../../index.html">
   
   
-  <span class="sidebar-brand-text">biosignal-device-interface 0.1.312 documentation</span>
+  <span class="sidebar-brand-text">biosignal-device-interface 0.2.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -286,7 +286,9 @@
 <span class="kn">from</span> <span class="nn">biosignal_device_interface.gui.ui_compiled.otb_quattrocento_light_template_widget</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Ui_QuattrocentoLightForm</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">biosignal_device_interface.devices.otb.otb_quattrocento_light</span> <span class="kn">import</span> <span class="n">OTBQuattrocentoLight</span>
+<span class="kn">from</span> <span class="nn">biosignal_device_interface.devices.otb.otb_quattrocento_light</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">OTBQuattrocentoLight</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># Constants</span>
 <span class="kn">from</span> <span class="nn">biosignal_device_interface.constants.devices.otb.otb_quattrocento_light_constants</span> <span class="kn">import</span> <span class="p">(</span>
@@ -314,74 +316,74 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_device</span><span class="p">(</span><span class="n">OTBQuattrocentoLight</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_toggle_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">_is_connected</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">is_connected</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">toggle_connection</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_ip_label</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_port_label</span><span class="o">.</span><span class="n">text</span><span class="p">())),</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">toggle_connection</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_ip_label</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_port_label</span><span class="o">.</span><span class="n">text</span><span class="p">())),</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_connection_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_connected</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">is_connected</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Disconnect&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connection_group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Disconnect&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection_group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Connect&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connection_group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Connect&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection_group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">is_connected</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_toggle_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span><span class="p">[</span><span class="s2">&quot;grids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">i</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">check_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_check_box_list</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">check_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_check_box_list</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">check_box</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span><span class="p">[</span><span class="s2">&quot;streaming_frequency_mode&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">QuattrocentoLightStreamingFrequency</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_streaming_frequency_combo_box</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_acquisition_streaming_frequency_combo_box</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span><span class="p">[</span><span class="s2">&quot;sampling_frequency_mode&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">QuattrocentoLightSamplingFrequency</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_sampling_frequency_combo_box</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_acquisition_sampling_frequency_combo_box</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">configure_device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">configure_device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_configuration_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_configured</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">is_configured</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">is_configured</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_toggle_configuration_group_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">group_box</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration_group_boxes</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">group_box</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration_group_boxes</span><span class="p">:</span>
             <span class="n">group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="ow">not</span> <span class="n">group_box</span><span class="o">.</span><span class="n">isEnabled</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">_toggle_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">toggle_streaming</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">toggle_streaming</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_stream_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_streaming</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">is_streaming</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Stop Streaming&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Stop Streaming&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_configuration_group_boxes</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Stream&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Stream&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_configuration_group_boxes</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">stream_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">is_streaming</span><span class="p">)</span>
@@ -398,37 +400,39 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># Command Push Buttons</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandConnectionPushButton</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_connection</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_toggled</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandConnectionPushButton</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_connection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_toggled</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandConfigurationPushButton</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_configuration</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">configure_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration_toggled</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandConfigurationPushButton</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_configuration</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">configure_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration_toggled</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandStreamPushButton</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_stream</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">stream_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stream_toggled</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandStreamPushButton</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_stream</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">stream_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stream_toggled</span><span class="p">)</span>
 
         <span class="c1"># Connection parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">connectionGroupBox</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection_ip_label</span><span class="p">:</span> <span class="n">QLabel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">connectionIPLabel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection_port_label</span><span class="p">:</span> <span class="n">QLabel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">connectionPortLabel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">connectionGroupBox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_ip_label</span><span class="p">:</span> <span class="n">QLabel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">connectionIPLabel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_port_label</span><span class="p">:</span> <span class="n">QLabel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">connectionPortLabel</span>
 
         <span class="c1"># Acquisition parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">acquisitionGroupBox</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_sampling_frequency_combo_box</span><span class="p">:</span> <span class="n">QComboBox</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_acquisition_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">acquisitionGroupBox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_acquisition_sampling_frequency_combo_box</span><span class="p">:</span> <span class="n">QComboBox</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">acquisitionSamplingFrequencyComboBox</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_streaming_frequency_combo_box</span><span class="p">:</span> <span class="n">QComboBox</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_acquisition_streaming_frequency_combo_box</span><span class="p">:</span> <span class="n">QComboBox</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">acquisitionStreamingFrequencyComboBox</span>
         <span class="p">)</span>
 
         <span class="c1"># Grid parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">gridSelectionGroupBox</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_check_box_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">QCheckBox</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">gridSelectionGroupBox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_check_box_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">QCheckBox</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">gridOneCheckBox</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">gridTwoCheckBox</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">gridThreeCheckBox</span><span class="p">,</span>
@@ -439,15 +443,15 @@
 
         <span class="p">[</span>
             <span class="n">check_box</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">check_box</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_check_box_list</span>
+            <span class="k">for</span> <span class="n">check_box</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_check_box_list</span>
         <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_check_box_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_check_box_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_check_box_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_check_box_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Configuration parameters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">configuration_group_boxes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">QGroupBox</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_group_box</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid_selection_group_box</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configuration_group_boxes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">QGroupBox</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_acquisition_group_box</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grid_selection_group_box</span><span class="p">,</span>
         <span class="p">]</span></div>
 
 </pre></div>
@@ -462,7 +466,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2023 - 2024, n-squared lab, FAU Erlangen-Nürnberg, Germany
+                Copyright &#169; 2023 - 2026, n-squared lab, FAU Erlangen-Nürnberg, Germany
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -482,7 +486,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=49b8c8aa"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=000c92bf"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>

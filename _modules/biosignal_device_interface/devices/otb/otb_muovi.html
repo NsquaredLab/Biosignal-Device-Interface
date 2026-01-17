@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>biosignal_device_interface.devices.otb.otb_muovi - biosignal-device-interface 0.1.312 documentation</title>
+        <title>biosignal_device_interface.devices.otb.otb_muovi - biosignal-device-interface 0.2.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=61a4c737" />
@@ -169,7 +169,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">biosignal-device-interface 0.1.312 documentation</div></a>
+      <a href="../../../../index.html"><div class="brand">biosignal-device-interface 0.2.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -193,7 +193,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   
-  <span class="sidebar-brand-text">biosignal-device-interface 0.1.312 documentation</span>
+  <span class="sidebar-brand-text">biosignal-device-interface 0.2.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -277,8 +277,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for biosignal_device_interface.devices.otb.otb_muovi</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Python Libraries</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Device class for real-time interfacing the Muovi device.</span>
 <span class="sd">Developer: Dominik I. Braun</span>
 <span class="sd">Contact: dome.braun@fau.de</span>
@@ -387,9 +386,9 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_client_socket</span><span class="o">.</span><span class="n">readyRead</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_read_data</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_connected</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_is_connected</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_connected</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_connection_timeout_timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
                 <span class="k">return</span> <span class="kc">True</span>
 
@@ -422,7 +421,7 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">configure_device</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_connected</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="c1"># Check if detection mode is valid for working mode (Case EEG -&gt; MONOPOLAR_GAIN_4 =&gt; MONOPOLAR_GAIN_8)</span>
@@ -610,7 +609,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2023 - 2024, n-squared lab, FAU Erlangen-Nürnberg, Germany
+                Copyright &#169; 2023 - 2026, n-squared lab, FAU Erlangen-Nürnberg, Germany
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -630,7 +629,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=49b8c8aa"></script>
+</div><script src="../../../../_static/documentation_options.js?v=000c92bf"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

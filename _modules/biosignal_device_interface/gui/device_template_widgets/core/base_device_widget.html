@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>biosignal_device_interface.gui.device_template_widgets.core.base_device_widget - biosignal-device-interface 0.1.312 documentation</title>
+        <title>biosignal_device_interface.gui.device_template_widgets.core.base_device_widget - biosignal-device-interface 0.2.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery.css?v=61a4c737" />
@@ -169,7 +169,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">biosignal-device-interface 0.1.312 documentation</div></a>
+      <a href="../../../../../index.html"><div class="brand">biosignal-device-interface 0.2.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -193,7 +193,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../../index.html">
   
   
-  <span class="sidebar-brand-text">biosignal-device-interface 0.1.312 documentation</span>
+  <span class="sidebar-brand-text">biosignal-device-interface 0.2.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -298,6 +298,7 @@
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+    <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QLineEdit</span>
 
 
 <div class="viewcode-block" id="BaseDeviceWidget">
@@ -317,7 +318,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parent_widget</span><span class="p">:</span> <span class="n">QWidget</span> <span class="o">|</span> <span class="n">QMainWindow</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">parent</span>
 
         <span class="c1"># Device Setup</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="n">BaseDevice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">:</span> <span class="n">BaseDevice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># GUI setup</span>
@@ -371,16 +372,16 @@
     <span class="k">def</span> <span class="nf">_set_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">BaseDevice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
         <span class="c1"># Device Setup</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="n">BaseDevice</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">:</span> <span class="n">BaseDevice</span> <span class="o">=</span> <span class="n">device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_device_params</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_signals</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_ui</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_set_signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">data_available</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_arrived</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">biosignal_data_available</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">biosignal_data_arrived</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">auxiliary_data_available</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auxiliary_data_arrived</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">data_available</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_arrived</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">biosignal_data_available</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">biosignal_data_arrived</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">auxiliary_data_available</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auxiliary_data_arrived</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseDeviceWidget.get_device_information">
 <a class="viewcode-back" href="../../../../../modules/device_widgets/core/base_device_widget.html#biosignal_device_interface.gui.device_template_widgets.core.base_device_widget.BaseDeviceWidget.get_device_information">[docs]</a>
@@ -393,13 +394,21 @@
 <span class="sd">                Dictionary that holds information about the</span>
 <span class="sd">                current device configuration and status.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_device_information</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">get_device_information</span><span class="p">()</span></div>
 
 
     <span class="k">def</span> <span class="nf">disconnect_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">_is_connected</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">_is_streaming</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">toggle_connection</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">is_connected</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">_is_streaming</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">toggle_connection</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_check_ip_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_edit</span><span class="p">:</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">check_valid_ip</span><span class="p">(</span><span class="n">line_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()):</span>
+            <span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_port_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_edit</span><span class="p">:</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">check_valid_port</span><span class="p">(</span><span class="n">line_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()):</span>
+            <span class="n">line_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseDeviceWidget.closeEvent">
 <a class="viewcode-back" href="../../../../../modules/device_widgets/core/base_device_widget.html#biosignal_device_interface.gui.device_template_widgets.core.base_device_widget.BaseDeviceWidget.closeEvent">[docs]</a>
@@ -419,7 +428,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2023 - 2024, n-squared lab, FAU Erlangen-Nürnberg, Germany
+                Copyright &#169; 2023 - 2026, n-squared lab, FAU Erlangen-Nürnberg, Germany
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -439,7 +448,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=49b8c8aa"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=000c92bf"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>
