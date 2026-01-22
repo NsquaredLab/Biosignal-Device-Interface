@@ -331,12 +331,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Disconnect&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 2: Configure device settings&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connection_group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Connect&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 2: Configure device settings (connect first)&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 3: Start data streaming (configure first)&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connection_group_box</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">is_connected</span><span class="p">)</span>
@@ -354,6 +357,7 @@
     <span class="k">def</span> <span class="nf">_configuration_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_configured</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">is_configured</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 3: Start data streaming&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_toggled</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">is_configured</span><span class="p">)</span>
 
@@ -393,16 +397,19 @@
         <span class="c1"># Command Push Buttons</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandConnectionPushButton</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_connection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 1: Connect to the Muovi device&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">connect_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connection_toggled</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandConfigurationPushButton</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_configuration</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configure_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 2: Configure device settings (connect first)&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">configure_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration_toggled</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="p">:</span> <span class="n">QPushButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandStreamPushButton</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_toggle_stream</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Step 3: Start data streaming (configure first)&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="o">.</span><span class="n">stream_toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stream_toggled</span><span class="p">)</span>
 
         <span class="c1"># Connection parameters</span>
@@ -429,9 +436,18 @@
         <span class="c1"># Input parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_parameters_group_box</span><span class="p">:</span> <span class="n">QGroupBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">inputGroupBox</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_working_mode_combo_box</span><span class="p">:</span> <span class="n">QComboBox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">inputWorkingModeComboBox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_working_mode_combo_box</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
+            <span class="s2">&quot;EMG: Electromyography for muscle signals</span><span class="se">\n</span><span class="s2">EEG: Electroencephalography for brain signals&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_detection_mode_combo_box</span><span class="p">:</span> <span class="n">QComboBox</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">inputDetectionModeComboBox</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_detection_mode_combo_box</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span>
+            <span class="s2">&quot;High Gain: Better for weak signals</span><span class="se">\n</span><span class="s2">Low Gain: Better for strong signals</span><span class="se">\n</span><span class="s2">Impedance Check: Verify electrode contact&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Add tooltip for update button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection_update_push_button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Refresh available device IP addresses&quot;</span><span class="p">)</span>
 
         <span class="c1"># Configuration parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configuration_group_boxes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">QGroupBox</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
