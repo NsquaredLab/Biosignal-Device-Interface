@@ -2,7 +2,7 @@ from __future__ import annotations
 from functools import partial
 from typing import TYPE_CHECKING
 
-from PySide6.QtGui import QResizeEvent, QWheelEvent
+from PySide6.QtGui import QResizeEvent, QWheelEvent, QFont
 from vispy import app, gloo
 from PySide6.QtWidgets import (
     QVBoxLayout,
@@ -11,6 +11,8 @@ from PySide6.QtWidgets import (
     QCheckBox,
     QGridLayout,
     QSizePolicy,
+    QLabel,
+    QFrame,
 )
 from PySide6.QtCore import Qt, Signal, QPoint
 import matplotlib.colors as mcolors
@@ -50,7 +52,45 @@ class BiosignalPlotWidget(QWidget):
         self.is_configured: bool = False
 
     def _configure_widget(self):
-        # Create scroll_area
+        # Create main layout
+        self.setLayout(QVBoxLayout())
+        self.layout().setContentsMargins(0, 0, 0, 0)
+
+        # Create placeholder widget (shown when not configured)
+        self.placeholder_widget = QFrame(self)
+        self.placeholder_widget.setStyleSheet("""
+            QFrame {
+                background-color: rgba(18, 18, 18, 1);
+                border: 2px dashed rgba(100, 100, 100, 0.5);
+                border-radius: 8px;
+            }
+        """)
+        placeholder_layout = QVBoxLayout(self.placeholder_widget)
+        placeholder_layout.setAlignment(Qt.AlignCenter)
+
+        # Placeholder icon/text
+        self.placeholder_label = QLabel("📊")
+        self.placeholder_label.setStyleSheet("font-size: 48px; border: none;")
+        self.placeholder_label.setAlignment(Qt.AlignCenter)
+
+        self.placeholder_text = QLabel("EMG Signal Plot")
+        self.placeholder_text.setStyleSheet("color: rgba(150, 150, 150, 1); font-size: 16px; font-weight: bold; border: none;")
+        self.placeholder_text.setAlignment(Qt.AlignCenter)
+
+        self.placeholder_hint = QLabel("Connect and configure a device to view signals")
+        self.placeholder_hint.setStyleSheet("color: rgba(100, 100, 100, 1); font-size: 12px; border: none;")
+        self.placeholder_hint.setAlignment(Qt.AlignCenter)
+        self.placeholder_hint.setWordWrap(True)
+
+        placeholder_layout.addStretch()
+        placeholder_layout.addWidget(self.placeholder_label)
+        placeholder_layout.addWidget(self.placeholder_text)
+        placeholder_layout.addWidget(self.placeholder_hint)
+        placeholder_layout.addStretch()
+
+        self.layout().addWidget(self.placeholder_widget)
+
+        # Create scroll_area (hidden initially)
         self.scroll_area = QScrollArea(self)
         self.scroll_area.setHorizontalScrollBarPolicy(
             Qt.ScrollBarAlwaysOff
@@ -58,9 +98,8 @@ class BiosignalPlotWidget(QWidget):
         self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.scroll_area.setLayoutDirection(Qt.RightToLeft)
+        self.scroll_area.hide()  # Hidden until configured
 
-        # Create a layout for the VispyFastPlotWidget
-        self.setLayout(QVBoxLayout())
         # Add the scroll_area to the layout
         self.layout().addWidget(self.scroll_area)
 
@@ -176,6 +215,10 @@ class BiosignalPlotWidget(QWidget):
             else:
                 self.container_widget_layout.setRowMinimumHeight(i, 0)
 
+        # Show plot, hide placeholder
+        self.placeholder_widget.hide()
+        self.scroll_area.show()
+
         self.is_configured = True
 
     def update_plot(self, input_data: np.ndarray) -> None:
@@ -201,6 +244,12 @@ class BiosignalPlotWidget(QWidget):
 
     def reset_data(self) -> None:
         self.canvas.on_reset()
+
+    def show_placeholder(self) -> None:
+        """Show the placeholder and hide the plot."""
+        self.scroll_area.hide()
+        self.placeholder_widget.show()
+        self.is_configured = False
 
     def _toggle_line(self, line_number: int, state: int) -> None:
         is_checked = state == 2
