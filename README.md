@@ -17,7 +17,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/biosignal-device-interface.svg)](https://pypi.org/project/biosignal-device-interface/)
 [![Python versions](https://img.shields.io/pypi/pyversions/biosignal-device-interface.svg)](https://pypi.org/project/biosignal-device-interface/)
-[![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-blue.svg)](LICENSE.txt)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
 
 </div>
 
@@ -93,7 +93,7 @@ Examples of how you can use this package can be found in our [examples gallery](
 <!-- LICENSE -->
 ## License
 
-Distributed under the CC BY-SA 4.0 License. See `LICENSE.txt` for more information.
+Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Contact
