@@ -23,7 +23,8 @@ class Ui_SyncStationForm(object):
     def setupUi(self, SyncStationForm):
         if not SyncStationForm.objectName():
             SyncStationForm.setObjectName(u"SyncStationForm")
-        SyncStationForm.resize(350, 608)
+        SyncStationForm.resize(340, 608)
+        SyncStationForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout = QGridLayout(SyncStationForm)
         self.gridLayout.setObjectName(u"gridLayout")
         self.inputGroupBox = QGroupBox(SyncStationForm)
@@ -104,7 +105,7 @@ class Ui_SyncStationForm(object):
 
         self.gridLayout_5.addWidget(self.muoviProbeFourDetectionModeComboBox, 3, 1, 1, 1)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 154, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout_5.addItem(self.verticalSpacer_2, 4, 0, 1, 1)
 
@@ -383,46 +384,46 @@ class Ui_SyncStationForm(object):
         self.inputWorkingModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"EMG", None))
 
         self.label_5.setText(QCoreApplication.translate("SyncStationForm", u"Working Mode", None))
-        self.muoviProbeOneEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi Probe 1", None))
+        self.muoviProbeOneEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi1", None))
         self.muoviProbeOneDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.muoviProbeOneDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.muoviProbeOneDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.muoviProbeOneDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.muoviProbeTwoEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi Probe 2", None))
+        self.muoviProbeTwoEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi2", None))
         self.muoviProbeTwoDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.muoviProbeTwoDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.muoviProbeTwoDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.muoviProbeTwoDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.muoviProbeThreeEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi Probe 3", None))
+        self.muoviProbeThreeEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi3", None))
         self.muoviProbeThreeDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.muoviProbeThreeDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.muoviProbeThreeDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.muoviProbeThreeDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.muoviProbeFourEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi Probe 4", None))
+        self.muoviProbeFourEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi4", None))
         self.muoviProbeFourDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.muoviProbeFourDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.muoviProbeFourDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.muoviProbeFourDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
         self.probesTabWidget.setTabText(self.probesTabWidget.indexOf(self.muoviWidget), QCoreApplication.translate("SyncStationForm", u"Muovi", None))
-        self.muoviPlusProbeOneEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi+ Probe 1", None))
+        self.muoviPlusProbeOneEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi+1", None))
         self.muoviPlusProbeOneDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.muoviPlusProbeOneDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.muoviPlusProbeOneDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.muoviPlusProbeOneDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.muoviPlusProbeTwoEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi+ Probe 2", None))
+        self.muoviPlusProbeTwoEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Muovi+2", None))
         self.muoviPlusProbeTwoDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.muoviPlusProbeTwoDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.muoviPlusProbeTwoDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.muoviPlusProbeTwoDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
         self.probesTabWidget.setTabText(self.probesTabWidget.indexOf(self.muoviPlusWidget), QCoreApplication.translate("SyncStationForm", u"Muovi+", None))
-        self.duePlusProbeNineEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 9", None))
-        self.duePlusProbeTenEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 10", None))
+        self.duePlusProbeNineEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+9", None))
+        self.duePlusProbeTenEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+10", None))
         self.duePlusProbeSixDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.duePlusProbeSixDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.duePlusProbeSixDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
@@ -443,21 +444,21 @@ class Ui_SyncStationForm(object):
         self.duePlusProbeFourDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.duePlusProbeFourDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.duePlusProbeThreeEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 3", None))
-        self.duePlusProbeSixEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 6", None))
-        self.duePlusProbeEightEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 8", None))
+        self.duePlusProbeThreeEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+3", None))
+        self.duePlusProbeSixEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+6", None))
+        self.duePlusProbeEightEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+8", None))
         self.duePlusProbeThreeDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.duePlusProbeThreeDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.duePlusProbeThreeDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.duePlusProbeThreeDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.duePlusProbeSevenEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 7", None))
+        self.duePlusProbeSevenEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+7", None))
         self.duePlusProbeTwoDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.duePlusProbeTwoDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.duePlusProbeTwoDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.duePlusProbeTwoDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.duePlusProbeTwoEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 2", None))
+        self.duePlusProbeTwoEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+2", None))
         self.duePlusProbeEightDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.duePlusProbeEightDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.duePlusProbeEightDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
@@ -468,19 +469,19 @@ class Ui_SyncStationForm(object):
         self.duePlusProbeSevenDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.duePlusProbeSevenDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.duePlusProbeFourEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 4", None))
+        self.duePlusProbeFourEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+4", None))
         self.duePlusProbeFiveDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.duePlusProbeFiveDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.duePlusProbeFiveDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.duePlusProbeFiveDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.duePlusProbeFiveEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 5", None))
+        self.duePlusProbeFiveEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+5", None))
         self.duePlusProbeOneDetectionModeComboBox.setItemText(0, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 8)", None))
         self.duePlusProbeOneDetectionModeComboBox.setItemText(1, QCoreApplication.translate("SyncStationForm", u"Monopolar (Gain 4)", None))
         self.duePlusProbeOneDetectionModeComboBox.setItemText(2, QCoreApplication.translate("SyncStationForm", u"Impedance Check", None))
         self.duePlusProbeOneDetectionModeComboBox.setItemText(3, QCoreApplication.translate("SyncStationForm", u"Test", None))
 
-        self.duePlusProbeOneEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+ Probe 1", None))
+        self.duePlusProbeOneEnableCheckBox.setText(QCoreApplication.translate("SyncStationForm", u"Due+1", None))
         self.probesTabWidget.setTabText(self.probesTabWidget.indexOf(self.duePlusWidget), QCoreApplication.translate("SyncStationForm", u"Due+", None))
         self.commandsGroupBox.setTitle(QCoreApplication.translate("SyncStationForm", u"Commands", None))
         self.commandConnectionPushButton.setText(QCoreApplication.translate("SyncStationForm", u"Connect", None))
