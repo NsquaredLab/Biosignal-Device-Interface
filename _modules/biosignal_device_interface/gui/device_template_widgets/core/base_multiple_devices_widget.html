@@ -331,6 +331,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">device_stacked_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">deviceStackedWidget</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device_selection_combo_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">deviceSelectionComboBox</span>
 
+        <span class="c1"># Sync external scrollbar with scroll area&#39;s internal scrollbar</span>
+        <span class="n">internal_scrollbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">deviceScrollArea</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">()</span>
+        <span class="n">external_scrollbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">deviceScrollBar</span>
+
+        <span class="c1"># Sync scrollbar values bidirectionally</span>
+        <span class="n">internal_scrollbar</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">external_scrollbar</span><span class="o">.</span><span class="n">setValue</span><span class="p">)</span>
+        <span class="n">external_scrollbar</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">internal_scrollbar</span><span class="o">.</span><span class="n">setValue</span><span class="p">)</span>
+
+        <span class="c1"># Sync scrollbar range and visibility when content changes</span>
+        <span class="k">def</span> <span class="nf">update_scrollbar_range</span><span class="p">(</span><span class="n">min_val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_val</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">external_scrollbar</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
+            <span class="n">external_scrollbar</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">max_val</span> <span class="o">&gt;</span> <span class="n">min_val</span><span class="p">)</span>
+
+        <span class="n">internal_scrollbar</span><span class="o">.</span><span class="n">rangeChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">update_scrollbar_range</span><span class="p">)</span>
+        <span class="c1"># Initialize visibility</span>
+        <span class="n">external_scrollbar</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">internal_scrollbar</span><span class="o">.</span><span class="n">maximum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">internal_scrollbar</span><span class="o">.</span><span class="n">minimum</span><span class="p">())</span>
+
     <span class="k">def</span> <span class="nf">get_device_information</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_current_widget</span><span class="p">()</span><span class="o">.</span><span class="n">get_device_information</span><span class="p">()</span>
 
