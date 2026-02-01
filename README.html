@@ -293,68 +293,76 @@
   </a>
 <h3 align="center">Biosignal Device Interface</h3>
   <p align="center">
-    Python communication interface to many biosignal devices manufactured by several companies to easy integration in custom PySide6 applications.
+    Python communication interface to many biosignal devices manufactured by several companies for easy integration in custom PySide6 applications.
     <br />
     <a href="https://nsquaredlab.github.io/Biosignal-Device-Interface/"><strong>Explore the docs »</strong></a>
   </p>
+<p><a class="reference external" href="https://pypi.org/project/biosignal-device-interface/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/biosignal-device-interface.svg" /></a>
+<a class="reference external" href="https://pypi.org/project/biosignal-device-interface/"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/biosignal-device-interface.svg" /></a>
+<a class="reference internal" href="#LICENSE.txt"><span class="xref myst"><img alt="License" src="https://img.shields.io/badge/license-CC%20BY--SA%204.0-blue.svg" /></span></a></p>
 </div>
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#supported-devices">Supported Devices</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#installation">Installation</a></li>
         <li><a href="#development-installation">Development Installation</a></li>
-        <li><a href="#package-installation">Package Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 <section id="about-the-project">
 <h2>About The Project<a class="headerlink" href="#about-the-project" title="Link to this heading">¶</a></h2>
-<p>Give a brief introduction into the project.</p>
-<!-- CONTACT -->
-<section id="contact">
-<h3>Contact<a class="headerlink" href="#contact" title="Link to this heading">¶</a></h3>
-<p><a class="reference external" href="https://www.nsquared.tf.fau.de/person/dominik-braun/">Dominik I. Braun</a> - dome.braun&#64;fau.de</p>
-<p>Project Link: <a class="reference external" href="https://github.com/NsquaredLab/Biosignal-Device-Interface">https://github.com/NsquaredLab/Biosignal-Device-Interface</a></p>
+<p>Biosignal Device Interface provides a unified Python API for communicating with biosignal acquisition devices from multiple manufacturers. It includes ready-to-use PySide6 widgets for device configuration and data streaming, making it easy to integrate biosignal acquisition into custom applications.</p>
+</section>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<section id="ot-bioelettronica">
+<h3>OT Bioelettronica<a class="headerlink" href="#ot-bioelettronica" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Quattrocento</strong> - 400+ channel EMG/EEG amplifier</p></li>
+<li><p><strong>Quattrocento Light</strong> - Compact version of Quattrocento</p></li>
+<li><p><strong>Muovi</strong> - Wearable EMG sensor</p></li>
+<li><p><strong>Muovi+</strong> - Enhanced wearable EMG sensor</p></li>
+<li><p><strong>SyncStation</strong> - Multi-device synchronization hub (Muovi, Muovi+, Due+)</p></li>
+</ul>
+</section>
+<section id="other-devices">
+<h3>Other Devices<a class="headerlink" href="#other-devices" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>More devices coming soon…</p></li>
+</ul>
 <!-- GETTING STARTED -->
 </section>
 </section>
 <section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
-<p>The local set up is made using <a class="reference external" href="https://python-poetry.org/">Poetry</a>. You can install Poetry using the following command.
-Note: It is recommeded to install it globally.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>poetry
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h3>
+<p>Install from PyPI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>biosignal-device-interface
 </pre></div>
 </div>
-<p>Then, you can install the dependencies in your work area using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>install
-</pre></div>
-</div>
-<section id="development-installation">
-<h3>Development installation<a class="headerlink" href="#development-installation" title="Link to this heading">¶</a></h3>
-<p>If you want to contribute to the project, you can install the development dependencies using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>install<span class="w"> </span>--with<span class="w"> </span>dev,docs
+<p>Or with Poetry:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>biosignal-device-interface
 </pre></div>
 </div>
 </section>
-<section id="package-installation">
-<h3>Package Installation<a class="headerlink" href="#package-installation" title="Link to this heading">¶</a></h3>
-<p>Poetry</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
-</pre></div>
-</div>
-<p>PIP</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
+<section id="development-installation">
+<h3>Development Installation<a class="headerlink" href="#development-installation" title="Link to this heading">¶</a></h3>
+<p>Clone the repository and install with development dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NsquaredLab/Biosignal-Device-Interface.git
+<span class="nb">cd</span><span class="w"> </span>Biosignal-Device-Interface
+poetry<span class="w"> </span>install<span class="w"> </span>--with<span class="w"> </span>dev,docs
 </pre></div>
 </div>
 <!-- USAGE EXAMPLES -->
@@ -367,7 +375,16 @@ Note: It is recommeded to install it globally.</p>
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
-<p>Distributed under the GPL-3.0 license License. See <code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code> for more information.</p>
+<p>Distributed under the CC BY-SA 4.0 License. See <code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code> for more information.</p>
+<!-- CONTACT -->
+</section>
+<section id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.nsquared.tf.fau.de/person/dominik-braun/">Dominik I. Braun</a> - dome.braun&#64;fau.de</p></li>
+<li><p><a class="reference external" href="https://www.nsquared.tf.fau.de/person/raul-simpetru/">Raul C. Sîmpetru</a> - raul.simpetru&#64;fau.de</p></li>
+</ul>
+<p>Project Link: <a class="reference external" href="https://github.com/NsquaredLab/Biosignal-Device-Interface">https://github.com/NsquaredLab/Biosignal-Device-Interface</a></p>
 <!-- ACKNOWLEDGMENTS -->
 </section>
 <section id="acknowledgments">
@@ -375,7 +392,7 @@ Note: It is recommeded to install it globally.</p>
 <ul class="simple">
 <li><p>Find available Python and Matlab implementations of OT Bioelettronica’s devices on their <a class="reference external" href="https://otbioelettronica.it/en/download/">website</a>.
 <br>
-Note: The example scripts does not provide you with the same level of utility for GUI implementations.</p></li>
+Note: The example scripts do not provide you with the same level of utility for GUI implementations.</p></li>
 </ul>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </section>
@@ -437,17 +454,20 @@ Note: The example scripts does not provide you with the same level of utility fo
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Biosignal-Device-Interface</a><ul>
-<li><a class="reference internal" href="#about-the-project">About The Project</a><ul>
-<li><a class="reference internal" href="#contact">Contact</a></li>
+<li><a class="reference internal" href="#about-the-project">About The Project</a></li>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a><ul>
+<li><a class="reference internal" href="#ot-bioelettronica">OT Bioelettronica</a></li>
+<li><a class="reference internal" href="#other-devices">Other Devices</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
-<li><a class="reference internal" href="#development-installation">Development installation</a></li>
-<li><a class="reference internal" href="#package-installation">Package Installation</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#development-installation">Development Installation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#contact">Contact</a></li>
 <li><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
 </ul>
 </li>

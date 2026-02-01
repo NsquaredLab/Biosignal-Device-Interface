@@ -10,10 +10,15 @@
 <h3 align="center">Biosignal Device Interface</h3>
 
   <p align="center">
-    Python communication interface to many biosignal devices manufactured by several companies to easy integration in custom PySide6 applications.
+    Python communication interface to many biosignal devices manufactured by several companies for easy integration in custom PySide6 applications.
     <br />
     <a href="https://nsquaredlab.github.io/Biosignal-Device-Interface/"><strong>Explore the docs »</strong></a>
   </p>
+
+[![PyPI version](https://img.shields.io/pypi/v/biosignal-device-interface.svg)](https://pypi.org/project/biosignal-device-interface/)
+[![Python versions](https://img.shields.io/pypi/pyversions/biosignal-device-interface.svg)](https://pypi.org/project/biosignal-device-interface/)
+[![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-blue.svg)](LICENSE.txt)
+
 </div>
 
 
@@ -22,19 +27,18 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#supported-devices">Supported Devices</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#installation">Installation</a></li>
         <li><a href="#development-installation">Development Installation</a></li>
-        <li><a href="#package-installation">Package Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -42,63 +46,67 @@
 
 ## About The Project
 
-Give a brief introduction into the project.
+Biosignal Device Interface provides a unified Python API for communicating with biosignal acquisition devices from multiple manufacturers. It includes ready-to-use PySide6 widgets for device configuration and data streaming, making it easy to integrate biosignal acquisition into custom applications.
 
-<!-- CONTACT -->
-### Contact
+## Supported Devices
 
- [Dominik I. Braun](https://www.nsquared.tf.fau.de/person/dominik-braun/) - dome.braun@fau.de
+### OT Bioelettronica
+- **Quattrocento** - 400+ channel EMG/EEG amplifier
+- **Quattrocento Light** - Compact version of Quattrocento
+- **Muovi** - Wearable EMG sensor
+- **Muovi+** - Enhanced wearable EMG sensor
+- **SyncStation** - Multi-device synchronization hub (Muovi, Muovi+, Due+)
 
-Project Link: [https://github.com/NsquaredLab/Biosignal-Device-Interface](https://github.com/NsquaredLab/Biosignal-Device-Interface)
-
+### Other Devices
+- More devices coming soon...
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-The local set up is made using [Poetry](https://python-poetry.org/). You can install Poetry using the following command.
-Note: It is recommeded to install it globally.
+### Installation
+
+Install from PyPI:
 ```bash
-pip install poetry
+pip install biosignal-device-interface
 ```
 
-Then, you can install the dependencies in your work area using the following command:
+Or with Poetry:
 ```bash
-poetry install
+poetry add biosignal-device-interface
 ```
 
-### Development installation
-If you want to contribute to the project, you can install the development dependencies using the following command:
+### Development Installation
+
+Clone the repository and install with development dependencies:
+
 ```bash
+git clone https://github.com/NsquaredLab/Biosignal-Device-Interface.git
+cd Biosignal-Device-Interface
 poetry install --with dev,docs
 ```
-
-### Package Installation
-Poetry
-```Bash
-poetry add git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
-```
-
-PIP
-```sh
-pip install git+https://github.com/NsquaredLab/Biosignal-Device-Interface.git
-```
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Examples of how you can use this package can be found in our [examples gallery](https://nsquaredlab.github.io/Biosignal-Device-Interface/auto_examples/index.html).
 
-
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPL-3.0 license License. See `LICENSE.txt` for more information.
+Distributed under the CC BY-SA 4.0 License. See `LICENSE.txt` for more information.
+
+<!-- CONTACT -->
+## Contact
+
+- [Dominik I. Braun](https://www.nsquared.tf.fau.de/person/dominik-braun/) - dome.braun@fau.de
+- [Raul C. Sîmpetru](https://www.nsquared.tf.fau.de/person/raul-simpetru/) - raul.simpetru@fau.de
+
+Project Link: [https://github.com/NsquaredLab/Biosignal-Device-Interface](https://github.com/NsquaredLab/Biosignal-Device-Interface)
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-* Find available Python and Matlab implementations of OT Bioelettronica's devices on their [website](https://otbioelettronica.it/en/download/). 
+* Find available Python and Matlab implementations of OT Bioelettronica's devices on their [website](https://otbioelettronica.it/en/download/).
 <br>
-Note: The example scripts does not provide you with the same level of utility for GUI implementations.
+Note: The example scripts do not provide you with the same level of utility for GUI implementations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
