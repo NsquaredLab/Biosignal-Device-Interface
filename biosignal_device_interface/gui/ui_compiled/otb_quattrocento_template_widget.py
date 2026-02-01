@@ -23,7 +23,9 @@ class Ui_QuattrocentoForm(object):
     def setupUi(self, QuattrocentoForm):
         if not QuattrocentoForm.objectName():
             QuattrocentoForm.setObjectName(u"QuattrocentoForm")
-        QuattrocentoForm.resize(400, 638)
+        QuattrocentoForm.resize(340, 638)
+        QuattrocentoForm.setMinimumSize(QSize(0, 550))
+        QuattrocentoForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout_2 = QGridLayout(QuattrocentoForm)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.widget = QWidget(QuattrocentoForm)

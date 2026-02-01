@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>340</width>
     <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>340</width>
+    <height>16777215</height>
+   </size>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">

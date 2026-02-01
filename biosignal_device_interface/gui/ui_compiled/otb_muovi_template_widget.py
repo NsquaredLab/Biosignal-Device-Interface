@@ -23,7 +23,8 @@ class Ui_MuoviForm(object):
     def setupUi(self, MuoviForm):
         if not MuoviForm.objectName():
             MuoviForm.setObjectName(u"MuoviForm")
-        MuoviForm.resize(400, 324)
+        MuoviForm.resize(340, 324)
+        MuoviForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout = QGridLayout(MuoviForm)
         self.gridLayout.setObjectName(u"gridLayout")
         self.verticalSpacer = QSpacerItem(20, 86, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)

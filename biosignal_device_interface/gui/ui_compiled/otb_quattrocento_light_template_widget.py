@@ -23,7 +23,8 @@ class Ui_QuattrocentoLightForm(object):
     def setupUi(self, QuattrocentoLightForm):
         if not QuattrocentoLightForm.objectName():
             QuattrocentoLightForm.setObjectName(u"QuattrocentoLightForm")
-        QuattrocentoLightForm.resize(400, 422)
+        QuattrocentoLightForm.resize(340, 422)
+        QuattrocentoLightForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout_2 = QGridLayout(QuattrocentoLightForm)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.widget = QWidget(QuattrocentoLightForm)
