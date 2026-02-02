@@ -60,7 +60,7 @@ class OTBQuattrocentoLight(BaseDevice):
         self._auxiliary_channel_start_index: int = 384  # Fix value
         self._number_of_auxiliary_channels: int = 16  # Fix value
         self._conversion_factor_biosignal: float = 5 / (2**16) / 150 * 1000  # in mV
-        self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in mV
+        self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in V
         self._bytes_per_sample: int = 2  # Fix value
         # Quattrocento unique parameters
         self._streaming_frequency: int | None = None

@@ -57,7 +57,7 @@ class OTBQuattrocento(BaseDevice):
 
         # Device Information
         self._conversion_factor_biosignal: float = 5 / (2**16) / 150 * 1000  # in mV
-        self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in mV
+        self._conversion_factor_auxiliary: float = 5 / (2**16) / 0.5  # in V
         self._number_of_streamed_channels: int = None
 
         # Connection Parameters
