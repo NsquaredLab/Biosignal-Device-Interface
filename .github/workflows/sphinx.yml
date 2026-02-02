@@ -1,36 +1,36 @@
 name: publish-docs
- 
+
 on:
   push:
     branches:
     - main
- 
+
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
- 
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
         python-version: 3.10.14
- 
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y libegl1 libgl1
-        python -m pip install --upgrade pip
-        python -m pip install poetry
-        poetry install --with docs
- 
+        uv sync --group docs
+
     - name: Build the docs
       run: |
-        source .venv/bin/activate
-        cd docs 
-        make html
+        cd docs
+        uv run make html
         cd ..
- 
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
