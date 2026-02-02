@@ -70,12 +70,15 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
             self._connect_push_button.setText("Disconnect")
             self._connect_push_button.setChecked(True)
             self._configure_push_button.setEnabled(True)
+            self._configure_push_button.setToolTip("Step 2: Configure device settings")
             self._connection_group_box.setEnabled(False)
         else:
             self._connect_push_button.setText("Connect")
             self._connect_push_button.setChecked(False)
             self._configure_push_button.setEnabled(False)
+            self._configure_push_button.setToolTip("Step 2: Configure device settings (connect first)")
             self._stream_push_button.setEnabled(False)
+            self._stream_push_button.setToolTip("Step 3: Start data streaming (configure first)")
             self._connection_group_box.setEnabled(True)
 
         self.connect_toggled.emit(is_connected)
@@ -131,6 +134,7 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
             self._stream_push_button.setEnabled(True)
+            self._stream_push_button.setToolTip("Step 3: Start data streaming")
 
         self.configure_toggled.emit(is_configured)
 
@@ -174,6 +178,7 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
         # Command Push Buttons
         self._connect_push_button: QPushButton = self.ui.commandConnectionPushButton
         self._connect_push_button.clicked.connect(self._toggle_connection)
+        self._connect_push_button.setToolTip("Step 1: Connect to the Quattrocento device")
         self._device.connect_toggled.connect(self._connection_toggled)
 
         self._configure_push_button: QPushButton = (
@@ -181,11 +186,13 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
         )
         self._configure_push_button.clicked.connect(self._toggle_configuration)
         self._configure_push_button.setEnabled(False)
+        self._configure_push_button.setToolTip("Step 2: Configure device settings (connect first)")
         self._device.configure_toggled.connect(self._configuration_toggled)
 
         self._stream_push_button: QPushButton = self.ui.commandStreamPushButton
         self._stream_push_button.clicked.connect(self._toggle_stream)
         self._stream_push_button.setEnabled(False)
+        self._stream_push_button.setToolTip("Step 3: Start data streaming (configure first)")
         self._device.stream_toggled.connect(self._stream_toggled)
 
         # Connection parameters
@@ -214,18 +221,33 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
         self._acquisition_sampling_frequency_combo_box: QComboBox = (
             self.ui.acquisitionSamplingFrequencyComboBox
         )
+        self._acquisition_sampling_frequency_combo_box.setToolTip(
+            "Higher frequencies capture more detail but generate more data"
+        )
         self._acquisition_number_of_channels_combo_box: QComboBox = (
             self.ui.acquisitionNumberOfChannelsComboBox
+        )
+        self._acquisition_number_of_channels_combo_box.setToolTip(
+            "Number of EMG channels to record from"
         )
         self._acquisition_decimator_check_box: QCheckBox = (
             self.ui.acquisitionDecimatorCheckBox
         )
+        self._acquisition_decimator_check_box.setToolTip(
+            "Reduce sampling rate by averaging samples (reduces data size)"
+        )
         self._acquisition_recording_check_box: QCheckBox = (
             self.ui.acquisitionRecordingCheckBox
+        )
+        self._acquisition_recording_check_box.setToolTip(
+            "Enable on-device recording to SD card"
         )
 
         # Grid selection
         self._grid_selection_group_box: QGroupBox = self.ui.gridSelectionGroupBox
+        self._grid_selection_group_box.setToolTip(
+            "Select which electrode grids to use for recording"
+        )
         self._grid_selection_check_box_list: list[QCheckBox] = [
             self.ui.gridOneCheckBox,
             self.ui.gridTwoCheckBox,
@@ -244,13 +266,22 @@ class OTBQuattrocentoWidget(BaseDeviceWidget):
         self._input_group_box: QGroupBox = self.ui.inputGroupBox
         self._input_channel_combo_box: QComboBox = self.ui.inputChannelComboBox
         self._input_low_pass_filter_combo_box: QComboBox = self.ui.inputLowPassComboBox
+        self._input_low_pass_filter_combo_box.setToolTip(
+            "Low-pass filter removes high-frequency noise"
+        )
         self._input_low_pass_default = self.ui.inputLowPassComboBox.currentIndex()
         self._input_high_pass_filter_combo_box: QComboBox = (
             self.ui.inputHighPassComboBox
         )
+        self._input_high_pass_filter_combo_box.setToolTip(
+            "High-pass filter removes low-frequency drift and motion artifacts"
+        )
         self._input_high_pass_default = self.ui.inputHighPassComboBox.currentIndex()
         self._input_detection_mode_combo_box: QComboBox = (
             self.ui.inputDetectionModeComboBox
+        )
+        self._input_detection_mode_combo_box.setToolTip(
+            "Monopolar: Each electrode vs reference\nDifferential: Difference between adjacent electrodes"
         )
 
         self._configuration_group_boxes: list[QGroupBox] = [

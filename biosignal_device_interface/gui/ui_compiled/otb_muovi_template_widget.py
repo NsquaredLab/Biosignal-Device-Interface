@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'muovi_template_widget.ui'
+## Form generated from reading UI file 'otb_muovi_template_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.0
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,10 +23,11 @@ class Ui_MuoviForm(object):
     def setupUi(self, MuoviForm):
         if not MuoviForm.objectName():
             MuoviForm.setObjectName(u"MuoviForm")
-        MuoviForm.resize(400, 324)
+        MuoviForm.resize(340, 324)
+        MuoviForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout = QGridLayout(MuoviForm)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.verticalSpacer = QSpacerItem(20, 86, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 86, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer, 4, 0, 1, 1)
 

@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>340</width>
     <height>608</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SyncStationForm</string>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>340</width>
+    <height>16777215</height>
+   </size>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
@@ -57,7 +63,7 @@
           <item row="0" column="0">
            <widget class="QCheckBox" name="muoviProbeOneEnableCheckBox">
             <property name="text">
-             <string>Muovi Probe 1</string>
+             <string>Muovi1</string>
             </property>
            </widget>
           </item>
@@ -91,7 +97,7 @@
           <item row="1" column="0">
            <widget class="QCheckBox" name="muoviProbeTwoEnableCheckBox">
             <property name="text">
-             <string>Muovi Probe 2</string>
+             <string>Muovi2</string>
             </property>
            </widget>
           </item>
@@ -125,7 +131,7 @@
           <item row="2" column="0">
            <widget class="QCheckBox" name="muoviProbeThreeEnableCheckBox">
             <property name="text">
-             <string>Muovi Probe 3</string>
+             <string>Muovi3</string>
             </property>
            </widget>
           </item>
@@ -159,7 +165,7 @@
           <item row="3" column="0">
            <widget class="QCheckBox" name="muoviProbeFourEnableCheckBox">
             <property name="text">
-             <string>Muovi Probe 4</string>
+             <string>Muovi4</string>
             </property>
            </widget>
           </item>
@@ -198,7 +204,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>154</height>
+              <height>40</height>
              </size>
             </property>
            </spacer>
@@ -213,7 +219,7 @@
           <item row="0" column="0">
            <widget class="QCheckBox" name="muoviPlusProbeOneEnableCheckBox">
             <property name="text">
-             <string>Muovi+ Probe 1</string>
+             <string>Muovi+1</string>
             </property>
            </widget>
           </item>
@@ -247,7 +253,7 @@
           <item row="1" column="0">
            <widget class="QCheckBox" name="muoviPlusProbeTwoEnableCheckBox">
             <property name="text">
-             <string>Muovi+ Probe 2</string>
+             <string>Muovi+2</string>
             </property>
            </widget>
           </item>
@@ -301,14 +307,14 @@
           <item row="9" column="0">
            <widget class="QCheckBox" name="duePlusProbeNineEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 9</string>
+             <string>Due+9</string>
             </property>
            </widget>
           </item>
           <item row="10" column="0">
            <widget class="QCheckBox" name="duePlusProbeTenEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 10</string>
+             <string>Due+10</string>
             </property>
            </widget>
           </item>
@@ -423,21 +429,21 @@
           <item row="3" column="0">
            <widget class="QCheckBox" name="duePlusProbeThreeEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 3</string>
+             <string>Due+3</string>
             </property>
            </widget>
           </item>
           <item row="6" column="0">
            <widget class="QCheckBox" name="duePlusProbeSixEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 6</string>
+             <string>Due+6</string>
             </property>
            </widget>
           </item>
           <item row="8" column="0">
            <widget class="QCheckBox" name="duePlusProbeEightEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 8</string>
+             <string>Due+8</string>
             </property>
            </widget>
           </item>
@@ -471,7 +477,7 @@
           <item row="7" column="0">
            <widget class="QCheckBox" name="duePlusProbeSevenEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 7</string>
+             <string>Due+7</string>
             </property>
            </widget>
           </item>
@@ -505,7 +511,7 @@
           <item row="2" column="0">
            <widget class="QCheckBox" name="duePlusProbeTwoEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 2</string>
+             <string>Due+2</string>
             </property>
            </widget>
           </item>
@@ -566,7 +572,7 @@
           <item row="4" column="0">
            <widget class="QCheckBox" name="duePlusProbeFourEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 4</string>
+             <string>Due+4</string>
             </property>
            </widget>
           </item>
@@ -600,7 +606,7 @@
           <item row="5" column="0">
            <widget class="QCheckBox" name="duePlusProbeFiveEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 5</string>
+             <string>Due+5</string>
             </property>
            </widget>
           </item>
@@ -634,7 +640,7 @@
           <item row="0" column="0">
            <widget class="QCheckBox" name="duePlusProbeOneEnableCheckBox">
             <property name="text">
-             <string>Due+ Probe 1</string>
+             <string>Due+1</string>
             </property>
            </widget>
           </item>

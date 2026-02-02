@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'otb_quattrocento_template_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,7 +23,9 @@ class Ui_QuattrocentoForm(object):
     def setupUi(self, QuattrocentoForm):
         if not QuattrocentoForm.objectName():
             QuattrocentoForm.setObjectName(u"QuattrocentoForm")
-        QuattrocentoForm.resize(400, 638)
+        QuattrocentoForm.resize(340, 638)
+        QuattrocentoForm.setMinimumSize(QSize(0, 550))
+        QuattrocentoForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout_2 = QGridLayout(QuattrocentoForm)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.widget = QWidget(QuattrocentoForm)

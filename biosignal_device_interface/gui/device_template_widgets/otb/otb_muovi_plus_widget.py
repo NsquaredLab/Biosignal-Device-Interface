@@ -50,12 +50,15 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
             self.connect_push_button.setText("Disconnect")
             self.connect_push_button.setChecked(True)
             self.configure_push_button.setEnabled(True)
+            self.configure_push_button.setToolTip("Step 2: Configure device settings")
             self.connection_group_box.setEnabled(False)
         else:
             self.connect_push_button.setText("Connect")
             self.connect_push_button.setChecked(False)
             self.configure_push_button.setEnabled(False)
+            self.configure_push_button.setToolTip("Step 2: Configure device settings (connect first)")
             self.stream_push_button.setEnabled(False)
+            self.stream_push_button.setToolTip("Step 3: Start data streaming (configure first)")
             self.connection_group_box.setEnabled(True)
 
         self.connect_toggled.emit(is_connected)
@@ -73,6 +76,7 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
             self.stream_push_button.setEnabled(True)
+            self.stream_push_button.setToolTip("Step 3: Start data streaming")
 
         self.configure_toggled.emit(is_configured)
 
@@ -112,16 +116,19 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
         # Command Push Buttons
         self.connect_push_button: QPushButton = self.ui.commandConnectionPushButton
         self.connect_push_button.clicked.connect(self._toggle_connection)
+        self.connect_push_button.setToolTip("Step 1: Connect to the Muovi+ device")
         self._device.connect_toggled.connect(self._connection_toggled)
 
         self.configure_push_button: QPushButton = self.ui.commandConfigurationPushButton
         self.configure_push_button.clicked.connect(self._toggle_configuration)
         self.configure_push_button.setEnabled(False)
+        self.configure_push_button.setToolTip("Step 2: Configure device settings (connect first)")
         self._device.configure_toggled.connect(self._configuration_toggled)
 
         self.stream_push_button: QPushButton = self.ui.commandStreamPushButton
         self.stream_push_button.clicked.connect(self._toggle_stream)
         self.stream_push_button.setEnabled(False)
+        self.stream_push_button.setToolTip("Step 3: Start data streaming (configure first)")
         self._device.stream_toggled.connect(self._stream_toggled)
 
         # Connection parameters
@@ -148,9 +155,18 @@ class OTBMuoviPlusWidget(BaseDeviceWidget):
         # Input parameters
         self.input_parameters_group_box: QGroupBox = self.ui.inputGroupBox
         self.input_working_mode_combo_box: QComboBox = self.ui.inputWorkingModeComboBox
+        self.input_working_mode_combo_box.setToolTip(
+            "EMG: Electromyography for muscle signals\nEEG: Electroencephalography for brain signals"
+        )
         self.input_detection_mode_combo_box: QComboBox = (
             self.ui.inputDetectionModeComboBox
         )
+        self.input_detection_mode_combo_box.setToolTip(
+            "High Gain: Better for weak signals\nLow Gain: Better for strong signals\nImpedance Check: Verify electrode contact"
+        )
+
+        # Add tooltip for update button
+        self.connection_update_push_button.setToolTip("Refresh available device IP addresses")
 
         # Configuration parameters
         self.configuration_group_boxes: list[QGroupBox] = [

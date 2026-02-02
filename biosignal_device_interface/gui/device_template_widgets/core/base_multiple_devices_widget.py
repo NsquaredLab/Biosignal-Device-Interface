@@ -50,6 +50,23 @@ class BaseMultipleDevicesWidget(QWidget):
         self.device_stacked_widget = self.ui.deviceStackedWidget
         self.device_selection_combo_box = self.ui.deviceSelectionComboBox
 
+        # Sync external scrollbar with scroll area's internal scrollbar
+        internal_scrollbar = self.ui.deviceScrollArea.verticalScrollBar()
+        external_scrollbar = self.ui.deviceScrollBar
+
+        # Sync scrollbar values bidirectionally
+        internal_scrollbar.valueChanged.connect(external_scrollbar.setValue)
+        external_scrollbar.valueChanged.connect(internal_scrollbar.setValue)
+
+        # Sync scrollbar range and visibility when content changes
+        def update_scrollbar_range(min_val: int, max_val: int):
+            external_scrollbar.setRange(min_val, max_val)
+            external_scrollbar.setVisible(max_val > min_val)
+
+        internal_scrollbar.rangeChanged.connect(update_scrollbar_range)
+        # Initialize visibility
+        external_scrollbar.setVisible(internal_scrollbar.maximum() > internal_scrollbar.minimum())
+
     def get_device_information(self) -> Dict[str, Union[str, int]]:
         return self._get_current_widget().get_device_information()
 

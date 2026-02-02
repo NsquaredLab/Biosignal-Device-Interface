@@ -59,12 +59,15 @@ class OTBSyncStationWidget(BaseDeviceWidget):
             self._command_connect_push_button.setText("Disconnect")
             self._command_connect_push_button.setChecked(True)
             self._command_configure_push_button.setEnabled(True)
+            self._command_configure_push_button.setToolTip("Step 2: Configure device settings")
             self._connection_group_box.setEnabled(False)
         else:
             self._command_connect_push_button.setText("Connect")
             self._command_connect_push_button.setChecked(False)
             self._command_configure_push_button.setEnabled(False)
+            self._command_configure_push_button.setToolTip("Step 2: Configure device settings (connect first)")
             self._command_stream_push_button.setEnabled(False)
+            self._command_stream_push_button.setToolTip("Step 3: Start data streaming (configure first)")
             self._connection_group_box.setEnabled(True)
 
         self.connect_toggled.emit(is_connected)
@@ -94,6 +97,7 @@ class OTBSyncStationWidget(BaseDeviceWidget):
     def _configuration_toggled(self, is_configured: bool) -> None:
         if is_configured:
             self._command_stream_push_button.setEnabled(True)
+            self._command_stream_push_button.setToolTip("Step 3: Start data streaming")
 
         self.configure_toggled.emit(is_configured)
 
@@ -156,6 +160,7 @@ class OTBSyncStationWidget(BaseDeviceWidget):
             self.ui.commandConnectionPushButton
         )
         self._command_connect_push_button.clicked.connect(self._toggle_connection)
+        self._command_connect_push_button.setToolTip("Step 1: Connect to the SyncStation device")
         self._device.connect_toggled.connect(self._connection_toggled)
 
         self._command_configure_push_button: QPushButton = (
@@ -163,11 +168,13 @@ class OTBSyncStationWidget(BaseDeviceWidget):
         )
         self._command_configure_push_button.clicked.connect(self._toggle_configuration)
         self._command_configure_push_button.setEnabled(False)
+        self._command_configure_push_button.setToolTip("Step 2: Configure device settings (connect first)")
         self._device.configure_toggled.connect(self._configuration_toggled)
 
         self._command_stream_push_button: QPushButton = self.ui.commandStreamPushButton
         self._command_stream_push_button.clicked.connect(self._toggle_stream)
         self._command_stream_push_button.setEnabled(False)
+        self._command_stream_push_button.setToolTip("Step 3: Start data streaming (configure first)")
         self._device.stream_toggled.connect(self._stream_toggled)
 
         # Connection Paramters
