@@ -337,6 +337,10 @@ Import the necessary libraries and classes.
 
       :download:`Download Python source code: 4_implementing_new_device.py <4_implementing_new_device.py>`
 
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: 4_implementing_new_device.zip <4_implementing_new_device.zip>`
+
 
 .. only:: html
 

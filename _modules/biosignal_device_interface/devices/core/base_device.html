@@ -1,26 +1,26 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="../../../../">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html"><link rel="search" title="Search" href="../../../../search.html">
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
         <title>biosignal_device_interface.devices.core.base_device - biosignal-device-interface 0.2.4 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
 
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   
   }
   @media not print {
@@ -147,14 +147,10 @@
   </symbol>
 </svg>
 
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
 
 <a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
@@ -164,8 +160,7 @@
   <header class="mobile-header">
     <div class="header-left">
       <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
       </label>
     </div>
     <div class="header-center">
@@ -173,8 +168,7 @@
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
           <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
           <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -182,8 +176,7 @@
         </button>
       </div>
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
   </header>
@@ -191,7 +184,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-  
   
   <span class="sidebar-brand-text">biosignal-device-interface 0.2.4 documentation</span>
   
@@ -203,26 +195,26 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../README.html">Getting Started</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../auto_examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../auto_examples/1_integrating_a_device.html">Integrating a device in your own software.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../auto_examples/2_integrating_multiple_devices.html">Integrating all available device in your own software.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../auto_examples/3_integrating_device_interface_and_biosignal_plot.html">Integrating all devices and a biosignal plot in your own software.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../auto_examples/4_implementing_new_device.html">Integrating a device in your own software.</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api_documentation.html">API - Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API - Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../modules/devices/core/base_device.html">Base Device (Core)</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Base Device (Core)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api_documentation.html">API - Documentation</a><input aria-label="Toggle navigation of API - Documentation" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../modules/devices/core/base_device.html">Base Device (Core)</a><input aria-label="Toggle navigation of Base Device (Core)" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../modules/devices/core/code/device/code_base_device.html">BaseDevice(QObject)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../modules/devices/core/code/constants/base_device_constants.html">BaseDevice Constants</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../modules/devices/otb/otb.html">OT Bioelettronica</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of OT Bioelettronica</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../modules/devices/otb/otb_muovi.html">OT Bioelettronica - Muovi</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of OT Bioelettronica - Muovi</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../modules/devices/otb/otb.html">OT Bioelettronica</a><input aria-label="Toggle navigation of OT Bioelettronica" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../modules/devices/otb/otb_muovi.html">OT Bioelettronica - Muovi</a><input aria-label="Toggle navigation of OT Bioelettronica - Muovi" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../modules/devices/otb/code/device/code_otb_muovi.html">OTBMuovi(BaseDevice)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../modules/devices/otb/code/constants/otb_muovi_constants.html">OT Bioelettronica - Muovi Constants</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../modules/devices/otb/otb_quattrocento_light.html">OT Bioelettronica - Quattrocento Light</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of OT Bioelettronica - Quattrocento Light</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../modules/devices/otb/otb_quattrocento_light.html">OT Bioelettronica - Quattrocento Light</a><input aria-label="Toggle navigation of OT Bioelettronica - Quattrocento Light" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../modules/devices/otb/code/device/code_otb_quattrocento_light.html">OTBQuattrocentoLight(BaseDevice)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../modules/devices/otb/code/constants/otb_quattrocento_light_constants.html">OT Bioelettronica - Quattrocento Light Constants</a></li>
 </ul>
@@ -230,7 +222,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../modules/devices/otb/code/constants/otb_constants.html">OT Bioelettronica Constants</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../modules/device_widgets/device_widgets.html">Device Widgets</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Device Widgets</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../modules/device_widgets/device_widgets.html">Device Widgets</a><input aria-label="Toggle navigation of Device Widgets" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../modules/device_widgets/core/base_device_widget.html">BaseDeviceWidget(QWidget)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../modules/device_widgets/core/base_multiple_device_widget.html">BaseMultipleDeviceWidget(QWidget)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../modules/device_widgets/otb/device/otb_muovi_widget.html">MuoviWidget(BaseDeviceWidget)</a></li>
@@ -262,8 +254,7 @@
         </a>
         <div class="content-icon-container">
           <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
               <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -271,8 +262,7 @@
             </button>
           </div>
           <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
@@ -285,18 +275,18 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Python Libraries</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="kn">import</span> <span class="nn">socket</span>
-<span class="kn">import</span> <span class="nn">psutil</span>
-<span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">QTimer</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psutil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">QTimer</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
 <span class="c1"># Local Libraries</span>
-<span class="kn">from</span> <span class="nn">biosignal_device_interface.constants.devices.core.base_device_constants</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">biosignal_device_interface.constants.devices.core.base_device_constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">DeviceType</span><span class="p">,</span>
     <span class="n">DEVICE_NAME_DICT</span><span class="p">,</span>
 <span class="p">)</span>
@@ -304,12 +294,12 @@
 <span class="c1"># Type Checking</span>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="c1"># Python Libraries</span>
-    <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QWidget</span>
-    <span class="kn">from</span> <span class="nn">PySide6.QtNetwork</span> <span class="kn">import</span> <span class="n">QTcpSocket</span><span class="p">,</span> <span class="n">QUdpSocket</span><span class="p">,</span> <span class="n">QTcpServer</span>
-    <span class="kn">from</span> <span class="nn">PySide6.QtSerialPort</span> <span class="kn">import</span> <span class="n">QSerialPort</span>
-    <span class="kn">from</span> <span class="nn">aenum</span> <span class="kn">import</span> <span class="n">Enum</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QWidget</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtNetwork</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTcpSocket</span><span class="p">,</span> <span class="n">QUdpSocket</span><span class="p">,</span> <span class="n">QTcpServer</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtSerialPort</span><span class="w"> </span><span class="kn">import</span> <span class="n">QSerialPort</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">aenum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="c1"># Set to keep track of seen error messages</span>
 <span class="n">_seen_error_messages</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -317,7 +307,7 @@
 
 <div class="viewcode-block" id="warn_once">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.warn_once">[docs]</a>
-<span class="k">def</span> <span class="nf">warn_once</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">warn_once</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Issue a warning for the given error, but only once per unique message.</span>
 
@@ -332,7 +322,7 @@
 
 <div class="viewcode-block" id="BaseDevice">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice">[docs]</a>
-<span class="k">class</span> <span class="nc">BaseDevice</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseDevice</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
     <span class="c1"># Signals</span>
     <span class="n">connect_toggled</span><span class="p">:</span> <span class="n">Signal</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
     <span class="n">configure_toggled</span><span class="p">:</span> <span class="n">Signal</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
@@ -341,7 +331,7 @@
     <span class="n">biosignal_data_available</span><span class="p">:</span> <span class="n">Signal</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
     <span class="n">auxiliary_data_available</span><span class="p">:</span> <span class="n">Signal</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 
         <span class="c1"># Device Parameters</span>
@@ -381,7 +371,7 @@
 <div class="viewcode-block" id="BaseDevice._connect_to_device">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._connect_to_device">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_connect_to_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_connect_to_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to attempt a connection to the devices.</span>
 
@@ -395,7 +385,7 @@
 <div class="viewcode-block" id="BaseDevice._make_request">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._make_request">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_make_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requests a connection or checks if someone connected to the server.</span>
 <span class="sd">        After connection is successful, the Signal connected_signal emits True</span>
@@ -411,7 +401,7 @@
 <div class="viewcode-block" id="BaseDevice._disconnect_from_device">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._disconnect_from_device">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_disconnect_from_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_disconnect_from_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Closes the connection to the device.</span>
 
@@ -432,7 +422,7 @@
 <div class="viewcode-block" id="BaseDevice.configure_device">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.configure_device">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">configure_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configure_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sends a configuration byte sequence based on selected params to the device.</span>
 <span class="sd">        An overview of possible configurations can be seen in</span>
@@ -456,7 +446,7 @@
 <div class="viewcode-block" id="BaseDevice._start_streaming">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._start_streaming">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_start_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_start_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sends the command to start the streaming to the device.</span>
 
@@ -471,7 +461,7 @@
 <div class="viewcode-block" id="BaseDevice._stop_streaming">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._stop_streaming">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_stop_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_stop_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sends the command to stop the streaing to the device</span>
 
@@ -486,7 +476,7 @@
 <div class="viewcode-block" id="BaseDevice.clear_socket">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.clear_socket">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">clear_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads all the bytes from the buffer.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
@@ -494,7 +484,7 @@
 <div class="viewcode-block" id="BaseDevice._read_data">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._read_data">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is called when bytes are ready to be read in the buffer.</span>
 <span class="sd">        After reading the bytes from the buffer, _process_data is called to</span>
@@ -506,7 +496,7 @@
 <div class="viewcode-block" id="BaseDevice._process_data">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._process_data">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Decodes the transmitted bytes and convert them to respective</span>
 <span class="sd">        output format (e.g., mV).</span>
@@ -535,7 +525,7 @@
 
 <div class="viewcode-block" id="BaseDevice._update_configuration_parameters">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._update_configuration_parameters">[docs]</a>
-    <span class="k">def</span> <span class="nf">_update_configuration_parameters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_configuration_parameters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">]]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -562,7 +552,7 @@
 
 <div class="viewcode-block" id="BaseDevice._extract_biosignal_data">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._extract_biosignal_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">_extract_biosignal_data</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_biosignal_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">milli_volts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -588,7 +578,7 @@
 
 <div class="viewcode-block" id="BaseDevice._extract_auxiliary_data">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice._extract_auxiliary_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">_extract_auxiliary_data</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_auxiliary_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">milli_volts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -616,7 +606,7 @@
 
 <div class="viewcode-block" id="BaseDevice.toggle_connection">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.toggle_connection">[docs]</a>
-    <span class="k">def</span> <span class="nf">toggle_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Toggles the connection to the device.</span>
 
@@ -651,7 +641,7 @@
 
 <div class="viewcode-block" id="BaseDevice.toggle_streaming">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.toggle_streaming">[docs]</a>
-    <span class="k">def</span> <span class="nf">toggle_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_streaming</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Toggles the current state of the streaming.</span>
 <span class="sd">        If device is streaming, the streaming is stopped and vice versa.</span>
@@ -667,7 +657,7 @@
 
 <div class="viewcode-block" id="BaseDevice.get_device_information">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.get_device_information">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_device_information</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_device_information</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current configuration of the device.</span>
 
@@ -690,7 +680,7 @@
 
 <div class="viewcode-block" id="BaseDevice.check_valid_ip">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.check_valid_ip">[docs]</a>
-    <span class="k">def</span> <span class="nf">check_valid_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_valid_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks if the provided IP is valid.</span>
 
@@ -712,7 +702,7 @@
 
 <div class="viewcode-block" id="BaseDevice.check_valid_port">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.check_valid_port">[docs]</a>
-    <span class="k">def</span> <span class="nf">check_valid_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_valid_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks if the provided port is valid.</span>
 
@@ -731,7 +721,7 @@
 
 <div class="viewcode-block" id="BaseDevice.get_server_wifi_ip_address">
 <a class="viewcode-back" href="../../../../modules/devices/core/code/device/code_base_device.html#biosignal_device_interface.devices.core.base_device.BaseDevice.get_server_wifi_ip_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_server_wifi_ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_server_wifi_ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the IP address of the host server.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -794,8 +784,8 @@
     </aside>
   </div>
 </div><script src="../../../../_static/documentation_options.js?v=6ffd866b"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

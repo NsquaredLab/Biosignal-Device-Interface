@@ -125,6 +125,10 @@ This example...
 
       :download:`Download Python source code: 3_integrating_device_interface_and_biosignal_plot.py <3_integrating_device_interface_and_biosignal_plot.py>`
 
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: 3_integrating_device_interface_and_biosignal_plot.zip <3_integrating_device_interface_and_biosignal_plot.zip>`
+
 
 .. only:: html
 

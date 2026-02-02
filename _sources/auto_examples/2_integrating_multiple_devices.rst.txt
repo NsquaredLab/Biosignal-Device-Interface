@@ -111,6 +111,10 @@ This example...
 
       :download:`Download Python source code: 2_integrating_multiple_devices.py <2_integrating_multiple_devices.py>`
 
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: 2_integrating_multiple_devices.zip <2_integrating_multiple_devices.zip>`
+
 
 .. only:: html
 

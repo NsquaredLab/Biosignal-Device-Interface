@@ -26,18 +26,20 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Main Window with One Device")
 
         # Instantiate the QuattrocentoLightWidget
-        muovi_widget = OTBQuattrocentoLightWidget(self)
+        quattrocento_light_widget = OTBQuattrocentoLightWidget(self)
 
         # Connect the signals of the widget to the main window
-        muovi_widget.data_arrived.connect(self._update)
-        muovi_widget.biosignal_data_arrived.connect(self._emg_update)
-        muovi_widget.auxiliary_data_arrived.connect(self._aux_update)
-        muovi_widget.connect_toggled.connect(self._device_connection_state)
-        muovi_widget.configure_toggled.connect(self._device_configuration_state)
-        muovi_widget.stream_toggled.connect(self._device_stream_state)
+        quattrocento_light_widget.data_arrived.connect(self._update)
+        quattrocento_light_widget.biosignal_data_arrived.connect(self._emg_update)
+        quattrocento_light_widget.auxiliary_data_arrived.connect(self._aux_update)
+        quattrocento_light_widget.connect_toggled.connect(self._device_connection_state)
+        quattrocento_light_widget.configure_toggled.connect(
+            self._device_configuration_state
+        )
+        quattrocento_light_widget.stream_toggled.connect(self._device_stream_state)
 
         # Set the central widget of the main window
-        self.setCentralWidget(muovi_widget)
+        self.setCentralWidget(quattrocento_light_widget)
 
     def _update(self, data: np.ndarray):
         print("Incoming data frome device:", data.shape)
