@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'otb_sessantaquattro_template_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.0
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,7 +23,9 @@ class Ui_SessantaquattroForm(object):
     def setupUi(self, SessantaquattroForm):
         if not SessantaquattroForm.objectName():
             SessantaquattroForm.setObjectName(u"SessantaquattroForm")
-        SessantaquattroForm.resize(400, 486)
+        SessantaquattroForm.resize(340, 486)
+        SessantaquattroForm.setMinimumSize(QSize(0, 400))
+        SessantaquattroForm.setMaximumSize(QSize(340, 16777215))
         self.gridLayout_2 = QGridLayout(SessantaquattroForm)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.widget = QWidget(SessantaquattroForm)
@@ -60,7 +62,7 @@ class Ui_SessantaquattroForm(object):
 
         self.label_4 = QLabel(self.inputParametersGroupBox)
         self.label_4.setObjectName(u"label_4")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
@@ -177,7 +179,7 @@ class Ui_SessantaquattroForm(object):
 
         self.gridLayout_2.addWidget(self.widget, 0, 0, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout_2.addItem(self.verticalSpacer, 1, 0, 1, 1)
 
