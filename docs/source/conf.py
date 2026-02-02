@@ -16,11 +16,11 @@ from sphinx_gallery.sorting import FileNameSortKey
 sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 
-# Info from poetry config:
-info = toml.load("../../pyproject.toml")["tool"]["poetry"]
+# Info from pyproject.toml:
+info = toml.load("../../pyproject.toml")["project"]
 
 project = info["name"]
-author = ", ".join(info["authors"])
+author = ", ".join([a["name"] for a in info["authors"]])
 release = info["version"]
 
 copyright = (
