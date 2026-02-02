@@ -4,6 +4,9 @@ from biosignal_device_interface.devices.otb.otb_quattrocento_light import (
 )
 from biosignal_device_interface.devices.otb.otb_muovi import OTBMuovi
 from biosignal_device_interface.devices.otb.otb_syncstation import OTBSyncStation
+from biosignal_device_interface.devices.otb.otb_sessantaquattro import (
+    OTBSessantaquattro,
+)
 
 # Widgets
 # All OTB Devices Widget
@@ -26,4 +29,7 @@ from biosignal_device_interface.gui.device_template_widgets.otb.otb_quattrocento
 )
 from biosignal_device_interface.gui.device_template_widgets.otb.otb_syncstation_widget import (
     OTBSyncStationWidget,
+)
+from biosignal_device_interface.gui.device_template_widgets.otb.otb_sessantaquattro_widget import (
+    OTBSessantaquattroWidget,
 )
