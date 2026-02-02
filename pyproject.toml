@@ -1,6 +1,6 @@
 [project]
 name = "biosignal-device-interface"
-version = "0.2.4"
+version = "0.2.5"
 description = "Python communication interface to many biosignal devices manufactured by several companies to easy integration in custom PySide6 applications."
 authors = [
     {name = "Dominik I. Braun", email = "dome.braun@fau.de"},
